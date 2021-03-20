@@ -48,7 +48,7 @@ type WebMentionEvent
   authorName: String
   authorPhoto: String
   authorUrl: AWSURL
-  published: AWSDateTime!
+  published: AWSDateTime
   name: String
 }
 

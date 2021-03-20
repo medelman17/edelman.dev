@@ -129,7 +129,7 @@ async function persistEvent(
   res: NextApiResponse
 ) {
   const { body } = req;
-  // console.log(body);
+  console.log(body);
 
   const targetUrl = new URL(body.target);
 
@@ -161,8 +161,6 @@ export default async (
 
     res.json({
       result: "Webmention was successful",
-      env: process.env.NODE_ENV,
-      dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
     });
     await Sentry.close();
   } catch (err) {
