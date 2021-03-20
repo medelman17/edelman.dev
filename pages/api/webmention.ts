@@ -8,6 +8,8 @@ import * as Sentry from "@sentry/serverless";
 import cfg from "../../src/aws-exports";
 import { WebMentionType, CreateWebMentionEventInput } from "../../src/API";
 
+import Tracing from "@sentry/tracing";
+
 Sentry.init({
   dsn:
     process.env.NEXT_PUBLIC_SENTRY_DSN ||

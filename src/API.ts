@@ -91,7 +91,7 @@ export type CreateWebMentionEventInput = {
   authorName?: string | null,
   authorPhoto?: string | null,
   authorUrl?: string | null,
-  published: string,
+  published?: string | null,
   name?: string | null,
 };
 
@@ -142,7 +142,7 @@ export type WebMentionEvent = {
   authorName?: string | null,
   authorPhoto?: string | null,
   authorUrl?: string | null,
-  published?: string,
+  published?: string | null,
   name?: string | null,
 };
 
@@ -339,7 +339,7 @@ export type CreateWebMentionEventMutation = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -367,7 +367,7 @@ export type UpdateWebMentionEventMutation = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -395,7 +395,7 @@ export type DeleteWebMentionEventMutation = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -460,7 +460,7 @@ export type GetWebMentionEventQuery = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -494,7 +494,7 @@ export type ListWebMentionEventsQuery = {
       authorName?: string | null,
       authorPhoto?: string | null,
       authorUrl?: string | null,
-      published: string,
+      published?: string | null,
       name?: string | null,
     } | null > | null,
     nextToken?: string | null,
@@ -530,7 +530,7 @@ export type WebMentionEventsByTargetQuery = {
       authorName?: string | null,
       authorPhoto?: string | null,
       authorUrl?: string | null,
-      published: string,
+      published?: string | null,
       name?: string | null,
     } | null > | null,
     nextToken?: string | null,
@@ -566,7 +566,7 @@ export type WebMentionEventsByTypeQuery = {
       authorName?: string | null,
       authorPhoto?: string | null,
       authorUrl?: string | null,
-      published: string,
+      published?: string | null,
       name?: string | null,
     } | null > | null,
     nextToken?: string | null,
@@ -602,7 +602,7 @@ export type WebMentionEventsBySlugQuery = {
       authorName?: string | null,
       authorPhoto?: string | null,
       authorUrl?: string | null,
-      published: string,
+      published?: string | null,
       name?: string | null,
     } | null > | null,
     nextToken?: string | null,
@@ -660,7 +660,7 @@ export type OnCreateWebMentionEventSubscription = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -683,7 +683,7 @@ export type OnUpdateWebMentionEventSubscription = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
@@ -706,7 +706,7 @@ export type OnDeleteWebMentionEventSubscription = {
     authorName?: string | null,
     authorPhoto?: string | null,
     authorUrl?: string | null,
-    published: string,
+    published?: string | null,
     name?: string | null,
   } | null,
 };
