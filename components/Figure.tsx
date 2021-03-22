@@ -6,7 +6,7 @@ import imageUrlBuilder from "@sanity/image-url";
 
 const builder = imageUrlBuilder(sanity);
 
-const myCustomImageBuilder = (imageUrlBuilder, options) => {
+export const myCustomImageBuilder = (imageUrlBuilder, options) => {
   return imageUrlBuilder
     .width(
       options?.width !== null

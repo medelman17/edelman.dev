@@ -6,7 +6,7 @@ import Img from "next/image";
 import Link from "next/link";
 import { blockContentToPlainText } from "react-portable-text";
 import { useNextSanityImage } from "next-sanity-image";
-
+import { myCustomImageBuilder } from "../../../components/Figure";
 export interface BlogPostCardProps {
   post: Post;
 }
@@ -21,7 +21,9 @@ function BlogPostCard(props: BlogPostCardProps) {
     }
   };
 
-  const imgProps = useNextSanityImage(sanity, props.post.mainImage);
+  const imgProps = useNextSanityImage(sanity, props.post.mainImage, {
+    imageBuilder: myCustomImageBuilder,
+  });
 
   return (
     <Card
