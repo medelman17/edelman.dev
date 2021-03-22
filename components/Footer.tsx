@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Flex } from "@chakra-ui/react";
 import { SiteConfig, NavigationMenu } from "../lib/schema";
+import { SocialIcon } from "./Icons";
+import { FaGithub, FaTwitter } from "react-icons/fa";
 
 export interface FooterProps {
   navItems: SiteConfig["footerNavigation"];
@@ -11,54 +13,20 @@ export function Footer(props: FooterProps) {
   return (
     <FooterContainer>
       {" "}
-      <p>
-        Follow{" "}
-        <a className="h-card" rel="me" href="https://edel.monster">
-          Michael
-        </a>{" "}
-        on{" "}
-        <a href="https://twitter.com/edelman215" rel="me">
-          Twitter (@edelman215)
-        </a>
-        ,{" "}
-        <a href="https://github.com/medelman17" rel="me">
-          GitHub
-        </a>
-        , or send him an{" "}
-        <a className="u-email" href="mailto:michael@fabulas.io" rel="me">
-          email
-        </a>
-      </p>
-      {/*<div className="h-card" style={{ display: "none" }}>*/}
-      {/*  <span className="p-name">Michael Edelman</span>*/}
-      {/*  <span className="p-honorific-prefix">Mr.</span>*/}
-      {/*  <span className="p-given-name">Michael</span>*/}
-      {/*  <abbr className="p-additional-name">J.</abbr>*/}
-      {/*  <span className="p-family-name">Edelman</span>*/}
-      {/*  <span className="p-honorific-suffix">J.D.</span>,*/}
-      {/*  <span className="p-nickname">edelman215</span> (IRC)*/}
-      {/*  <img*/}
-      {/*    className="u-photo"*/}
-      {/*    src="https://cdn.sanity.io/images/1os98t11/production/2fd39fcc1934da93bdd53b23e27634bb2696ee47-400x400.jpg?w=400&fit=clip&auto=format&w=1920"*/}
-      {/*  />*/}
-      {/*  <a className="u-url" href="https://edel.monster">*/}
-      {/*    w*/}
-      {/*  </a>*/}
-      {/*  ,*/}
-      {/*  <a className="u-email" href="mailto:michael@fabulas.io">*/}
-      {/*    e*/}
-      {/*  </a>*/}
-      {/*  <span className="p-locality">Philadelphia</span>,*/}
-      {/*  <abbr className="p-region" title="Pennsylvania">*/}
-      {/*    CA*/}
-      {/*  </abbr>*/}
-      {/*  ,<span className="p-postal-code">19106</span>*/}
-      {/*  <div className="p-country-name">U.S.A</div>*/}
-      {/*  <time className="dt-bday">1982-09-11</time>*/}
-      {/*  birthday*/}
-      {/*  /!*<div className="p-category">physicist</div>*!/*/}
-      {/*  /!*<div className="p-note">First American woman in space.</div>*!/*/}
-      {/*</div>*/}
+      <Flex
+        py={[1, 3]}
+        sx={{
+          a: {
+            marginRight: 2,
+          },
+          "a:last-child": {
+            marginRight: 0,
+          },
+        }}
+      >
+        <SocialIcon icon={FaGithub} to={"https://github.com/medelman17"} />
+        <SocialIcon icon={FaTwitter} to={"https://twitter.com/edelman215"} />
+      </Flex>
     </FooterContainer>
   );
 }

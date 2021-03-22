@@ -1,5 +1,16 @@
 import * as React from "react";
 
+import {
+  Flex,
+  Heading,
+  Box,
+  VStack,
+  Avatar,
+  useBreakpointValue,
+  Icon,
+  Link,
+} from "@chakra-ui/react";
+
 export const CloseIcon = () => (
   <svg width="24" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
     <title>Close</title>
@@ -21,3 +32,16 @@ export const MenuIcon = () => (
     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
   </svg>
 );
+
+export interface SocialIconProps {
+  icon: React.ReactNode;
+  to: string;
+}
+
+export function SocialIcon(props: SocialIconProps) {
+  return (
+    <Link href={props.to} className={"u-url"} rel={"me"}>
+      <Icon as={props.icon as any} />
+    </Link>
+  );
+}

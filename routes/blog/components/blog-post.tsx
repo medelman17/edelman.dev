@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import * as DataHooks from "../../../hooks";
 import { SEO } from "../../../components/SEO";
 
+const BlogPostMetadata = dynamic(() => import("./post-metadata"));
+
 const PostHeader = dynamic(() => import("./post-header"));
 
 const SimpleBlockContent = dynamic(
@@ -41,6 +43,8 @@ function BlogPost() {
   }
 
   const data = DataHooks.useBlogPost();
+
+  console.log("data", data);
 
   const images = React.useMemo(() => {
     let result: MainImage[] = [];
@@ -104,6 +108,11 @@ function BlogPost() {
           >
             <Figure node={data.post.mainImage} />
           </Box>
+          <BlogPostMetadata
+            author={data.author}
+            categories={data.categories}
+            post={data.post}
+          />
 
           <SimpleBlockContent
             blocks={data.post.body}
