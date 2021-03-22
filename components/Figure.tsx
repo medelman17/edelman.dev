@@ -35,7 +35,7 @@ export function Figure(props) {
   return (
     <Img
       {...rest}
-      loader={myLoader}
+      loader={loader}
       sizes="(max-width: 800px) 100vw, 800px"
       alt={props.node.alt}
       priority={true}
