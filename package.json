@@ -12,7 +12,8 @@
     "postinstall": "lerna bootstrap",
     "postbuild": "next-sitemap",
     "amplify:edelmandevalgoliawebhook": "cd amplify/backend/function/edelmandevalgoliawebhook/src && yarn && tsc -p ./tsconfig.json && cd -",
-    "amplify:edelmandevwebmentionhook": "cd amplify/backend/function/edelmandevwebmentionhook/src && yarn && tsc -p ./tsconfig.json && cd -"
+    "amplify:edelmandevwebmentionhook": "cd amplify/backend/function/edelmandevwebmentionhook/src && yarn && tsc -p ./tsconfig.json && cd -",
+    "analyze": "cross-env ANALYZE=true yarn build:web"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^1.0.2",
@@ -51,12 +52,14 @@
     "@babel/preset-env": "^7.13.5",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
+    "@next/bundle-analyzer": "^10.0.9",
     "@sanity/cli": "^2.4.0",
     "@sentry/webpack-plugin": "^1.14.2",
     "@types/cors": "^2.8.10",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "cross-env": "^7.0.3",
     "lerna": "^3.22.1",
     "next-sitemap": "^1.6.3",
     "prettier": "^2.2.1",

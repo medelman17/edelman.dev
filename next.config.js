@@ -2,6 +2,10 @@ const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 // const withPWA = require("next-pwa");
 // const runtimeCaching = require("next-pwa/cache");
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
   SENTRY_ORG,
@@ -15,7 +19,7 @@ const COMMIT_SHA = process.env.AWS_COMMIT_ID;
 process.env.SENTRY_DSN = SENTRY_DSN;
 const basePath = "";
 
-module.exports = {
+const nextConfig = {
   // trailingSlash: true,
 
   reactStrictMode: true,
@@ -58,3 +62,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = withBundleAnalyzer(nextConfig);

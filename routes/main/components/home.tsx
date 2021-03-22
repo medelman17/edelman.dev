@@ -22,7 +22,7 @@ function Home(props) {
   return (
     <>
       <SEO
-        title={"Michael Edelman"}
+        title={"Home"}
         description={settings.openGraph.description}
         tags={[]}
         pageAuthor={["Michael Edelman"]}

@@ -1,7 +1,6 @@
-import React from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-
-import { Heading, Text, Box } from "@chakra-ui/react";
+import * as React from "react";
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Box } from "@chakra-ui/react";
 
 export function Code({ node }) {
   if (!node || !node.code) {

@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="pingback" href="https://webmention.io/edel.monster/xmlrpc" />
       </Head>
       <NextDataHooksProvider {...rest}>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} resetCSS={true}>
           <Component {...rest}>{children}</Component>
         </ChakraProvider>
       </NextDataHooksProvider>

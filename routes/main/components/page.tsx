@@ -4,6 +4,8 @@ import { Flex, Stack } from "@chakra-ui/react";
 import * as DataHooks from "../../../hooks";
 import { useRouter } from "next/router";
 import { renderPageContent } from "../renderPageContent";
+import { SEO } from "../../../components/SEO";
+import { useSiteSettings } from "../../../hooks";
 
 function Page() {
   const router = useRouter();
@@ -13,13 +15,30 @@ function Page() {
   }
 
   const { page } = DataHooks.usePageData();
+  const settings = useSiteSettings();
 
   return (
-    <Layout headerTitle={page.title}>
-      <Flex direction={"column"} width={"100%"} m={"0 auto"}>
-        <Stack spacing={8}>{page.content.map(renderPageContent)}</Stack>
-      </Flex>
-    </Layout>
+    <>
+      <SEO
+        title={page.title}
+        description={settings.openGraph.description}
+        tags={[]}
+        pageAuthor={["Michael Edelman"]}
+        twitter={{
+          site: "Michael Edelman",
+          handle: "@edelman215",
+          cardType: "summary",
+        }}
+        datePublished={settings._createdAt}
+        images={[settings.openGraph.image]}
+        og={{ description: settings.openGraph.description, type: "website" }}
+      />
+      <Layout headerTitle={page.title}>
+        <Flex direction={"column"} width={"100%"} m={"0 auto"}>
+          <Stack spacing={8}>{page.content.map(renderPageContent)}</Stack>
+        </Flex>
+      </Layout>
+    </>
   );
 }
 

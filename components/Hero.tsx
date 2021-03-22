@@ -1,12 +1,10 @@
 import * as React from "react";
-import { Heading, Link, Flex, Stack, Box, Text } from "@chakra-ui/react";
+import { Heading, Flex, Stack, Box, Button } from "@chakra-ui/react";
 import type { SanityKeyed } from "sanity-codegen";
 import { Hero, Cta } from "../lib/schema";
-import BlockContent from "@sanity/block-content-to-react";
 import { serializers } from "../routes/blog/serializers";
 import dynamic from "next/dynamic";
 import { Figure } from "./Figure";
-import { Button, ButtonGroup } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 const SimpleBlockContent = dynamic(() => import("./SimpleBlockContent"));

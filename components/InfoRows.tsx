@@ -19,7 +19,7 @@ export const InfoRowsBlock = (props: InfoRowsBlockProps) => {
     // console.log("row", row);
     const { title, text, illustration } = row;
     return (
-      <Flex width={"100%"} direction={"column"}>
+      <Flex width={"100%"} direction={"column"} key={row.title}>
         <Heading as={"h3"} size={"md"} color={["primary.700"]}>
           {row.title}
         </Heading>

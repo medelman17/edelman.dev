@@ -1,4 +1,5 @@
 import * as React from "react";
+import dynamic from "next/dynamic";
 
 import {
   SanityKeyed,
@@ -9,23 +10,25 @@ import {
   CtaPlug,
 } from "../../lib/schema";
 
-import { HeroBlock } from "../../components/Hero";
-import { UiComponentRefBlock } from "../../components/UiComponentRef";
-import { InfoRowsBlock } from "../../components/InfoRows";
-import { CtaColumnsBlock } from "../../components/CtaColumns";
-import { CtaPlugBlock } from "../../components/CtaPlug";
+const HeroBlock = dynamic(() => import("../../components/Hero"));
+const InfoRowsBlock = dynamic(() => import("../../components/InfoRows"));
+const CtaColumnsBlock = dynamic(() => import("../../components/CtaColumns"));
+const CtaPlugBlock = dynamic(() => import("../../components/CtaPlug"));
+const UiComponentRefBlock = dynamic(
+  () => import("../../components/UiComponentRef")
+);
 
 export function renderPageContent(block: PageContent) {
   if (isUiComponentRef(block)) {
-    return <UiComponentRefBlock block={block} />;
+    return <UiComponentRefBlock block={block} key={block._key} />;
   } else if (isCtaColumns(block)) {
-    return <CtaColumnsBlock block={block} />;
+    return <CtaColumnsBlock block={block} key={block._key} />;
   } else if (isCtaPlug(block)) {
-    return <CtaPlugBlock block={block} />;
+    return <CtaPlugBlock block={block} key={block._key} />;
   } else if (isHero(block)) {
-    return <HeroBlock block={block} />;
+    return <HeroBlock block={block} key={block._key} />;
   } else if (isInfoRows(block)) {
-    return <InfoRowsBlock block={block} />;
+    return <InfoRowsBlock block={block} key={block._key} />;
   } else {
     throw new Error("Page content type not supported");
   }
