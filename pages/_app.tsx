@@ -8,6 +8,7 @@ import { init } from "../lib/sentry";
 import theme from "../lib/theme";
 import Head from "next/head";
 import awsExports from "../src/aws-exports";
+import * as Sentry from "@sentry/react";
 
 init();
 
@@ -61,4 +62,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default Sentry.withProfiler(MyApp);
