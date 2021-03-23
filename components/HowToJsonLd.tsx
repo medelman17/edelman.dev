@@ -39,13 +39,13 @@ const HowToJsonLd: React.FC<HowToJsonLdProps> = (props) => {
          "@type": "HowToStep",
          name: s.name,
          url: s.url,
-         text: s.text,
-         // itemListElement: [
-         //   {
-         //     "@type": "HowToDirection",
-         //     text: s.text,
-         //   },
-         // ],
+         // text: s.text,
+         itemListElement: [
+           {
+             "@type": "HowToDirection",
+             text: s.text,
+           },
+         ],
        })
      )}
     ],

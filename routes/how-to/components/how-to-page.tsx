@@ -131,21 +131,6 @@ function HowToPage(props) {
 
   return (
     <>
-      <NextSeo
-        title={howto.title}
-        description={howto.title}
-        canonical={`https://edel.monster/how-to/${slug}`}
-        twitter={{
-          site: "Michael Edelman",
-          handle: "@edelman215",
-          cardType: "summary",
-        }}
-        openGraph={{
-          url: `https://edel.monster/how-to/${slug}`,
-          title: howto.title,
-          type: "website",
-        }}
-      />
       <HowToJsonLd
         supplies={howto.prerequisites.map((p) =>
           //@ts-ignore
@@ -162,6 +147,22 @@ function HowToPage(props) {
         //@ts-ignore
         description={blockContentToPlainText(howto.excerpt)}
         image={imgUrl}
+      />
+
+      <NextSeo
+        title={howto.title}
+        description={howto.title}
+        canonical={`https://edel.monster/how-to/${slug}`}
+        twitter={{
+          site: "Michael Edelman",
+          handle: "@edelman215",
+          cardType: "summary",
+        }}
+        openGraph={{
+          url: `https://edel.monster/how-to/${slug}`,
+          title: howto.title,
+          type: "website",
+        }}
       />
 
       {/*<SEO*/}
