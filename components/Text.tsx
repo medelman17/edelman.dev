@@ -1,6 +1,19 @@
 import { Heading, Text, Box } from "@chakra-ui/react";
 import * as React from "react";
 
+export function BodyText(props) {
+  return (
+    <Text
+      fontSize={["md", "lg"]}
+      mb={[3, 3, 3]}
+      lineHeight={["base", "base", "base"]}
+      color={["gray.900"]}
+    >
+      {props.children}
+    </Text>
+  );
+}
+
 export function HeadingOne(props) {
   return (
     <Heading

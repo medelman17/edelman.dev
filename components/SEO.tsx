@@ -1,10 +1,58 @@
 import * as React from "react";
 import imageUrlBuilder from "@sanity/image-url";
-import { NextSeo, ArticleJsonLd } from "next-seo";
+import { NextSeo, ArticleJsonLd, LogoJsonLd } from "next-seo";
 import { useRouter } from "next/router";
-import { Category, MainImage } from "../lib/schema";
+import { Category, MainImage, SiteConfig } from "../lib/schema";
 import * as DataHooks from "../hooks";
 import simg from "../lib/sanity";
+import { imageBuilder } from "../components/Image";
+import type { SanityImage } from "sanity-codegen";
+
+export interface PageSEOProps {
+  title: string;
+  description: string;
+  images?: SanityImage[];
+  settings: SiteConfig;
+}
+
+export function PageSEO(props: PageSEOProps) {
+  const router = useRouter();
+  const { settings } = props;
+  // const data = DataHooks.usePageData();
+
+  const title = `${settings.title} | ${props.title}`;
+  const canonical = `${settings.url}${router.asPath}`;
+  const ogImages = props.images.map(buildOgImage);
+
+  const logoUrl = React.useMemo(() => {
+    return imageBuilder.image(settings.logo).auto("format").url();
+  }, []);
+
+  console.log("settings", settings);
+
+  return (
+    <>
+      <LogoJsonLd logo={logoUrl} url={settings.url} />
+      <NextSeo
+        title={title}
+        description={props.description}
+        canonical={canonical}
+        twitter={{
+          site: "Michael Edelman",
+          handle: "@edelman215",
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          url: canonical,
+          title: title,
+          site_name: settings.title,
+          type: "website",
+          images: ogImages,
+        }}
+      />
+    </>
+  );
+}
 
 export function SEO(props: SEOProps) {
   const router = useRouter();

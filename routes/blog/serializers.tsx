@@ -4,6 +4,12 @@ import { Heading, Text, Box } from "@chakra-ui/react";
 // import { Figure } from "../../components/Figure";
 import dynamic from "next/dynamic";
 import * as React from "react";
+import {
+  HeadingOne,
+  HeadingTwo,
+  HeadingThree,
+  BodyText,
+} from "../../components/Text";
 
 const Code = dynamic(() => import("../../components/Code"));
 const Figure = dynamic(() => import("../../components/Figure"));
@@ -11,41 +17,13 @@ const Figure = dynamic(() => import("../../components/Figure"));
 export const BlockRenderer = (props) => {
   switch (props.node.style) {
     case "h1":
-      return (
-        <Heading
-          as={"h1"}
-          size={"3xl"}
-          fontSize={["30px", "30px", "36px", "36px"]}
-          mb={[2, 3]}
-          color={["primary.700", "primary.700", "primary.700", "primary.700"]}
-          // lineHeight={1}
-        >
-          {props.children}
-        </Heading>
-      );
+      return <HeadingOne {...props} />;
     case "h2":
-      return (
-        <Heading
-          as={"h2"}
-          size={"2xl"}
-          mb={[2, 3]}
-          color={["primary.700", "primary.700", "primary.700", "primary.700"]}
-          fontSize={["24px", "24px", "30px", "30px"]}
-        >
-          {props.children}
-        </Heading>
-      );
+      return <HeadingTwo {...props} />;
+    case "h3":
+      return <HeadingThree {...props} />;
     case "normal":
-      return (
-        <Text
-          fontSize={["md", "lg"]}
-          mb={[3, 3, 3]}
-          lineHeight={["base", "base", "base"]}
-          color={["gray.700"]}
-        >
-          {props.children}
-        </Text>
-      );
+      return <BodyText {...props} />;
     default:
       return BlockContent.defaultSerializers.types.block(props);
   }

@@ -70,8 +70,6 @@ function createImage(url: string, height, width) {
 }
 
 function createHowToStep(s: HowtoStep, i: number, ht: Howto) {
-  console.log("step", s);
-
   return {
     "@type": "HowToStep",
     url: `https://edel.monster/how-to/${ht.slug.current}#step${i}`,
@@ -156,7 +154,7 @@ function HowToPage(props) {
         twitter={{
           site: "Michael Edelman",
           handle: "@edelman215",
-          cardType: "summary",
+          cardType: "summary_large_image",
         }}
         openGraph={{
           url: `https://edel.monster/how-to/${slug}`,
@@ -165,13 +163,6 @@ function HowToPage(props) {
         }}
       />
 
-      {/*<SEO*/}
-
-      {/*  og={{*/}
-      {/*    type: "howto",*/}
-      {/*  }}*/}
-      {/*  jsonLD={jsonld}*/}
-      {/*/>*/}
       <Layout>
         <Flex
           as={"article"}

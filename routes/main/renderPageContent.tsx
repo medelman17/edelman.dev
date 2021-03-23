@@ -19,6 +19,7 @@ const UiComponentRefBlock = dynamic(
 );
 
 export function renderPageContent(block: PageContent) {
+  console.log("block", block);
   if (isUiComponentRef(block)) {
     return <UiComponentRefBlock block={block} key={block._key} />;
   } else if (isCtaColumns(block)) {

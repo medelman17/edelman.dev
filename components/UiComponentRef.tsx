@@ -4,6 +4,7 @@ import type { SanityKeyed } from "sanity-codegen";
 import { Howto, UiComponentRef } from "../lib/schema";
 import { usePageData } from "../hooks";
 import { HowToCard } from "../routes/how-to/components/how-to-card";
+import { RecentContentList } from "../routes/main/components/recent-content-list";
 
 export interface UiComponentRefBlockProps {
   block: SanityKeyed<UiComponentRef>;
@@ -43,6 +44,8 @@ export const HowToList = () => {
 
 export const UiComponentRefBlock = (props: UiComponentRefBlockProps) => {
   switch (props.block.name) {
+    case "RecentContent":
+      return <RecentContentList />;
     case "HowToList":
       return <HowToList />;
     default:

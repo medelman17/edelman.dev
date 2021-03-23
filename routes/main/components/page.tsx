@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { renderPageContent } from "../renderPageContent";
 import { SEO } from "../../../components/SEO";
 import { useSiteSettings } from "../../../hooks";
+import { MainContentContainer } from "../../../components/Boxes";
 
 function Page() {
   const router = useRouter();
@@ -17,8 +18,6 @@ function Page() {
   const data = DataHooks.usePageData();
   const { page } = data;
   const settings = useSiteSettings();
-
-  console.log("PAGE PROPS", data);
 
   return (
     <>
@@ -37,9 +36,9 @@ function Page() {
         og={{ description: settings.openGraph.description, type: "website" }}
       />
       <Layout headerTitle={page.title}>
-        <Flex direction={"column"} width={"100%"} m={"0 auto"}>
+        <MainContentContainer>
           <Stack spacing={8}>{page.content.map(renderPageContent)}</Stack>
-        </Flex>
+        </MainContentContainer>
       </Layout>
     </>
   );
@@ -49,6 +48,7 @@ Page.dataHooks = [
   DataHooks.usePageData,
   DataHooks.useGlobalNavigation,
   DataHooks.useSiteSettings,
+  DataHooks.useRecentContentSnips,
 ];
 
 export default Page;
