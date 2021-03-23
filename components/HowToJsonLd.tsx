@@ -26,6 +26,19 @@ const HowToJsonLd: React.FC<HowToJsonLdProps> = (props) => {
     "description": "${props.description}",
     "image": ${JSON.stringify({ "@type": "ImageObject", url: props.image })},
     "totalTime": "PT2M",
+    "author": {
+        "@type": "Person",
+        "givenName": "Michael",
+         "familyName": "Edelman"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Michael Edelman"
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cdn.sanity.io/images/1os98t11/production/845e412e79ea80736091aab881fffeddf916d18a-512x512.png"
+      }
+    },
     "tool": [
     ${props.tools.map((s) =>
       JSON.stringify({
