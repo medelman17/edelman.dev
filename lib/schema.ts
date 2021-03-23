@@ -398,6 +398,87 @@ export interface Author extends SanityDocument {
 }
 
 /**
+ * Resource
+ *
+ *
+ */
+export interface Resource extends SanityDocument {
+  _type: "resource";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Main image — `mainImage`
+   *
+   *
+   */
+  mainImage?: MainImage;
+
+  /**
+   * Description — `simplePortableText`
+   *
+   *
+   */
+  description?: SimplePortableText;
+
+  /**
+   * Link — `url`
+   *
+   *
+   */
+  link?: string;
+}
+
+/**
+ * Prerequisite
+ *
+ *
+ */
+export interface Prerequisite extends SanityDocument {
+  _type: "prerequisite";
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Body — `bodyPortableText`
+   *
+   *
+   */
+  body?: BodyPortableText;
+
+  /**
+   * Steps — `array`
+   *
+   *
+   */
+  step?: Array<SanityKeyed<HowtoStep>>;
+
+  /**
+   * Resources — `array`
+   *
+   *
+   */
+  resources?: Array<SanityKeyedReference<Resource>>;
+
+  /**
+   * References — `array`
+   *
+   *
+   */
+  references?: Array<SanityKeyed<Externalref>>;
+}
+
+/**
  * How-To
  *
  *
@@ -420,18 +501,32 @@ export interface Howto extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
-   * Main image — `mainImage`
+   * Author — `reference`
    *
    *
    */
-  mainImage?: MainImage;
+  author?: SanityReference<Author>;
 
   /**
-   * Description — `simplePortableText`
+   * Published at — `datetime`
    *
    *
    */
-  description?: SimplePortableText;
+  publishedAt?: string;
+
+  /**
+   * Prerequisites — `array`
+   *
+   *
+   */
+  prerequisites?: Array<SanityKeyedReference<Prerequisite>>;
+
+  /**
+   * Body — `bodyPortableText`
+   *
+   *
+   */
+  body?: BodyPortableText;
 
   /**
    * Steps — `array`
@@ -439,6 +534,34 @@ export interface Howto extends SanityDocument {
    *
    */
   step?: Array<SanityKeyed<HowtoStep>>;
+
+  /**
+   * References — `array`
+   *
+   *
+   */
+  references?: Array<SanityKeyed<HowtoStep>>;
+
+  /**
+   * Total Time — `string`
+   *
+   *
+   */
+  totalTime?: string;
+
+  /**
+   * Main image — `mainImage`
+   *
+   *
+   */
+  mainImage?: MainImage;
+
+  /**
+   * Excerpt — `simplePortableText`
+   *
+   * This ends up on summary pages, on Google, when people share your post in social media.
+   */
+  excerpt?: SimplePortableText;
 }
 
 export type OpenGraph = {
@@ -617,6 +740,116 @@ export type HowtoStepPortableText = Array<
   | SanityKeyed<EmbedHTML>
   | SanityKeyed<Code>
 >;
+
+export type Externalref = {
+  _type: "externalref";
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Reference — `simplePortableText`
+   *
+   *
+   */
+  description?: SimplePortableText;
+
+  /**
+   * Citation — `string`
+   *
+   *
+   */
+  citation?: string;
+
+  /**
+   * Link — `url`
+   *
+   *
+   */
+  link?: string;
+};
+
+export type Howtoref = {
+  _type: "howtoref";
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Reference — `simplePortableText`
+   *
+   *
+   */
+  description?: SimplePortableText;
+
+  /**
+   * Citation — `string`
+   *
+   *
+   */
+  citation?: string;
+
+  /**
+   * Link — `url`
+   *
+   *
+   */
+  link?: string;
+};
+
+export type Howtoprerequisite = {
+  _type: "howtoprerequisite";
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Description — `simplePortableText`
+   *
+   *
+   */
+  description?: SimplePortableText;
+
+  /**
+   * Resource — `reference`
+   *
+   *
+   */
+  resource?: SanityReference<Resource>;
+};
+
+export type Howtotool = {
+  _type: "howtotool";
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Description — `simplePortableText`
+   *
+   *
+   */
+  description?: SimplePortableText;
+
+  /**
+   * Resource — `reference`
+   *
+   *
+   */
+  resource?: SanityReference<Resource>;
+};
 
 export type HowtoStep = {
   _type: "howtoStep";
@@ -863,6 +1096,8 @@ export type Documents =
   | Page
   | Category
   | Author
+  | Resource
+  | Prerequisite
   | Howto;
 
 /**

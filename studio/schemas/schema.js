@@ -28,7 +28,15 @@ import plugDefaultFields from "./plugs/_plugDefaultFields";
 import excerptPortableText from "./objects/excerptPortableText";
 import bodyPortableText from "./objects/bodyPortableText";
 import simpleBlockContent from "./objects/simpleBlockContent";
-import howto, { HowToStep } from "./documents/howto";
+import howto, {
+  HowToStep,
+  HowToPrerequisite,
+  HowToTool,
+  HowToReference,
+  Resource,
+  Prerequisite,
+  Reference,
+} from "./documents/howto";
 import howtoStepPortableText from "./objects/howtoStepPortableText";
 const allPlugs = Object.values(plugs).map((plug) => {
   return { ...plug, fields: plugDefaultFields.concat(plug.fields) };
@@ -68,6 +76,12 @@ export default createSchema({
       portableText,
       excerptPortableText,
       howtoStepPortableText,
+      Resource,
+      Reference,
+      Prerequisite,
+      HowToReference,
+      HowToPrerequisite,
+      HowToTool,
       HowToStep,
       howto,
     ])

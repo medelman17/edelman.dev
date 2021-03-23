@@ -17,9 +17,6 @@ function Category() {
   }
 
   const [cat] = DataHooks.useContentCategory();
-  // console.log("cat", cat, cat.content);
-
-  // console.log("data", data);
 
   return (
     <>

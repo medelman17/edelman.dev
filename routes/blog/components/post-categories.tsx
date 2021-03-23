@@ -8,14 +8,6 @@ export interface BlogPostCategoriesProps {
   categories: Array<Category & { _type: "category" }>;
 }
 
-export function BlogPostCategory(props: {}) {
-  return (
-    <NLink href={""} passHref={true}>
-      <Link></Link>
-    </NLink>
-  );
-}
-
 export function BlogPostCategories(props: BlogPostCategoriesProps) {
   const cats = React.useMemo(() => {
     return props.categories.map((c) => {

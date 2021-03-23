@@ -14,8 +14,11 @@ function Page() {
     return <div>Loading...</div>;
   }
 
-  const { page } = DataHooks.usePageData();
+  const data = DataHooks.usePageData();
+  const { page } = data;
   const settings = useSiteSettings();
+
+  console.log("PAGE PROPS", data);
 
   return (
     <>

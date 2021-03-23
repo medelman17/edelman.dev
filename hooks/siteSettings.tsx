@@ -1,6 +1,7 @@
 import { createDataHook } from "next-data-hooks";
-import { Route, Post, Category } from "../lib/schema";
+import { Route, Post, Category, Howto } from "../lib/schema";
 import sanity from "../lib/sanity-client";
+import { useHowTos } from "./how-to";
 
 export const useSiteSettings = createDataHook(
   "SiteSettings",
@@ -26,9 +27,12 @@ export const useGlobalNavigation = createDataHook(
 
 export const usePageData = createDataHook("PageData", async (context) => {
   let posts: ({ _type: "post" } & Post)[] = [];
+  let howtos: ({ _type: "howto" } & Howto)[] = [];
 
   if (context.params.slug === "blog") {
     posts = await useBlogPosts.getData(context);
+  } else if (context.params.slug === "how-to") {
+    howtos = await useHowTos.getData(context);
   }
 
   const [route] = await sanity.getAll(
@@ -37,7 +41,7 @@ export const usePageData = createDataHook("PageData", async (context) => {
   );
   const page = await sanity.expand(route.page);
 
-  return { route, page, posts };
+  return { route, page, posts, howtos };
 });
 
 export const useBlogPosts = createDataHook("BlogPosts", async (context) => {
