@@ -16,13 +16,13 @@ export function HowToCard(props: HowToCardProps) {
   const getExcerpt = () => {
     if (props.howto.excerpt?.length > 0) {
       //@ts-ignore
-      return blockContentToPlainText(props.post.description);
+      return blockContentToPlainText(props.howto.excerpt);
     } else {
       return "";
     }
   };
 
-  console.log("howto props", props);
+  // console.log("howto props", props);
 
   const imgProps = useNextSanityImage(sanity, props.howto.mainImage, {
     imageBuilder: myCustomImageBuilder,

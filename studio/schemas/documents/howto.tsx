@@ -268,7 +268,7 @@ export default {
     },
 
     {
-      name: "step",
+      name: "steps",
       title: "Steps",
       type: "array",
       of: [{ type: "howtoStep" }],

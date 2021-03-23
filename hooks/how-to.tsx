@@ -1,38 +1,46 @@
 import { createDataHook } from "next-data-hooks";
 import sanity from "../lib/sanity-client";
+import {
+  Prerequisite,
+  Resource,
+  Author,
+  Howto,
+  HowtoStep,
+  MainImage,
+} from "../lib/schema";
+import { Slug } from "@sanity/types";
 
 export const useHowTos = createDataHook("HowTos", async (context) => {
   return await sanity.getAll("howto");
 });
 
+export type UseHowToQueryResult = Howto & {
+  // _id: string;
+  author: Author;
+  steps: HowtoStep[];
+  prerequisites: Prerequisite[];
+  // slug: Slug;
+  // title: string;
+  // body: Howto["body"];
+  // excerpt: Howto["excerpt"];
+  // publishedAt: Howto["publishedAt"];
+};
+
 export const useHowTo = createDataHook("HowTo", async (context) => {
-  const [ht] = await sanity.getAll(
-    "howto",
-    `slug.current == "${context.params.slug}"`
-  );
-
-  let steps = [];
-
-  if (!ht) {
-    throw new Error("No How to");
-  }
-
-  console.log("HT", ht);
-
-  const author = await sanity.expand(ht.author);
-
-  for (const step of ht.step) {
-    console.log("STEP", step);
-    // const res = await sanity.expand(step);
-    // if (res) {
-    //   steps.push(res);
-    // }
-    steps.push(step);
-  }
+  const [
+    howto,
+  ] = await sanity.query<UseHowToQueryResult>(`*[_type == "howto" && slug.current == "${context.params.slug}"]{
+    author->{...},
+    "steps": step,
+    prerequisites[]->{
+     
+      resources[]->{...},
+      ...
+    },
+    ...                  
+  }`);
 
   return {
-    howto: ht,
-    author,
-    steps,
+    howto,
   };
 });

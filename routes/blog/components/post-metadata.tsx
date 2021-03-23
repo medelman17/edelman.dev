@@ -58,7 +58,6 @@ export function AuthorAvatar(props: AvatarProps) {
 export function BlogPostMetadata(props: BlogPostMetadataProps) {
   const publishedAt = new Date(props.post.publishedAt).toLocaleDateString();
 
-  console.log("date", publishedAt);
   return (
     <VStack marginBottom={4} className={"p-author h-card"}>
       <Divider />

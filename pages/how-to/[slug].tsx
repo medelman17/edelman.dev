@@ -7,7 +7,6 @@ import * as Sentry from "@sentry/react";
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const allHowTo = await sanity.getAll("howto");
 
-  console.log("ALL HOWQ TO", allHowTo);
   return {
     paths:
       allHowTo.map((cat) => ({
@@ -27,4 +26,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return { props: dataHooksProps, revalidate: 1 };
 };
 
-export default Sentry.withProfiler(HowToPage);
+export default HowToPage;

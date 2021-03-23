@@ -1,6 +1,14 @@
 import * as React from "react";
 import { Layout } from "../../../components/Layout";
-import { Flex, Heading, Box, Text, Badge, VStack } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Box,
+  Text,
+  Badge,
+  VStack,
+  Divider,
+} from "@chakra-ui/react";
 // import { serializers } from "../serializers";
 import { Category, MainImage, HowtoStep } from "../../../lib/schema";
 import dynamic from "next/dynamic";
@@ -11,29 +19,21 @@ import BlogPostCard from "../../blog/components/blog-post-card";
 import { Figure } from "../../../components/Figure";
 import { serializers } from "../../blog/serializers";
 import { HowToMetadata } from "./how-to-metadata";
+import { HowToSteps } from "./how-to-steps";
+import { HowToPrerequisites } from "./how-to-prereqs";
 const SimpleBlockContent = dynamic(
   () => import("../../../components/SimpleBlockContent")
 );
-function HowToPage() {
+
+function HowToPage(props) {
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  function renderStep(step: HowtoStep) {
-    console.log("step", step);
-    return (
-      <Box>
-        <Heading as={"h3"}>{step.title}</Heading>
-        <SimpleBlockContent blocks={step.body} serializers={serializers} />
-      </Box>
-    );
-  }
-
-  const { howto, author, steps, ...data } = DataHooks.useHowTo();
-
-  console.log("howto", steps);
+  const { howto } = DataHooks.useHowTo();
+  const { author, slug, steps, prerequisites } = howto;
 
   return (
     <>
@@ -90,10 +90,14 @@ function HowToPage() {
           <Box className={"e-content"}>
             <SimpleBlockContent blocks={howto.body} serializers={serializers} />
           </Box>
-          <VStack w={"100%"} alignItems={"flex-start"}>
-            <Heading>Steps</Heading>
-            {steps.map(renderStep)}
-          </VStack>
+
+          <HowToPrerequisites prerequisites={prerequisites} />
+          <HowToSteps steps={steps} />
+
+          {/*<VStack w={"100%"} alignItems={"flex-start"}>*/}
+          {/*  <Heading>Steps</Heading>*/}
+          {/*  {steps.map(renderStep)}*/}
+          {/*</VStack>*/}
           <Flex
             borderBottom={"1px solid black"}
             borderBottomColor={"gray.300"}

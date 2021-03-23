@@ -533,7 +533,7 @@ export interface Howto extends SanityDocument {
    *
    *
    */
-  step?: Array<SanityKeyed<HowtoStep>>;
+  steps?: Array<SanityKeyed<HowtoStep>>;
 
   /**
    * References — `array`
