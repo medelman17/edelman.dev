@@ -121,11 +121,10 @@ function BlogPost() {
               serializers={serializers}
             />
           </Box>
-        </Flex>
-
-        <Flex>
           <BlogPostCategories categories={data.categories} />
         </Flex>
+
+        <Flex></Flex>
       </Layout>
     </>
   );

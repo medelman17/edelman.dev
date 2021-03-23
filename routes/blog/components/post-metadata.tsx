@@ -18,9 +18,6 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 import { default as NLink } from "next/link";
 import { SocialIcon } from "../../../components/Icons";
 
-import { useNextSanityImage } from "next-sanity-image";
-import sanity from "../../../lib/sanity";
-
 export interface BlogPostMetadataProps {
   author: Author & { _type: "author" };
   categories: Array<Category & { _type: "category" }>;
@@ -59,6 +56,9 @@ export function AuthorAvatar(props: AvatarProps) {
 }
 
 export function BlogPostMetadata(props: BlogPostMetadataProps) {
+  const publishedAt = new Date(props.post.publishedAt).toLocaleDateString();
+
+  console.log("date", publishedAt);
   return (
     <VStack marginBottom={4} className={"p-author h-card"}>
       <Divider />
@@ -68,7 +68,7 @@ export function BlogPostMetadata(props: BlogPostMetadataProps) {
         </Box>
 
         <VStack flex={1} align="stretch" spacing={[0, 0, 0]}>
-          <NLink href={"/"} passHref={true}>
+          <NLink href={"/about"} passHref={true}>
             <Link className={"p-name u-url"}>
               <Text fontSize={["lg", "lg"]} as={"b"} className={"u-name"}>
                 {props.author.name}
@@ -79,7 +79,7 @@ export function BlogPostMetadata(props: BlogPostMetadataProps) {
           <Text fontSize={["xs", "sm"]}>
             Published on{" "}
             <Text as={"b"} className={"dt-published"}>
-              March 21, 2021
+              {publishedAt}
             </Text>
           </Text>
           <Flex>
