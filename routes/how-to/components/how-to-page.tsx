@@ -10,7 +10,16 @@ import {
   Divider,
 } from "@chakra-ui/react";
 // import { serializers } from "../serializers";
-import { Category, MainImage, HowtoStep } from "../../../lib/schema";
+import {
+  Category,
+  MainImage,
+  HowtoStep,
+  Howto,
+  Prerequisite,
+  Resource,
+} from "../../../lib/schema";
+import { blockContentToPlainText } from "react-portable-text";
+
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import * as DataHooks from "../../../hooks";
@@ -21,9 +30,87 @@ import { serializers } from "../../blog/serializers";
 import { HowToMetadata } from "./how-to-metadata";
 import { HowToSteps } from "./how-to-steps";
 import { HowToPrerequisites } from "./how-to-prereqs";
+import { imageBuilder } from "../../../components/Image";
+import { NextSeo } from "next-seo";
+
+import HowToJsonLd from "../../../components/HowToJsonLd";
+
 const SimpleBlockContent = dynamic(
   () => import("../../../components/SimpleBlockContent")
 );
+
+function createHowToSupplies(name: string) {
+  return {
+    "@type": "HowToSupply",
+    name,
+  };
+}
+
+function createHowToTool(name: string) {
+  return {
+    "@type": "HowToTool",
+    name,
+  };
+}
+
+function createHowToStepDirection(text) {
+  return {
+    "@type": "HowToDirection",
+    text,
+  };
+}
+
+function createImage(url: string, height, width) {
+  return {
+    "@type": "ImageObject",
+    url,
+    width,
+    height,
+  };
+}
+
+function createHowToStep(s: HowtoStep, i: number, ht: Howto) {
+  console.log("step", s);
+
+  return {
+    "@type": "HowToStep",
+    url: `https://edel.monster/how-to/${ht.slug.current}#step${i}`,
+    name: s.title,
+    //@ts-ignore
+    text: blockContentToPlainText(s.body),
+  };
+}
+
+function createHowToJSONLD(howto: Howto) {
+  const { prerequisites, steps } = howto;
+
+  let resources: Resource[] = [];
+
+  for (const prereq of prerequisites) {
+    //@ts-ignore
+    resources = [...resources, ...prereq.resources];
+  }
+
+  // console.log("res", resources);
+
+  const imgUrl = imageBuilder
+    .image(howto.mainImage)
+    .height(300)
+    .width(400)
+    .auto("format")
+    .url();
+
+  return {
+    "@context": "http://schema.org",
+    "@type": "HowTo",
+    name: howto.title,
+    //@ts-ignore
+    description: blockContentToPlainText(howto.excerpt),
+    image: createImage(imgUrl, 400, 300),
+    supply: resources.map((r) => createHowToSupplies(r.title)),
+    step: steps.map((s, i) => createHowToStep(s, i, howto)),
+  };
+}
 
 function HowToPage(props) {
   const router = useRouter();
@@ -35,25 +122,55 @@ function HowToPage(props) {
   const { howto } = DataHooks.useHowTo();
   const { author, slug, steps, prerequisites } = howto;
 
+  const imgUrl = imageBuilder
+    .image(howto.mainImage)
+    .height(300)
+    .width(400)
+    .auto("format")
+    .url();
+
   return (
     <>
-      <SEO
+      <NextSeo
         title={howto.title}
         description={howto.title}
-        tags={[]}
-        pageAuthor={["Michael Edelman"]}
-        datePublished={howto._createdAt}
-        dateModified={howto._updatedAt}
+        canonical={`https://edel.monster/how-to/${slug}`}
         twitter={{
           site: "Michael Edelman",
           handle: "@edelman215",
           cardType: "summary",
         }}
-        images={[]}
-        og={{
-          type: "howto",
+        openGraph={{
+          url: `https://edel.monster/how-to/${slug}`,
+          title: howto.title,
+          type: "website",
         }}
       />
+      <HowToJsonLd
+        supplies={howto.prerequisites.map((p) =>
+          //@ts-ignore
+          p.resources.map((r) => r.title)
+        )}
+        tools={[]}
+        steps={howto.steps.map((s, i) => ({
+          name: s.title,
+          //@ts-ignore
+          text: blockContentToPlainText(s.body),
+          url: `https://edel.monster/how-to/${howto.slug.current}#step${i}`,
+        }))}
+        title={howto.title}
+        //@ts-ignore
+        description={blockContentToPlainText(howto.excerpt)}
+        image={imgUrl}
+      />
+
+      {/*<SEO*/}
+
+      {/*  og={{*/}
+      {/*    type: "howto",*/}
+      {/*  }}*/}
+      {/*  jsonLD={jsonld}*/}
+      {/*/>*/}
       <Layout>
         <Flex
           as={"article"}

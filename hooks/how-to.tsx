@@ -18,7 +18,7 @@ export type UseHowToQueryResult = Howto & {
   // _id: string;
   author: Author;
   steps: HowtoStep[];
-  prerequisites: Prerequisite[];
+  prerequisites: Array<Prerequisite & { resources: Resource[] }>;
   // slug: Slug;
   // title: string;
   // body: Howto["body"];

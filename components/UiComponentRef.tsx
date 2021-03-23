@@ -11,7 +11,7 @@ export interface UiComponentRefBlockProps {
 
 export const HowToList = () => {
   const { howtos } = usePageData();
-  console.log("hts", howtos);
+
   return (
     <Stack space={[4]}>
       <Heading
