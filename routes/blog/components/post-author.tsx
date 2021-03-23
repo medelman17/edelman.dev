@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Author, Post } from "../../../lib/schema";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Wrap, Link, Badge } from "@chakra-ui/react";
 
 export interface BlogPostAuthorProps {
   author: Author;

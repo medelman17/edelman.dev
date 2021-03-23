@@ -1,5 +1,5 @@
 import { createDataHook } from "next-data-hooks";
-import { Route, Post } from "../lib/schema";
+import { Route, Post, Category } from "../lib/schema";
 import sanity from "../lib/sanity-client";
 
 export const useSiteSettings = createDataHook(
@@ -55,10 +55,13 @@ export const useBlogPost = createDataHook("BlogPost", async (context) => {
   }
 
   const author = await sanity.expand(post.author);
-  const categories = await sanity.getAll(
-    "category",
-    `references("${post._id}")`
-  );
+
+  let categories: Array<Category & { _type: "category" }> = [];
+
+  for (const cat of post.categories) {
+    const c = await sanity.expand(cat);
+    categories.push(c);
+  }
 
   return {
     post,

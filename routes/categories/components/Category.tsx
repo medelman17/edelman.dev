@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Layout } from "../../../components/Layout";
-import { Flex, Heading, Box, Text } from "@chakra-ui/react";
+import { Flex, Heading, Box, Text, Badge } from "@chakra-ui/react";
 // import { serializers } from "../serializers";
 // import { Category, MainImage } from "../../../lib/schema";
 import dynamic from "next/dynamic";
@@ -55,15 +55,10 @@ function Category() {
             pb={2}
             mb={[4, 4, 6]}
           >
-            <Heading
-              as={"h2"}
-              size={"xl"}
-              letterSpacing={"-.05rem"}
-              color={["primary.700"]}
-              fontSize={["24px", "24px", "30px", "30px"]}
-            >
-              {cat.title}
-            </Heading>
+            <Badge fontSize={["24px", "24px", "30px", "30px"]} as={"h2"} mb={1}>
+              #{cat.title}
+            </Badge>
+
             <Box>
               <Text>{cat.description}</Text>
             </Box>

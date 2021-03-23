@@ -16,6 +16,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import * as DataHooks from "../../../hooks";
 import { SEO } from "../../../components/SEO";
+import { BlogPostCategories } from "./post-categories";
 
 const BlogPostMetadata = dynamic(() => import("./post-metadata"));
 
@@ -43,8 +44,6 @@ function BlogPost() {
   }
 
   const data = DataHooks.useBlogPost();
-
-  console.log("data", data);
 
   const images = React.useMemo(() => {
     let result: MainImage[] = [];
@@ -86,6 +85,7 @@ function BlogPost() {
           width={"100%"}
           maxW={{ lg: "800px" }}
           m={" 0 auto"}
+          className={"h-entry"}
         >
           <Heading
             as={"h1"}
@@ -96,6 +96,7 @@ function BlogPost() {
             mt={[4, 2, 4]}
             color={["primary.700", "primary.700", "primary.700", "primary.700"]}
             letterSpacing={"-.1rem"}
+            className={"p-name"}
           >
             {data.post.title}
           </Heading>
@@ -114,13 +115,17 @@ function BlogPost() {
             post={data.post}
           />
 
-          <SimpleBlockContent
-            blocks={data.post.body}
-            serializers={serializers}
-          />
+          <Box className={"e-content"}>
+            <SimpleBlockContent
+              blocks={data.post.body}
+              serializers={serializers}
+            />
+          </Box>
         </Flex>
 
-        <Flex></Flex>
+        <Flex>
+          <BlogPostCategories categories={data.categories} />
+        </Flex>
       </Layout>
     </>
   );

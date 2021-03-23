@@ -60,7 +60,7 @@ export function AuthorAvatar(props: AvatarProps) {
 
 export function BlogPostMetadata(props: BlogPostMetadataProps) {
   return (
-    <VStack marginBottom={4} className={"h-card"}>
+    <VStack marginBottom={4} className={"p-author h-card"}>
       <Divider />
       <Flex width={"100%"} py={[1, 2]}>
         <Box marginRight={4} alignSelf={"center"}>
@@ -77,7 +77,10 @@ export function BlogPostMetadata(props: BlogPostMetadataProps) {
           </NLink>
 
           <Text fontSize={["xs", "sm"]}>
-            Published on <Text as={"b"}>March 21, 2021</Text>
+            Published on{" "}
+            <Text as={"b"} className={"dt-published"}>
+              March 21, 2021
+            </Text>
           </Text>
           <Flex>
             <Flex
