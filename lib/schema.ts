@@ -448,6 +448,13 @@ export interface Resource extends SanityDocument {
   link?: string;
 
   /**
+   * References — `array`
+   *
+   *
+   */
+  references?: Array<SanityKeyed<Externalref>>;
+
+  /**
    * Categories — `array`
    *
    *
@@ -469,6 +476,13 @@ export interface Prerequisite extends SanityDocument {
    *
    */
   title?: string;
+
+  /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
 
   /**
    * Body — `bodyPortableText`

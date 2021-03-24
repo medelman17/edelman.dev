@@ -4,15 +4,7 @@ import { useNextSanityImage } from "next-sanity-image";
 import sanity from "../lib/sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { MainImage, SanityImage } from "../lib/schema";
-import {
-  Flex,
-  Heading,
-  Box,
-  Text,
-  Badge,
-  VStack,
-  Divider,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { Figure } from "./Figure";
 
 export const imageBuilder = imageUrlBuilder(sanity);
@@ -27,18 +19,30 @@ export function Image(props) {
   return <Img {...imgProps} />;
 }
 
-export function ContentMainImage(props: { image: MainImage }) {
+export function ContentMainImage(props: {
+  image: MainImage;
+  withShadow?: boolean;
+  [index: string]: any;
+}) {
+  const { image, withShadow, ...rest } = props;
   return (
     <Box
       mb={8}
       mx={[0, 0, "-1rem"]}
       boxShadow={
-        "rgb(0 0 0 / 20%) 0px 1px 5px 0px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 3px 1px -2px"
+        props.withShadow
+          ? "rgb(0 0 0 / 20%) 0px 1px 5px 0px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 3px 1px -2px"
+          : ""
       }
+      {...rest}
     >
       <Figure node={props.image} />
     </Box>
   );
 }
+
+ContentMainImage.defaultProps = {
+  withShadow: true,
+};
 
 export default Image;

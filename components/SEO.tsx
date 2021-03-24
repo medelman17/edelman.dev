@@ -2,13 +2,7 @@ import * as React from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import { NextSeo, ArticleJsonLd, LogoJsonLd } from "next-seo";
 import { useRouter } from "next/router";
-import {
-  Category,
-  Howto,
-  MainImage,
-  Prerequisite,
-  SiteConfig,
-} from "../lib/schema";
+import { Category, Howto, MainImage, SiteConfig } from "../lib/schema";
 import * as DataHooks from "../hooks";
 import simg from "../lib/sanity";
 import { imageBuilder } from "../components/Image";
@@ -104,8 +98,6 @@ export function PageSEO(props: PageSEOProps) {
   const logoUrl = React.useMemo(() => {
     return imageBuilder.image(settings.logo).auto("format").url();
   }, []);
-
-  console.log("settings", settings);
 
   return (
     <>

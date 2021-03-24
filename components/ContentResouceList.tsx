@@ -9,7 +9,6 @@ export interface ContentResourceListProps {
 }
 
 export function ContentResourceList(props: ContentResourceListProps) {
-  console.log("props", props.resources);
   const cats = React.useMemo(() => {
     return props.resources.map((r) => {
       return (

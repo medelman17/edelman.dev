@@ -1,15 +1,10 @@
 import { createDataHook } from "next-data-hooks";
 import {
-  Route,
-  Post,
-  Category,
-  Howto,
   Page,
   SiteConfig,
   MainImage,
   SimpleBlockContent,
   Prerequisite,
-  Resource,
 } from "../lib/schema";
 import sanity from "../lib/sanity-client";
 import { Slug } from "@sanity/types";
@@ -32,6 +27,19 @@ export type PostSnipQueryResult = {
   excerpt: SimpleBlockContent;
   categories: CategorySnipQueryResult[];
   slug: Slug;
+};
+
+export type ExpandedResourceRelatedContentHowToSnipQueryResult = {
+  _id: string;
+  _type: "howto";
+  title: string;
+  mainImage: MainImage;
+  excerpt: SimpleBlockContent;
+  categories: CategorySnipQueryResult[];
+  slug: Slug;
+  prerequisites: Array<
+    Prerequisite & { resources: { _id: string; title: string }[] }
+  >;
 };
 
 export type HowToSnipQueryResult = {

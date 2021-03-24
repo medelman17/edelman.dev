@@ -11,28 +11,13 @@ import { ContentMainImage } from "../../../components/Image";
 import { MainContentContainer } from "../../../components/Boxes";
 import { ContentTitle, HeadingThree } from "../../../components/Text";
 import { ContentBody } from "../../../components/ContentBody";
-import { UseHowToQueryResult } from "../../../hooks";
 import { TableOfContents, HeaderTreeItem } from "../../../components/TOC";
-import {
-  Howto,
-  MainImage,
-  SimpleBlockContent,
-  SimplePortableText,
-  Resource,
-} from "../../../lib/schema";
+import { MainImage, SimplePortableText, Resource } from "../../../lib/schema";
 import { ExternalReferenceList } from "./external-reference-list";
 import { Slug } from "@sanity/types";
 import type { SanityImage } from "sanity-codegen";
 import {
-  Grid,
-  GridItem,
-  Flex,
-  Wrap,
-  WrapItem,
-  useBreakpointValue,
-  useMediaQuery,
   Box,
-  Divider,
   VStack,
   Accordion,
   AccordionItem,
@@ -198,9 +183,6 @@ function HowToPage() {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
-
-  const d = DataHooks.useHowTo();
-  console.log("D", d);
 
   const howto = DataHooks.useHowTo();
   const { author, steps, prerequisites } = howto;

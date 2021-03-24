@@ -33,10 +33,10 @@ import howto, {
   HowToPrerequisite,
   HowToTool,
   HowToReference,
-  Resource,
   Prerequisite,
   Reference,
 } from "./documents/howto";
+import { Resource } from "./documents/resource";
 import howtoStepPortableText from "./objects/howtoStepPortableText";
 const allPlugs = Object.values(plugs).map((plug) => {
   return { ...plug, fields: plugDefaultFields.concat(plug.fields) };

@@ -178,6 +178,8 @@ async function persistEvent(
     return await handleBlogPostWebMention(body, pathnameParts[1]);
   } else if (pathnameParts[0] === "how-to") {
     return await handleBlogPostWebMention(body, pathnameParts[1]);
+  } else if (pathnameParts[0] === "resources") {
+    return await handleBlogPostWebMention(body, pathnameParts[1]);
   } else {
     return Promise.resolve();
   }

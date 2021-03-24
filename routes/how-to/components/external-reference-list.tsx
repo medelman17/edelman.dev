@@ -1,39 +1,17 @@
 import * as React from "react";
 import {
-  Grid,
-  GridItem,
   Flex,
-  Wrap,
-  WrapItem,
-  useBreakpointValue,
-  useMediaQuery,
   Box,
-  Divider,
-  VStack,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
   List,
   ListItem,
   Tooltip,
   Link,
   Text,
 } from "@chakra-ui/react";
-
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import {
-  BodyText,
-  ContentTitle,
-  HeadingOne,
-  HeadingThree,
-} from "../../../components/Text";
-import { HowToMetadata } from "./how-to-page";
+import { HeadingOne } from "../../../components/Text";
 import { SimplePortableText } from "../../../lib/schema";
 import { blockContentToPlainText } from "react-portable-text";
-
-import { ContentBody } from "../../../components/ContentBody";
 
 export interface ConformedExternalReference {
   id: string;
@@ -82,15 +60,6 @@ export function ExternalReferenceListItem(
     </ListItem>
   );
 }
-
-// @ts-ignore
-const ExternalReferenceListItemBodyWithRef = React.forwardRef<
-  unknown,
-  ExternalReferenceListItemProps
->((props, ref) => {
-  //@ts-ignore
-  return <span ref={ref}>{props.reference.title}</span>;
-});
 
 export function ExternalReferenceList(props: ExternalReferenceListProps) {
   return (

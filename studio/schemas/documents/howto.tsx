@@ -30,9 +30,9 @@ export const HowToStep = {
   ],
 };
 
-export const Resource = {
-  name: "resource",
-  title: "Resource",
+export const Prerequisite = {
+  name: "prerequisite",
+  title: "Prerequisite",
   type: "document",
   fields: [
     {
@@ -48,43 +48,6 @@ export const Resource = {
         source: "title",
         maxLength: 96,
       },
-    },
-    {
-      name: "mainImage",
-      title: "Main image",
-      type: "mainImage",
-      options: {
-        hotspot: true,
-      },
-    },
-    {
-      name: "description",
-      type: "simplePortableText",
-      title: "Description",
-    },
-    {
-      name: "link",
-      type: "url",
-      title: "Link",
-    },
-    {
-      name: "categories",
-      title: "Categories",
-      type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
-    },
-  ],
-};
-
-export const Prerequisite = {
-  name: "prerequisite",
-  title: "Prerequisite",
-  type: "document",
-  fields: [
-    {
-      name: "title",
-      title: "Title",
-      type: "string",
     },
     {
       name: "body",

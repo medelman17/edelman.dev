@@ -1,17 +1,11 @@
 import * as React from "react";
-
-import { createDataHook } from "next-data-hooks";
-import sanity from "../../../lib/sanity-client";
 import { Layout } from "../../../components/Layout";
 import { Figure } from "../../../components/Figure";
 import { Flex, Heading, Box } from "@chakra-ui/react";
 import { serializers } from "../serializers";
-// import Head from "next/head";
 import imageUrlBuilder from "@sanity/image-url";
 import simg from "../../../lib/sanity";
-import { NextSeo, ArticleJsonLd } from "next-seo";
-import { blockContentToPlainText } from "react-portable-text";
-import { Category, MainImage } from "../../../lib/schema";
+import { MainImage } from "../../../lib/schema";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import * as DataHooks from "../../../hooks";
@@ -20,13 +14,9 @@ import { BlogPostCategories } from "./post-categories";
 
 const BlogPostMetadata = dynamic(() => import("./post-metadata"));
 
-const PostHeader = dynamic(() => import("./post-header"));
-
 const SimpleBlockContent = dynamic(
   () => import("../../../components/SimpleBlockContent")
 );
-
-const builder = imageUrlBuilder(simg);
 
 function getOgTagsForPost(post: any) {
   return {
@@ -36,8 +26,6 @@ function getOgTagsForPost(post: any) {
 
 function BlogPost() {
   const router = useRouter();
-
-  // console.log("data", data);
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -137,40 +125,3 @@ BlogPost.dataHooks = [
 ];
 
 export default BlogPost;
-
-// <ArticleJsonLd
-//     url={data.seo.canonical}
-//     title={data.seo.title}
-//     images={data.seo.ogImages.map((img) => img.url)}
-//     datePublished={data.seo.publishedAt}
-//     authorName={["Michael Edelman"]}
-//     description={data.seo.description}
-//     publisherName={"EdelmanDev"}
-//     publisherLogo={"https://edelman.dev/android-chrome-512x512.png"}
-// />
-// <NextSeo
-//     title={data.seo.title}
-//     titleTemplate={"Edelman | %s"}
-//     description={data.seo.description}
-//     canonical={data.seo.canonical}
-//     twitter={{
-//       site: "@edelman215",
-//       cardType: "summary",
-//       handle: "@edelman215",
-//     }}
-//     openGraph={{
-//       profile: {
-//         firstName: "Michael",
-//         lastName: "Edelman",
-//       },
-//       url: data.seo.canonical,
-//       title: data.post.title,
-//       site_name: "Edelman.Dev",
-//       type: "article",
-//       article: {
-//         authors: ["https://edelman.dev/"],
-//         tags: data.seo.tags,
-//       },
-//       images: data.seo.ogImages,
-//     }}
-// />
