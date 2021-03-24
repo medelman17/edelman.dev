@@ -33,7 +33,7 @@ const HowToJsonLd: React.FC<HowToJsonLdProps> = (props) => {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Michael Edelman"
+      "name": "Michael Edelman",
       "logo": {
         "@type": "ImageObject",
         "url": "https://cdn.sanity.io/images/1os98t11/production/845e412e79ea80736091aab881fffeddf916d18a-512x512.png"
