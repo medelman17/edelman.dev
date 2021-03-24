@@ -14,6 +14,10 @@ import {
 import sanity from "../lib/sanity-client";
 import { Slug } from "@sanity/types";
 
+export type UseHomePageDataQueryResult = Page & {
+  settings: SiteConfig;
+};
+
 export type CategorySnipQueryResult = {
   _id: string;
   title: string;
@@ -45,21 +49,19 @@ export type HowToSnipQueryResult = {
 
 export type ContentSnip = HowToSnipQueryResult | PostSnipQueryResult;
 
-export type UseHomePageDataQueryResult = Page & {
-  settings: SiteConfig;
-  // sections: Page["content"];
-  // content: Array<PostSnipQueryResult | HowToSnipQueryResult>;
-};
-
 export const useRecentContentSnips = createDataHook(
   "RecentContentSnips",
   async (context) => {
     const result = await sanity.query<ContentSnip>(`*[_type in ["post", "howto"]][0..9]{
-      _type == "post" => {_id, _type, title, slug, mainImage, excerpt, categories[]->{slug, title, _id}},
-      _type == "howto" => {_id, _type, title, slug, mainImage, excerpt, categories[]->{slug, title, _id}, 
+      _type == "post" => {_id, _type, title, slug, mainImage, excerpt, 
+        categories[]->{slug, title, _id}
+      },
+      _type == "howto" => {_id, _type, title, slug, mainImage, excerpt, 
+        categories[]->{slug, title, _id}, 
         prerequisites[]->{
-        resources[]->{_id, title}
-      }}
+          resources[]->{_id, title}
+        }
+      }
     } | order(publishedAt asc)`);
 
     return result;

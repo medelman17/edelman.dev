@@ -15,8 +15,11 @@ import { imageBuilder } from "../components/Image";
 import type { SanityImage } from "sanity-codegen";
 import HowToJsonLd from "./HowToJsonLd";
 import { blockContentToPlainText } from "react-portable-text";
+import { HowToMetadata } from "../routes/how-to/components/how-to-page";
 
-export interface HowToSEOProps {}
+export interface HowToSEOProps {
+  metadata: HowToMetadata;
+}
 
 export function HowToSEO(props: HowToSEOProps) {
   const { howto } = DataHooks.useHowTo();

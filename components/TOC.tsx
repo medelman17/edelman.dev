@@ -7,7 +7,7 @@ import {
   Badge,
   VStack,
   Divider,
-  Link as CLink,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import {
   List,
@@ -20,6 +20,10 @@ import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { HeadingOne, HeadingThree } from "./Text";
 
+export interface TableOfContentsProps {
+  headings: HeaderTreeItem[];
+}
+
 export type HeaderTreeItem = {
   id: string;
   level: "one" | "two" | "three";
@@ -28,16 +32,12 @@ export type HeaderTreeItem = {
   children: HeaderTreeItem[];
 };
 
-export interface TableOfContentsProps {
-  headings: HeaderTreeItem[];
-}
-
 export function TableOfContentsEntry(props: {
-  entry: HeaderTreeItem;
+  node: HeaderTreeItem;
   path: string;
 }) {
   function getHeadingProps() {
-    switch (props.entry.level) {
+    switch (props.node.level) {
       case "one":
         return { as: "h1", size: "md", fontSize: ["18px"], marginBottom: 2 };
       case "two":
@@ -54,25 +54,18 @@ export function TableOfContentsEntry(props: {
         throw new Error("No known level");
     }
   }
-
   return (
     <ListItem color={["primary.500"]}>
-      <Link
-        href={`${props.path}${props.entry.link}`}
-        passHref={true}
-        scroll={false}
-        shallow={true}
-      >
-        <CLink>
+      <Link href={`${props.path}${props.node.link}`} passHref={true}>
+        <ChakraLink>
           {/*//@ts-ignore*/}
-          <Heading {...getHeadingProps()}>{props.entry.text}</Heading>
-        </CLink>
+          <Heading {...getHeadingProps()}>{props.node.text}</Heading>
+        </ChakraLink>
       </Link>
-      {props.entry.children.length > 0 ? (
+      {props.node.children.length > 0 ? (
         <List marginBottom={2}>
-          {" "}
-          {props.entry.children.map((c) => (
-            <TableOfContentsEntry entry={c} key={c.id} path={props.path} />
+          {props.node.children.map((node) => (
+            <TableOfContentsEntry node={node} key={node.id} path={props.path} />
           ))}
         </List>
       ) : null}
@@ -81,18 +74,16 @@ export function TableOfContentsEntry(props: {
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
-  const [path, setPath] = React.useState("");
   const router = useRouter();
-
-  React.useEffect(() => {
-    setPath(router.asPath);
-  }, []);
-
   return (
     <Box>
       <List>
-        {props.headings.map((e) => (
-          <TableOfContentsEntry entry={e} key={e.id} path={path} />
+        {props.headings.map((node) => (
+          <TableOfContentsEntry
+            node={node}
+            key={node.id}
+            path={router.asPath}
+          />
         ))}
       </List>
     </Box>

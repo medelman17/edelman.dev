@@ -18,6 +18,7 @@ import {
   SimpleBlockContent,
   SimplePortableText,
 } from "../../../lib/schema";
+import { ExternalReferenceList } from "./external-reference-list";
 import { Slug } from "@sanity/types";
 import type { SanityImage } from "sanity-codegen";
 import {
@@ -114,11 +115,12 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
 
       //@ts-ignore
       for (const ref of prereq.references) {
+        console.log("ref", ref);
         references.push({
           id: ref._key,
           description: ref.description,
           externalLink: ref.link,
-          title: ref.name,
+          title: ref.title,
         });
       }
 
@@ -165,55 +167,40 @@ function HowToPage() {
   const { author, steps, prerequisites } = howto;
   const metadata = useHowToMetadata(howto);
 
-  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
-
   return (
     <>
-      <HowToSEO />
+      <HowToSEO metadata={metadata} />
       <Layout>
         <MainContentContainer as={"article"}>
           <ContentTitle>{howto.title}</ContentTitle>
           <ContentMainImage image={howto.mainImage} />
           <HowToMetadata author={author} howto={howto} />
-          {isLargerThan700 ? (
-            <Flex>
-              <Box>
-                <ContentBody body={howto.body} serializers={serializers} />
-              </Box>
-              <Box minWidth={"300px"} marginLeft={4}>
-                <HeadingThree>Table of Contents</HeadingThree>
-                <TableOfContents headings={metadata.headings} />
-              </Box>
-            </Flex>
-          ) : (
-            <VStack align={"stretch"} w={"100%"}>
-              <Accordion defaultIndex={[0]} allowMultiple allowToggle>
-                <AccordionItem>
-                  <AccordionButton paddingX={0}>
-                    <Box flex={"1"} textAlign="left">
-                      {" "}
-                      <HeadingThree mb={0}>Table of Contents</HeadingThree>
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
+          <VStack align={"stretch"} w={"100%"}>
+            <Accordion defaultIndex={[0]} allowMultiple allowToggle>
+              <AccordionItem>
+                <AccordionButton paddingX={0}>
+                  <Box flex={"1"} textAlign="left">
+                    {" "}
+                    <HeadingThree mb={0}>Table of Contents</HeadingThree>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
 
-                  <AccordionPanel pb={2} paddingX={0}>
-                    <TableOfContents headings={metadata.headings} />
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-
-              <Box>
-                <ContentBody body={howto.body} serializers={serializers} />
-              </Box>
-            </VStack>
-          )}
-
+                <AccordionPanel pb={2} paddingX={0}>
+                  <TableOfContents headings={metadata.headings} />
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
+            <Box>
+              <ContentBody body={howto.body} serializers={serializers} />
+            </Box>
+          </VStack>
           <HowToPrerequisites
             prerequisites={prerequisites}
             metadata={metadata}
           />
           <HowToSteps steps={steps} metadata={metadata} />
+          <ExternalReferenceList references={metadata.references} />
         </MainContentContainer>
       </Layout>
     </>
