@@ -2,6 +2,9 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { getDataHooksProps } from "next-data-hooks";
 import ResourcePage from "../../routes/resources/components/Resource";
 import sanity from "../../lib/sanity-client";
+import { initAmplify } from "../../lib/amplify";
+
+initAmplify();
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const allResources = await sanity.getAll("resource");

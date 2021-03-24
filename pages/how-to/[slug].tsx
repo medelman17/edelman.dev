@@ -2,7 +2,10 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { getDataHooksProps } from "next-data-hooks";
 import HowToPage from "../../routes/how-to/components/how-to-page";
 import sanity from "../../lib/sanity-client";
-import * as Sentry from "@sentry/react";
+
+import { initAmplify } from "../../lib/amplify";
+
+initAmplify();
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const allHowTo = await sanity.getAll("howto");

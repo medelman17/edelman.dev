@@ -4,6 +4,10 @@ import BlogPost from "../../routes/blog/components/blog-post";
 import sanity from "../../lib/sanity-client";
 import * as Sentry from "@sentry/react";
 
+import { initAmplify } from "../../lib/amplify";
+
+initAmplify();
+
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const allPosts = await sanity.getAll("post");
   return {

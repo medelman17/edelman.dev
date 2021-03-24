@@ -3,6 +3,10 @@ import { getDataHooksProps } from "next-data-hooks";
 import CategoryPage from "../../routes/categories/components/Category";
 import sanity from "../../lib/sanity-client";
 
+import { initAmplify } from "../../lib/amplify";
+
+initAmplify();
+
 export const getStaticPaths: GetStaticPaths = async (context) => {
   const allCats = await sanity.getAll("category");
   return {
