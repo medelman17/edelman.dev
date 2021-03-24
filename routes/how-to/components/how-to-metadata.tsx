@@ -17,6 +17,7 @@ import type { SanityImage } from "sanity-codegen";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 import { default as NLink } from "next/link";
 import { SocialIcon } from "../../../components/Icons";
+import { ContentCategoriesList } from "../../../components/ContentCategoriesList";
 
 export interface HowToMetadataProps {
   author: Author & { _type: "author" };
@@ -61,53 +62,59 @@ export function HowToMetadata(props: HowToMetadataProps) {
   return (
     <VStack marginBottom={4} className={"p-author h-card"}>
       <Divider />
-      <Flex width={"100%"} py={[1, 2]}>
-        <Box marginRight={4} alignSelf={"center"}>
+      <Flex width={"100%"} py={[1, 2]} wrap={"wrap"}>
+        <Box marginRight={4}>
           <AuthorAvatar image={props.author.image} name={props.author.name} />
         </Box>
+        <Flex flex={1} width={"100%"} wrap={"wrap"}>
+          <VStack
+            flex={1}
+            align="stretch"
+            spacing={[0, 0, 0]}
+            minWidth={"200px"}
+          >
+            <NLink href={"/about"} passHref={true}>
+              <Link className={"p-name u-url"}>
+                <Text fontSize={["lg", "lg"]} as={"b"} className={"u-name"}>
+                  {props.author.name}
+                </Text>
+              </Link>
+            </NLink>
 
-        <VStack flex={1} align="stretch" spacing={[0, 0, 0]}>
-          <NLink href={"/about"} passHref={true}>
-            <Link className={"p-name u-url"}>
-              <Text fontSize={["lg", "lg"]} as={"b"} className={"u-name"}>
-                {props.author.name}
+            <Text fontSize={["xs", "sm"]}>
+              Published on{" "}
+              <Text as={"b"} className={"dt-published"}>
+                {publishedAt}
               </Text>
-            </Link>
-          </NLink>
-
-          <Text fontSize={["xs", "sm"]}>
-            Published on{" "}
-            <Text as={"b"} className={"dt-published"}>
-              {publishedAt}
             </Text>
-          </Text>
-          <Flex>
-            <Flex
-              py={[1, 3]}
-              sx={{
-                a: {
-                  marginRight: 2,
-                },
-                "a:last-child": {
-                  marginRight: 0,
-                },
-              }}
-            >
-              <SocialIcon
-                icon={FaGithub}
-                to={"https://github.com/medelman17"}
-              />
-              <SocialIcon
-                icon={FaTwitter}
-                to={"https://twitter.com/edelman215"}
-              />
+            <Flex>
+              <Flex
+                py={[1, 3]}
+                sx={{
+                  a: {
+                    marginRight: 2,
+                  },
+                  "a:last-child": {
+                    marginRight: 0,
+                  },
+                }}
+              >
+                <SocialIcon
+                  icon={FaGithub}
+                  to={"https://github.com/medelman17"}
+                />
+                <SocialIcon
+                  icon={FaTwitter}
+                  to={"https://twitter.com/edelman215"}
+                />
+              </Flex>
+              <Flex alignItems={"center"} marginLeft={3}>
+                {" "}
+              </Flex>
             </Flex>
-            <Flex alignItems={"center"} marginLeft={3}>
-              <Text fontSize={"sm"}></Text>
-            </Flex>
-          </Flex>
-        </VStack>
-        <Box></Box>
+          </VStack>
+          <Box></Box>
+        </Flex>
       </Flex>
       <Divider />
     </VStack>

@@ -22,7 +22,7 @@ export interface HowToSEOProps {
 }
 
 export function HowToSEO(props: HowToSEOProps) {
-  const { howto } = DataHooks.useHowTo();
+  const howto = DataHooks.useHowTo();
   const { author, slug, steps, prerequisites } = howto;
 
   return (

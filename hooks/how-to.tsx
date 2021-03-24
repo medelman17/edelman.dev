@@ -7,6 +7,7 @@ import {
   Howto,
   HowtoStep,
   MainImage,
+  Category,
 } from "../lib/schema";
 import { Slug } from "@sanity/types";
 
@@ -14,11 +15,17 @@ export const useHowTos = createDataHook("HowTos", async (context) => {
   return await sanity.getAll("howto");
 });
 
+export type ExpandedPrerequisite = Prerequisite & {
+  _type: "prerequisite";
+  resources: Array<Resource & { _type: "resource" }>;
+};
+
 export type UseHowToQueryResult = Howto & {
   // _id: string;
   author: Author;
   steps: HowtoStep[];
-  prerequisites: Array<Prerequisite & { resources: Resource[] }>;
+  prerequisites: ExpandedPrerequisite[];
+  categories: Category[];
   // slug: Slug;
   // title: string;
   // body: Howto["body"];
@@ -28,19 +35,16 @@ export type UseHowToQueryResult = Howto & {
 
 export const useHowTo = createDataHook("HowTo", async (context) => {
   const [
-    howto,
+    result,
   ] = await sanity.query<UseHowToQueryResult>(`*[_type == "howto" && slug.current == "${context.params.slug}"]{
     author->{...},
-    "steps": step,
+    categories[]->{...},
     prerequisites[]->{
-     
       resources[]->{...},
-      ...
+       ...
     },
     ...                  
   }`);
 
-  return {
-    howto,
-  };
+  return result;
 });

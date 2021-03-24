@@ -14,9 +14,11 @@ import { ContentBody } from "../../../components/ContentBody";
 import { UseHowToQueryResult } from "../../../hooks";
 import { TableOfContents, HeaderTreeItem } from "../../../components/TOC";
 import {
+  Howto,
   MainImage,
   SimpleBlockContent,
   SimplePortableText,
+  Resource,
 } from "../../../lib/schema";
 import { ExternalReferenceList } from "./external-reference-list";
 import { Slug } from "@sanity/types";
@@ -39,6 +41,9 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 
+import { ContentCategoriesList } from "../../../components/ContentCategoriesList";
+import { ContentResourceList } from "../../../components/ContentResouceList";
+
 import slugify from "slugify";
 
 export type ConformedHowToResource = {
@@ -57,10 +62,25 @@ export type ConformedHowToReference = {
   description: SimplePortableText;
 };
 
-function useHowToMetadata(howto: UseHowToQueryResult) {
+type HTResult = ReturnType<typeof DataHooks.useHowTo>;
+
+function gatherResources(howto: HTResult) {
+  let resources: Resource[] = [];
+  const { prerequisites } = howto;
+
+  for (const prereq of prerequisites) {
+    // @ts-ignore
+    resources = [...resources, ...prereq.resources];
+  }
+
+  return resources;
+}
+
+function useHowToMetadata(howto: HTResult) {
   const buildUrl = (l: string) => `/#${l}`;
 
-  const { steps, references, prerequisites } = howto;
+  const { steps, references, prerequisites, categories } = howto;
+
   const metadata = React.useMemo(() => {
     let resources: ConformedHowToResource[] = [];
     let references: ConformedHowToReference[] = [];
@@ -89,8 +109,9 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
       if (step.mainImage) {
         images.push(step.mainImage);
       }
+
       stepsHeadings.children.push({
-        id: slugify(step.title),
+        id: slugify(step?.title ?? ""),
         level: "two",
         link: buildUrl(slugify(step.title)),
         text: step.title,
@@ -104,12 +125,12 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
     for (const prereq of prerequisites) {
       let prereqHeadings: HeaderTreeItem = {
         //@ts-ignore
-        id: slugify(prereq.title),
+        id: slugify(prereq.title ?? ""),
         level: "two",
         //@ts-ignore
         text: prereq.title,
         //@ts-ignore
-        link: buildUrl(slugify(prereq.title)),
+        link: buildUrl(slugify(prereq.title ?? "")),
         children: [],
       };
 
@@ -117,7 +138,6 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
       if (prereq.steps) {
         //@ts-ignore
         for (const step of prereq.steps) {
-          console.log("step", step);
           prereqHeadings.children.push({
             id: slugify(step.title),
             level: "three",
@@ -132,7 +152,6 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
 
       //@ts-ignore
       for (const ref of prereq.references) {
-        console.log("ref", ref);
         references.push({
           id: ref._key,
           description: ref.description,
@@ -180,9 +199,17 @@ function HowToPage() {
     return <div>Loading...</div>;
   }
 
-  const { howto } = DataHooks.useHowTo();
+  const d = DataHooks.useHowTo();
+  console.log("D", d);
+
+  const howto = DataHooks.useHowTo();
   const { author, steps, prerequisites } = howto;
   const metadata = useHowToMetadata(howto);
+
+  const resources = React.useMemo(() => {
+    // return [];
+    return gatherResources(howto);
+  }, [howto]);
 
   return (
     <>
@@ -193,16 +220,14 @@ function HowToPage() {
           <ContentMainImage image={howto.mainImage} />
           <HowToMetadata author={author} howto={howto} />
           <VStack align={"stretch"} w={"100%"}>
-            <Accordion defaultIndex={[0]} allowMultiple allowToggle>
+            <Accordion allowMultiple allowToggle>
               <AccordionItem>
                 <AccordionButton paddingX={0}>
                   <Box flex={"1"} textAlign="left">
-                    {" "}
                     <HeadingThree mb={0}>Table of Contents</HeadingThree>
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
-
                 <AccordionPanel pb={2} paddingX={0}>
                   <TableOfContents headings={metadata.headings} />
                 </AccordionPanel>
@@ -218,6 +243,8 @@ function HowToPage() {
           />
           <HowToSteps steps={steps} metadata={metadata} />
           <ExternalReferenceList references={metadata.references} />
+          <ContentCategoriesList categories={howto.categories} />
+          <ContentResourceList resources={resources} />
         </MainContentContainer>
       </Layout>
     </>
