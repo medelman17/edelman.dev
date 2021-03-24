@@ -2,16 +2,31 @@ import * as React from "react";
 import "../styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
-// import Amplify, { Analytics } from "aws-amplify";
+import Amplify, { Analytics } from "aws-amplify";
 import { NextDataHooksProvider } from "next-data-hooks";
 import { init } from "../lib/sentry";
 import theme from "../lib/theme";
 import Head from "next/head";
-// import awsExports from "../src/aws-exports";
+import awsExports from "../src/aws-exports";
+
+console.log("awsex", awsExports);
+
+Amplify.configure({
+  ...awsExports,
+  ssr: true,
+  Auth: {
+    cookieStorage: {
+      domain: ".edel.monster",
+      path: "/",
+      expires: 365,
+      sameSite: "strict",
+      secure: true,
+    },
+  },
+});
 
 init();
 
-// Amplify.configure({ ...awsExports, ssr: true });
 //
 // if (process.env.NODE_ENV === "production") {
 //   Analytics.autoTrack("session", {
