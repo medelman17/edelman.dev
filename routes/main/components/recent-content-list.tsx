@@ -18,7 +18,13 @@ import {
 } from "../../../hooks";
 
 import { HeadingOne, HeadingTwo, BodyText } from "../../../components/Text";
-import { Hero, SanityKeyed, UiComponentRef } from "../../../lib/schema";
+import {
+  Hero,
+  MainImage,
+  SanityKeyed,
+  SimpleBlockContent,
+  UiComponentRef,
+} from "../../../lib/schema";
 import { PageContent } from "../renderPageContent";
 import { Box as Card } from "@chakra-ui/layout/dist/types/box";
 import Img from "next/image";
@@ -27,10 +33,21 @@ import sanity from "../../../lib/sanity";
 import { myCustomImageBuilder } from "../../../components/Figure";
 import Link from "next/link";
 import { LinkBox, LinkOverlay } from "@chakra-ui/react";
+import { blockContentToPlainText } from "react-portable-text";
 
 export interface RecentContentListProps {}
 
-export function SnipCard(props: { children: React.ReactNode }) {
+export function SnipCard(props: {
+  image: MainImage;
+  type: "post" | "howto";
+  link: string;
+  title: string;
+  excerpt: string;
+}) {
+  const imgProps = useNextSanityImage(sanity, props.image, {
+    imageBuilder: myCustomImageBuilder,
+  });
+
   return (
     <WrapItem
       radius={2}
@@ -39,53 +56,71 @@ export function SnipCard(props: { children: React.ReactNode }) {
       width={"100%"}
       minWidth={["350px", "500px"]}
       borderRadius={"base"}
+      mr={[0, 0, 3]}
+      my={[2, 2, 0]}
+      sx={{
+        ":last-child": {},
+      }}
+      overflow={"hidden"}
       boxShadow={
         "rgb(0 0 0 / 20%) 0px 1px 5px 0px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 3px 1px -2px"
       }
+      className={"h-entry"}
     >
-      <Flex>{props.children}</Flex>
+      <Wrap>
+        <WrapItem w={"100%"} maxWidth={[null, null, "300px"]} flex={1}>
+          <Box w={"100%"} minWidth={"300px"} flex={1} alignSelf={"stretch"}>
+            <Img
+              {...imgProps}
+              alt={props.image.alt}
+              priority={true}
+              className={"u-photo"}
+            />
+          </Box>
+        </WrapItem>
+        <WrapItem flex={2} p={2}>
+          <VStack align={"flex-start"}>
+            <Link href={props.link}>
+              <a className={"p-name u-url"}>
+                <HeadingTwo>{props.title}</HeadingTwo>
+              </a>
+            </Link>
+            <BodyText noOfLines={5} className={"p-summary"}>
+              {props.excerpt}
+            </BodyText>
+          </VStack>
+        </WrapItem>
+      </Wrap>
     </WrapItem>
   );
 }
 
+function getSnipExcerpt(excerpt: SimpleBlockContent) {
+  //@ts-ignore
+  return blockContentToPlainText(excerpt);
+}
+
 export function PostSnip(props: { snip: PostSnipQueryResult }) {
-  const imgProps = useNextSanityImage(sanity, props.snip.mainImage, {
-    imageBuilder: myCustomImageBuilder,
-  });
   return (
-    <SnipCard>
-      <Wrap>
-        <WrapItem w={"100%"} flex={1}>
-          <Box w={"100%"} flex={1} minWidth={"300px"}>
-            <Img {...imgProps} alt={props.snip.mainImage.alt} priority={true} />
-          </Box>
-        </WrapItem>
-        <WrapItem>
-          <Flex direction={"column"}>
-            <Flex>
-              <Link href={`/blog/${props.snip.slug.current}`}>
-                <a>
-                  <HeadingTwo>{props.snip.title}</HeadingTwo>
-                </a>
-              </Link>
-            </Flex>
-            <Flex>
-              {" "}
-              <BodyText>Excerpt</BodyText>
-            </Flex>
-          </Flex>
-        </WrapItem>
-      </Wrap>
-    </SnipCard>
+    <SnipCard
+      image={props.snip.mainImage}
+      type={props.snip._type}
+      title={props.snip.title}
+      excerpt={getSnipExcerpt(props.snip.excerpt)}
+      link={`/blog/${props.snip.slug.current}`}
+    />
   );
 }
 
 export function HowToSnip(props: { snip: HowToSnipQueryResult }) {
   return (
-    <SnipCard>
-      {" "}
-      <Text>HowTo</Text>
-    </SnipCard>
+    <SnipCard
+      image={props.snip.mainImage}
+      type={props.snip._type}
+      title={props.snip.title}
+      excerpt={getSnipExcerpt(props.snip.excerpt)}
+      link={`/how-to/${props.snip.slug.current}`}
+    />
   );
 }
 
@@ -107,7 +142,9 @@ export function RecentContentList(props: RecentContentListProps) {
   return (
     <VStack w={"100%"} alignItems={"flex-start"}>
       <HeadingOne>Recent Content</HeadingOne>
-      <Wrap w={"100%"}>{snips.map(renderSnip)}</Wrap>
+      <Wrap w={"100%"} sx={{}}>
+        {snips.map(renderSnip)}
+      </Wrap>
     </VStack>
   );
 }

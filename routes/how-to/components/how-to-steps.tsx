@@ -4,6 +4,8 @@ import { serializers } from "../../blog/serializers";
 import * as React from "react";
 import dynamic from "next/dynamic";
 import { HeadingTwo, HeadingThree, HeadingOne } from "../../../components/Text";
+import { HowToMetadata } from "./how-to-page";
+import { HeaderTreeItem } from "../../../components/TOC";
 
 const SimpleBlockContent = dynamic(
   () => import("../../../components/SimpleBlockContent")
@@ -12,12 +14,14 @@ const SimpleBlockContent = dynamic(
 export interface HowToStepProps {
   step: HowtoStep;
   index: number;
+  heading: HeaderTreeItem;
 }
 
 export function HowToStep(props: HowToStepProps) {
   const { step } = props;
+
   return (
-    <Box>
+    <Box as={"section"} id={props.heading.id}>
       <HeadingTwo>
         Step {props.index}: {step.title}
       </HeadingTwo>
@@ -28,15 +32,22 @@ export function HowToStep(props: HowToStepProps) {
 
 export interface HowToStepsProps {
   steps: HowtoStep[];
+  metadata: HowToMetadata;
 }
 
 export function HowToSteps(props: HowToStepsProps) {
+  const { headings } = props.metadata;
+  const [stepHeaders] = headings.filter((t) => t.id === "steps");
   return (
-    <VStack w={"100%"} alignItems={"flex-start"}>
+    <VStack w={"100%"} alignItems={"flex-start"} as={"section"} id={"steps"}>
       <HeadingOne>Steps</HeadingOne>
-      {/*<Divider />*/}
       {props.steps.map((s, i) => (
-        <HowToStep key={s.title} step={s} index={i + 1} />
+        <HowToStep
+          key={s.title}
+          step={s}
+          index={i + 1}
+          heading={stepHeaders.children[i]}
+        />
       ))}
     </VStack>
   );

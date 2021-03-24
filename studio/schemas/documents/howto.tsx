@@ -13,6 +13,20 @@ export const HowToStep = {
       title: "Body",
       type: "howtoStepPortableText",
     },
+    {
+      name: "mainImage",
+      title: "Main image",
+      type: "mainImage",
+      options: {
+        hotspot: true,
+      },
+    },
+    {
+      name: "references",
+      title: "References",
+      type: "array",
+      of: [{ type: "externalref" }],
+    },
   ],
 };
 
@@ -25,6 +39,15 @@ export const Resource = {
       name: "title",
       title: "Title",
       type: "string",
+    },
+    {
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "title",
+        maxLength: 96,
+      },
     },
     {
       name: "mainImage",
@@ -43,6 +66,12 @@ export const Resource = {
       name: "link",
       type: "url",
       title: "Link",
+    },
+    {
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "category" } }],
     },
   ],
 };
@@ -236,6 +265,12 @@ export default {
         maxLength: 96,
       },
     },
+    {
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "category" } }],
+    },
 
     {
       name: "author",
@@ -277,7 +312,7 @@ export default {
       name: "references",
       title: "References",
       type: "array",
-      of: [{ type: "howtoStep" }],
+      of: [{ type: "externalref" }],
     },
     {
       name: "totalTime",

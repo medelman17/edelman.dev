@@ -13,7 +13,7 @@ export interface BlogPostCardProps {
 
 function BlogPostCard(props: BlogPostCardProps) {
   const getExcerpt = () => {
-    if (props.post.excerpt.length > 0) {
+    if (props?.post?.excerpt?.length > 0) {
       //@ts-ignore
       return blockContentToPlainText(props.post.excerpt);
     } else {

@@ -8,6 +8,7 @@ export function BodyText(props) {
       mb={[3, 3, 3]}
       lineHeight={["base", "base", "base"]}
       color={["gray.900"]}
+      {...props}
     >
       {props.children}
     </Text>
@@ -36,6 +37,7 @@ export function HeadingTwo(props) {
       mb={[2, 3]}
       color={["primary.700", "primary.700", "primary.700", "primary.700"]}
       fontSize={["24px", "24px", "30px", "30px"]}
+      {...props}
     >
       {props.children}
     </Heading>
@@ -50,6 +52,25 @@ export function HeadingThree(props) {
       mb={[2, 3]}
       color={["primary.700", "primary.700", "primary.700", "primary.700"]}
       fontSize={["20px", "20px", "24px", "24px"]}
+      {...props}
+    >
+      {props.children}
+    </Heading>
+  );
+}
+
+export function ContentTitle(props) {
+  return (
+    <Heading
+      as={"h1"}
+      size={"4xl"}
+      fontSize={["36px", "36px", "60px", "60px"]}
+      // mx={[0, 0, 0, "-1rem"]}
+      mb={[4, 6, 8]}
+      mt={[4, 2, 4]}
+      color={["primary.700", "primary.700", "primary.700", "primary.700"]}
+      letterSpacing={"-.1rem"}
+      className={"p-name"}
     >
       {props.children}
     </Heading>

@@ -2,11 +2,85 @@ import * as React from "react";
 import imageUrlBuilder from "@sanity/image-url";
 import { NextSeo, ArticleJsonLd, LogoJsonLd } from "next-seo";
 import { useRouter } from "next/router";
-import { Category, MainImage, SiteConfig } from "../lib/schema";
+import {
+  Category,
+  Howto,
+  MainImage,
+  Prerequisite,
+  SiteConfig,
+} from "../lib/schema";
 import * as DataHooks from "../hooks";
 import simg from "../lib/sanity";
 import { imageBuilder } from "../components/Image";
 import type { SanityImage } from "sanity-codegen";
+import HowToJsonLd from "./HowToJsonLd";
+import { blockContentToPlainText } from "react-portable-text";
+
+export interface HowToSEOProps {}
+
+export function HowToSEO(props: HowToSEOProps) {
+  const { howto } = DataHooks.useHowTo();
+  const { author, slug, steps, prerequisites } = howto;
+
+  return (
+    <>
+      <HowToJsonLd
+        supplies={HowToSEO.JSONLD.buildSupplies(howto)}
+        tools={HowToSEO.JSONLD.buildTools(howto)}
+        steps={HowToSEO.JSONLD.buildSteps(howto)}
+        title={howto.title}
+        description={HowToSEO.JSONLD.buildExcerpt(howto)}
+        image={HowToSEO.JSONLD.buildImages(howto)}
+      />
+      <NextSeo
+        title={howto.title}
+        description={HowToSEO.JSONLD.buildExcerpt(howto)}
+        canonical={`https://edel.monster/how-to/${slug}`}
+        twitter={{
+          site: "Michael Edelman",
+          handle: "@edelman215",
+          cardType: "summary_large_image",
+        }}
+        openGraph={{
+          url: `https://edel.monster/how-to/${slug}`,
+          title: howto.title,
+          type: "website",
+          description: HowToSEO.JSONLD.buildExcerpt(howto),
+        }}
+      />
+    </>
+  );
+}
+
+HowToSEO.JSONLD = {
+  buildSupplies(howto: Howto) {
+    //@ts-ignore
+    return howto.prerequisites.map((p) => p.resources.map((r) => r.title));
+  },
+  buildSteps(howto: Howto) {
+    return howto.steps.map((step, i) => ({
+      name: step.title,
+      //@ts-ignore
+      text: blockContentToPlainText(step.body),
+      url: `https://edel.monster/how-to/${howto.slug.current}#step${i}`,
+    }));
+  },
+  buildTools(howto: Howto) {
+    return [];
+  },
+  buildExcerpt(howto: Howto) {
+    //@ts-ignore
+    return blockContentToPlainText(howto.excerpt);
+  },
+  buildImages(howto: Howto) {
+    return imageBuilder
+      .image(howto.mainImage)
+      .height(300)
+      .width(400)
+      .auto("format")
+      .url();
+  },
+};
 
 export interface PageSEOProps {
   title: string;

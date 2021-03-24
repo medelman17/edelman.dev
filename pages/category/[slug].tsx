@@ -25,4 +25,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return { props: dataHooksProps, revalidate: 1 };
 };
 
-export default Sentry.withProfiler(CategoryPage);
+export default CategoryPage;

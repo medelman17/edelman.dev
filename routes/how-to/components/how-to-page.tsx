@@ -1,116 +1,160 @@
 import * as React from "react";
-import { Layout } from "../../../components/Layout";
-import {
-  Flex,
-  Heading,
-  Box,
-  Text,
-  Badge,
-  VStack,
-  Divider,
-} from "@chakra-ui/react";
-// import { serializers } from "../serializers";
-import {
-  Category,
-  MainImage,
-  HowtoStep,
-  Howto,
-  Prerequisite,
-  Resource,
-} from "../../../lib/schema";
-import { blockContentToPlainText } from "react-portable-text";
-
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import * as DataHooks from "../../../hooks";
-import { SEO } from "../../../components/SEO";
-import BlogPostCard from "../../blog/components/blog-post-card";
-import { Figure } from "../../../components/Figure";
+import { Layout } from "../../../components/Layout";
+import { useRouter } from "next/router";
+import { HowToSEO } from "../../../components/SEO";
 import { serializers } from "../../blog/serializers";
 import { HowToMetadata } from "./how-to-metadata";
 import { HowToSteps } from "./how-to-steps";
 import { HowToPrerequisites } from "./how-to-prereqs";
-import { imageBuilder } from "../../../components/Image";
-import { NextSeo } from "next-seo";
+import { ContentMainImage } from "../../../components/Image";
+import { MainContentContainer } from "../../../components/Boxes";
+import { ContentTitle, HeadingThree } from "../../../components/Text";
+import { ContentBody } from "../../../components/ContentBody";
+import { UseHowToQueryResult } from "../../../hooks";
+import { TableOfContents, HeaderTreeItem } from "../../../components/TOC";
+import {
+  MainImage,
+  SimpleBlockContent,
+  SimplePortableText,
+} from "../../../lib/schema";
+import { Slug } from "@sanity/types";
+import type { SanityImage } from "sanity-codegen";
+import {
+  Grid,
+  GridItem,
+  Flex,
+  Wrap,
+  WrapItem,
+  useBreakpointValue,
+  useMediaQuery,
+  Box,
+  Divider,
+  VStack,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
 
-import HowToJsonLd from "../../../components/HowToJsonLd";
+import slugify from "slugify";
 
-const SimpleBlockContent = dynamic(
-  () => import("../../../components/SimpleBlockContent")
-);
+export type ConformedHowToResource = {
+  id: string;
+  name: string;
+  image: MainImage;
+  externalLink: string;
+  description: SimplePortableText;
+  slug: Slug;
+};
 
-function createHowToSupplies(name: string) {
-  return {
-    "@type": "HowToSupply",
-    name,
-  };
+export type ConformedHowToReference = {
+  id: string;
+  title: string;
+  externalLink: string;
+  description: SimplePortableText;
+};
+
+function useHowToMetadata(howto: UseHowToQueryResult) {
+  const buildUrl = (l: string) => `/#${l}`;
+
+  const { steps, references, prerequisites } = howto;
+  const metadata = React.useMemo(() => {
+    let resources: ConformedHowToResource[] = [];
+    let references: ConformedHowToReference[] = [];
+    let headings: HeaderTreeItem[] = [];
+    let images: SanityImage[] = [];
+
+    images.push(howto.mainImage);
+
+    let prerequisiteHeadings: HeaderTreeItem = {
+      id: "prerequisites",
+      level: "one",
+      link: buildUrl("prerequisites"),
+      text: "Prerequisites",
+      children: [],
+    };
+
+    let stepsHeadings: HeaderTreeItem = {
+      id: "steps",
+      level: "one",
+      link: buildUrl("steps"),
+      text: "Steps",
+      children: [],
+    };
+
+    for (const step of steps) {
+      if (step.mainImage) {
+        images.push(step.mainImage);
+      }
+      stepsHeadings.children.push({
+        id: slugify(step.title),
+        level: "two",
+        link: buildUrl(slugify(step.title)),
+        text: step.title,
+        children: [],
+      });
+
+      for (const ref of step?.references ?? []) {
+      }
+    }
+
+    for (const prereq of prerequisites) {
+      prerequisiteHeadings.children.push({
+        //@ts-ignore
+        id: slugify(prereq.title),
+        level: "two",
+        //@ts-ignore
+        text: prereq.title,
+        //@ts-ignore
+        link: buildUrl(slugify(prereq.title)),
+        children: [],
+      });
+
+      //@ts-ignore
+      for (const ref of prereq.references) {
+        references.push({
+          id: ref._key,
+          description: ref.description,
+          externalLink: ref.link,
+          title: ref.name,
+        });
+      }
+
+      //@ts-ignore
+      for (const res of prereq.resources) {
+        resources.push({
+          id: res._id,
+          name: res.title,
+          description: res.description,
+          externalLink: res.link,
+          image: res.mainImage,
+          slug: res.slug,
+        });
+      }
+    }
+
+    headings.push(prerequisiteHeadings);
+    headings.push(stepsHeadings);
+    headings.push({
+      id: "references",
+      level: "one",
+      text: "References",
+      //@ts-ignore
+      link: buildUrl("references"),
+      children: [],
+    });
+
+    return { resources, references, headings, images };
+  }, []);
+
+  return metadata;
 }
 
-function createHowToTool(name: string) {
-  return {
-    "@type": "HowToTool",
-    name,
-  };
-}
+export type HowToMetadata = ReturnType<typeof useHowToMetadata>;
 
-function createHowToStepDirection(text) {
-  return {
-    "@type": "HowToDirection",
-    text,
-  };
-}
-
-function createImage(url: string, height, width) {
-  return {
-    "@type": "ImageObject",
-    url,
-    width,
-    height,
-  };
-}
-
-function createHowToStep(s: HowtoStep, i: number, ht: Howto) {
-  return {
-    "@type": "HowToStep",
-    url: `https://edel.monster/how-to/${ht.slug.current}#step${i}`,
-    name: s.title,
-    //@ts-ignore
-    text: blockContentToPlainText(s.body),
-  };
-}
-
-function createHowToJSONLD(howto: Howto) {
-  const { prerequisites, steps } = howto;
-
-  let resources: Resource[] = [];
-
-  for (const prereq of prerequisites) {
-    //@ts-ignore
-    resources = [...resources, ...prereq.resources];
-  }
-
-  // console.log("res", resources);
-
-  const imgUrl = imageBuilder
-    .image(howto.mainImage)
-    .height(300)
-    .width(400)
-    .auto("format")
-    .url();
-
-  return {
-    "@context": "http://schema.org",
-    "@type": "HowTo",
-    name: howto.title,
-    //@ts-ignore
-    description: blockContentToPlainText(howto.excerpt),
-    image: createImage(imgUrl, 400, 300),
-    supply: resources.map((r) => createHowToSupplies(r.title)),
-    step: steps.map((s, i) => createHowToStep(s, i, howto)),
-  };
-}
-
-function HowToPage(props) {
+function HowToPage() {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -118,115 +162,59 @@ function HowToPage(props) {
   }
 
   const { howto } = DataHooks.useHowTo();
-  const { author, slug, steps, prerequisites } = howto;
+  const { author, steps, prerequisites } = howto;
+  const metadata = useHowToMetadata(howto);
 
-  const imgUrl = imageBuilder
-    .image(howto.mainImage)
-    .height(300)
-    .width(400)
-    .auto("format")
-    .url();
+  const [isLargerThan700] = useMediaQuery("(min-width: 700px)");
 
   return (
     <>
-      <HowToJsonLd
-        supplies={howto.prerequisites.map((p) =>
-          //@ts-ignore
-          p.resources.map((r) => r.title)
-        )}
-        tools={[]}
-        steps={howto.steps.map((s, i) => ({
-          name: s.title,
-          //@ts-ignore
-          text: blockContentToPlainText(s.body),
-          url: `https://edel.monster/how-to/${howto.slug.current}#step${i}`,
-        }))}
-        title={howto.title}
-        //@ts-ignore
-        description={blockContentToPlainText(howto.excerpt)}
-        image={imgUrl}
-      />
-
-      <NextSeo
-        title={howto.title}
-        description={howto.title}
-        canonical={`https://edel.monster/how-to/${slug}`}
-        twitter={{
-          site: "Michael Edelman",
-          handle: "@edelman215",
-          cardType: "summary_large_image",
-        }}
-        openGraph={{
-          url: `https://edel.monster/how-to/${slug}`,
-          title: howto.title,
-          type: "website",
-        }}
-      />
-
+      <HowToSEO />
       <Layout>
-        <Flex
-          as={"article"}
-          direction={"column"}
-          width={"100%"}
-          maxW={{ lg: "800px" }}
-          m={" 0 auto"}
-          className={"h-entry"}
-        >
-          <Heading
-            as={"h1"}
-            size={"4xl"}
-            fontSize={["36px", "36px", "60px", "60px"]}
-            // mx={[0, 0, 0, "-1rem"]}
-            mb={[4, 6, 8]}
-            mt={[4, 2, 4]}
-            color={["primary.700", "primary.700", "primary.700", "primary.700"]}
-            letterSpacing={"-.1rem"}
-            className={"p-name"}
-          >
-            {howto.title}
-          </Heading>
-          <Box
-            mb={8}
-            mx={[0, 0, "-1rem"]}
-            boxShadow={
-              "rgb(0 0 0 / 20%) 0px 1px 5px 0px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 3px 1px -2px"
-            }
-          >
-            <Figure node={howto.mainImage} />
-          </Box>
+        <MainContentContainer as={"article"}>
+          <ContentTitle>{howto.title}</ContentTitle>
+          <ContentMainImage image={howto.mainImage} />
           <HowToMetadata author={author} howto={howto} />
+          {isLargerThan700 ? (
+            <Flex>
+              <Box>
+                <ContentBody body={howto.body} serializers={serializers} />
+              </Box>
+              <Box minWidth={"300px"} marginLeft={4}>
+                <HeadingThree>Table of Contents</HeadingThree>
+                <TableOfContents headings={metadata.headings} />
+              </Box>
+            </Flex>
+          ) : (
+            <VStack align={"stretch"} w={"100%"}>
+              <Accordion defaultIndex={[0]} allowMultiple allowToggle>
+                <AccordionItem>
+                  <AccordionButton paddingX={0}>
+                    <Box flex={"1"} textAlign="left">
+                      {" "}
+                      <HeadingThree mb={0}>Table of Contents</HeadingThree>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
 
-          <Box className={"e-content"}>
-            <SimpleBlockContent blocks={howto.body} serializers={serializers} />
-          </Box>
+                  <AccordionPanel pb={2} paddingX={0}>
+                    <TableOfContents headings={metadata.headings} />
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
 
-          <HowToPrerequisites prerequisites={prerequisites} />
-          <HowToSteps steps={steps} />
+              <Box>
+                <ContentBody body={howto.body} serializers={serializers} />
+              </Box>
+            </VStack>
+          )}
 
-          {/*<VStack w={"100%"} alignItems={"flex-start"}>*/}
-          {/*  <Heading>Steps</Heading>*/}
-          {/*  {steps.map(renderStep)}*/}
-          {/*</VStack>*/}
-          <Flex
-            borderBottom={"1px solid black"}
-            borderBottomColor={"gray.300"}
-            direction={"column"}
-            width={"100%"}
-            pb={2}
-            mb={[4, 4, 6]}
-          ></Flex>
-
-          <Flex
-            justifyContent={"space-between"}
-            wrap={"wrap"}
-            flex={1}
-            width={"100%"}
-          >
-            {/*{cat.content.map((p) => {*/}
-            {/*  return <BlogPostCard post={p} key={p._id} />;*/}
-            {/*})}*/}
-          </Flex>
-        </Flex>
+          <HowToPrerequisites
+            prerequisites={prerequisites}
+            metadata={metadata}
+          />
+          <HowToSteps steps={steps} metadata={metadata} />
+        </MainContentContainer>
       </Layout>
     </>
   );

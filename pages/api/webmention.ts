@@ -126,6 +126,41 @@ async function handleBlogPostWebMention(event: WebMentionEvent, slug: string) {
   }
 }
 
+async function handleHowToWebMention(event: WebMentionEvent, slug: string) {
+  try {
+    const [res] = await sanity.query(
+      `*[slug.current == "${slug}"]{_id, title, _type}`
+    );
+    if (!res)
+      throw new Error(`Could not find sanity resource for slug ${slug}`);
+
+    const sanityId = res._id as string;
+
+    const input: CreateWebMentionEventInput & { targetType: string } = {
+      targetId: sanityId,
+      targetName: res.title,
+      targetSlug: slug,
+      targetType: res._type,
+      type: getWebMentionType(event.post["wm-property"]),
+      secret: event.secret,
+      source: event.source,
+      target: event.target,
+      postType: event.post.type,
+      postUrl: event.post.url,
+      authorName: event.post.author.name,
+      authorPhoto: event.post.author.photo,
+      authorUrl: event.post.author.url,
+      published: event.post.published,
+      name: event.post.name,
+    };
+    await API.graphql(
+      graphqlOperation(mutations.createWebMentionEvent, { input })
+    );
+  } catch (err) {
+    Sentry.captureException(JSON.stringify(err));
+  }
+}
+
 async function persistEvent(
   req: NextApiRequestWithWebMentionEvent,
   res: NextApiResponse
@@ -140,6 +175,8 @@ async function persistEvent(
     .split("/");
 
   if (pathnameParts[0] === "blog") {
+    return await handleBlogPostWebMention(body, pathnameParts[1]);
+  } else if (pathnameParts[0] === "how-to") {
     return await handleBlogPostWebMention(body, pathnameParts[1]);
   } else {
     return Promise.resolve();
@@ -159,16 +196,16 @@ export default async (
     await persistEvent(req, res);
 
     // await Sentry.captureMessage("This is working!");
-    // await Sentry.flush();
 
     res.json({
       result: "Webmention was successful",
     });
-    await Sentry.close();
   } catch (err) {
     console.log(err);
     Sentry.captureException(err);
     await Sentry.flush();
     throw err;
   }
+
+  await Sentry.flush(2000);
 };

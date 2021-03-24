@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Layout } from "../../../components/Layout";
-import { SEO, PageSEO } from "../../../components/SEO";
-import { Flex, Stack, Heading, Text, VStack } from "@chakra-ui/react";
+import { PageSEO } from "../../../components/SEO";
+import { VStack } from "@chakra-ui/react";
 import * as DataHooks from "../../../hooks";
 import { MainContentContainer } from "../../../components/Boxes";
 import { renderPageContent } from "../renderPageContent";
 
-function Home(props) {
+function Home() {
   const data = DataHooks.useHomePageData();
   const { settings, content } = data;
 
@@ -15,7 +15,7 @@ function Home(props) {
       <PageSEO
         title={"Home"}
         description={settings.openGraph.description}
-        images={[]}
+        images={[data.openGraphImage]}
         settings={settings}
       />
       <Layout>

@@ -17,8 +17,10 @@ import {
 import { serializers } from "../../blog/serializers";
 import * as React from "react";
 import dynamic from "next/dynamic";
+import { HowToMetadata } from "./how-to-page";
 
 import { HeadingTwo, HeadingThree, HeadingOne } from "../../../components/Text";
+import { HeaderTreeItem } from "../../../components/TOC";
 
 const SimpleBlockContent = dynamic(
   () => import("../../../components/SimpleBlockContent")
@@ -26,13 +28,14 @@ const SimpleBlockContent = dynamic(
 
 export interface HowToPrerequisiteProps {
   prerequisite: Prerequisite;
+  heading: HeaderTreeItem;
 }
 
 export function HowToPrerequisite(props: HowToPrerequisiteProps) {
   const { prerequisite } = props;
 
   return (
-    <ListItem>
+    <ListItem as={"section"} id={props.heading.id}>
       <HeadingTwo>{prerequisite.title}</HeadingTwo>
       <SimpleBlockContent
         blocks={prerequisite.body}
@@ -40,34 +43,27 @@ export function HowToPrerequisite(props: HowToPrerequisiteProps) {
       />
     </ListItem>
   );
-
-  return (
-    <AccordionItem>
-      <AccordionButton>
-        <Box flex="1" textAlign="left">
-          <HeadingTwo>{prerequisite.title}</HeadingTwo>
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel></AccordionPanel>
-    </AccordionItem>
-  );
-
-  return <VStack w={"100%"} alignItems={"flex-start"}></VStack>;
 }
 
 export interface HowToPrerequisitesProps {
   prerequisites: Prerequisite[];
+  metadata: HowToMetadata;
 }
 
 export function HowToPrerequisites(props: HowToPrerequisitesProps) {
+  const { headings } = props.metadata;
+  const [prereqHeaders] = headings.filter((t) => t.id === "prerequisites");
   return (
-    <Flex direction={"column"}>
+    <Flex direction={"column"} as={"section"} id={"prerequisites"}>
       <HeadingOne>Prerequisites</HeadingOne>
-      {/*<Divider />*/}
+
       <List py={3}>
-        {props.prerequisites.map((prereq) => (
-          <HowToPrerequisite prerequisite={prereq} key={prereq._id} />
+        {props.prerequisites.map((prereq, i) => (
+          <HowToPrerequisite
+            prerequisite={prereq}
+            key={prereq._id}
+            heading={prereqHeaders.children[i]}
+          />
         ))}
       </List>
     </Flex>

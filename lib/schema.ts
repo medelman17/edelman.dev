@@ -353,6 +353,13 @@ export interface Category extends SanityDocument {
    *
    */
   description?: string;
+
+  /**
+   * Icon Name — `string`
+   *
+   *
+   */
+  icon?: string;
 }
 
 /**
@@ -413,6 +420,13 @@ export interface Resource extends SanityDocument {
   title?: string;
 
   /**
+   * Slug — `slug`
+   *
+   *
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
    * Main image — `mainImage`
    *
    *
@@ -432,6 +446,13 @@ export interface Resource extends SanityDocument {
    *
    */
   link?: string;
+
+  /**
+   * Categories — `array`
+   *
+   *
+   */
+  categories?: Array<SanityKeyedReference<Category>>;
 }
 
 /**
@@ -501,6 +522,13 @@ export interface Howto extends SanityDocument {
   slug?: { _type: "slug"; current: string };
 
   /**
+   * Categories — `array`
+   *
+   *
+   */
+  categories?: Array<SanityKeyedReference<Category>>;
+
+  /**
    * Author — `reference`
    *
    *
@@ -540,7 +568,7 @@ export interface Howto extends SanityDocument {
    *
    *
    */
-  references?: Array<SanityKeyed<HowtoStep>>;
+  references?: Array<SanityKeyed<Externalref>>;
 
   /**
    * Total Time — `string`
@@ -866,6 +894,20 @@ export type HowtoStep = {
    *
    */
   body?: HowtoStepPortableText;
+
+  /**
+   * Main image — `mainImage`
+   *
+   *
+   */
+  mainImage?: MainImage;
+
+  /**
+   * References — `array`
+   *
+   *
+   */
+  references?: Array<SanityKeyed<Externalref>>;
 };
 
 export type Hero = {
