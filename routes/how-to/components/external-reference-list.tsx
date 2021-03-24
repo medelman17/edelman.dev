@@ -19,6 +19,7 @@ import {
   ListItem,
   Tooltip,
   Link,
+  Text,
 } from "@chakra-ui/react";
 
 import { ExternalLinkIcon } from "@chakra-ui/icons";
@@ -30,6 +31,9 @@ import {
 } from "../../../components/Text";
 import { HowToMetadata } from "./how-to-page";
 import { SimplePortableText } from "../../../lib/schema";
+import { blockContentToPlainText } from "react-portable-text";
+
+import { ContentBody } from "../../../components/ContentBody";
 
 export interface ConformedExternalReference {
   id: string;
@@ -48,11 +52,28 @@ export interface ExternalReferenceListItemProps {
 export function ExternalReferenceListItem(
   props: ExternalReferenceListItemProps
 ) {
+  const desc = React.useMemo(() => {
+    return (
+      <Box>
+        <Text color={"gray.900"}>
+          {
+            //@ts-ignore
+            blockContentToPlainText(props.reference.description)
+          }
+        </Text>
+      </Box>
+    );
+  }, []);
+
   return (
     <ListItem>
       <Flex>
-        <Tooltip label={""}>
-          <Link href={props.reference.externalLink} isExternal={true}>
+        <Tooltip label={desc} bg={"primary.100"} hasArrow placement={"auto"}>
+          <Link
+            href={props.reference.externalLink}
+            isExternal={true}
+            color={"primary.500"}
+          >
             {props.reference.title} <ExternalLinkIcon mx="2px" />
           </Link>
         </Tooltip>
