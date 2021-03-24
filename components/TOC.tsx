@@ -60,7 +60,6 @@ export function TableOfContentsEntry(props: {
       <Link
         href={`${props.path}${props.entry.link}`}
         passHref={true}
-        replace={true}
         scroll={false}
         shallow={true}
       >
