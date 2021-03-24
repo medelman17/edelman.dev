@@ -1,4 +1,4 @@
-import Amplify, { Analytics } from "aws-amplify";
+import Amplify from "aws-amplify";
 import awsExports from "../src/aws-exports";
 
 export function initAmplify() {
@@ -17,23 +17,23 @@ export function initAmplify() {
   });
 
   if (process.env.NODE_ENV === "production") {
-    Analytics.autoTrack("session", {
-      enable: process.env.NODE_ENV === "production",
-      provider: "AWSPinpoint",
-    });
-
-    Analytics.autoTrack("pageView", {
-      enable: process.env.NODE_ENV === "production",
-      event: "pageView",
-      type: "multiPageApp",
-      provider: "AWSPinpoint",
-    });
-
-    Analytics.autoTrack("event", {
-      enable: process.env.NODE_ENV === "production",
-      events: ["click"],
-      selectorPrefix: "data-amplify-analytics-",
-      provider: "AWSPinpoint",
-    });
+    // Analytics.autoTrack("session", {
+    //   enable: process.env.NODE_ENV === "production",
+    //   provider: "AWSPinpoint",
+    // });
+    //
+    // Analytics.autoTrack("pageView", {
+    //   enable: process.env.NODE_ENV === "production",
+    //   event: "pageView",
+    //   type: "multiPageApp",
+    //   provider: "AWSPinpoint",
+    // });
+    //
+    // Analytics.autoTrack("event", {
+    //   enable: process.env.NODE_ENV === "production",
+    //   events: ["click"],
+    //   selectorPrefix: "data-amplify-analytics-",
+    //   provider: "AWSPinpoint",
+    // });
   }
 }
