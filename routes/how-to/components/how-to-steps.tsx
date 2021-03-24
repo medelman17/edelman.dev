@@ -15,20 +15,36 @@ export interface HowToStepProps {
   step: HowtoStep;
   index: number;
   heading: HeaderTreeItem;
+  withNumber?: boolean;
+  titleSize?: string | string[];
+  as?: "h2" | "h3" | "h4";
 }
 
 export function HowToStep(props: HowToStepProps) {
   const { step } = props;
 
+  const titleText = React.useMemo(() => {
+    if (props.withNumber) {
+      return `Step ${props.index}: ${step.title}`;
+    } else {
+      return step.title;
+    }
+  }, [props.withNumber]);
+
   return (
     <Box as={"section"} id={props.heading.id}>
-      <HeadingTwo>
-        Step {props.index}: {step.title}
+      <HeadingTwo fontSize={props.titleSize} as={props.as}>
+        {titleText}
       </HeadingTwo>
       <SimpleBlockContent blocks={step.body} serializers={serializers} />
     </Box>
   );
 }
+
+HowToStep.defaultProps = {
+  withNumber: true,
+  titleSize: ["20px", "20px", "24px", "24px"],
+};
 
 export interface HowToStepsProps {
   steps: HowtoStep[];

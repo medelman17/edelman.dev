@@ -482,7 +482,7 @@ export interface Prerequisite extends SanityDocument {
    *
    *
    */
-  step?: Array<SanityKeyed<HowtoStep>>;
+  steps?: Array<SanityKeyed<HowtoStep>>;
 
   /**
    * Resources — `array`

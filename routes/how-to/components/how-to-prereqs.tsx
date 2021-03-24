@@ -18,6 +18,7 @@ import { serializers } from "../../blog/serializers";
 import * as React from "react";
 import dynamic from "next/dynamic";
 import { HowToMetadata } from "./how-to-page";
+import { HowToStep, HowToSteps } from "./how-to-steps";
 
 import { HeadingTwo, HeadingThree, HeadingOne } from "../../../components/Text";
 import { HeaderTreeItem } from "../../../components/TOC";
@@ -41,6 +42,20 @@ export function HowToPrerequisite(props: HowToPrerequisiteProps) {
         blocks={prerequisite.body}
         serializers={serializers}
       />
+      {prerequisite?.steps?.length > 0
+        ? prerequisite?.steps?.map((s, i) => {
+            return (
+              <HowToStep
+                step={s}
+                index={i}
+                heading={props.heading.children[i]}
+                withNumber={false}
+                as={"h4"}
+                titleSize={["20px", "20px", "24px", "24px"]}
+              />
+            );
+          })
+        : null}
     </ListItem>
   );
 }
@@ -69,9 +84,3 @@ export function HowToPrerequisites(props: HowToPrerequisitesProps) {
     </Flex>
   );
 }
-
-// <Accordion allowMultiple allowToggle defaultIndex={0}>
-//     {props.prerequisites.map((s) => (
-//         <HowToPrerequisite key={s._id} prerequisite={s} />
-//     ))}
-// </Accordion>

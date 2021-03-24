@@ -39,17 +39,23 @@ export function TableOfContentsEntry(props: {
   function getHeadingProps() {
     switch (props.node.level) {
       case "one":
-        return { as: "h1", size: "md", fontSize: ["18px"], marginBottom: 2 };
+        return { as: "h1", size: "md", fontSize: ["18px"], marginBottom: 1 };
       case "two":
         return {
           as: "h2",
           size: "sm",
-          paddingLeft: 4,
+          paddingLeft: 3,
           fontSize: ["16px"],
           marginBottom: 1,
         };
       case "three":
-        return { as: "h3", size: "xs", paddingLeft: 8, fontSize: ["14px"] };
+        return {
+          as: "h3",
+          size: "xs",
+          paddingLeft: 6,
+          fontSize: ["14px"],
+          marginBottom: 1,
+        };
       default:
         throw new Error("No known level");
     }

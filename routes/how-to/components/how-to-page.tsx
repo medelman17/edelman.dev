@@ -102,7 +102,7 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
     }
 
     for (const prereq of prerequisites) {
-      prerequisiteHeadings.children.push({
+      let prereqHeadings: HeaderTreeItem = {
         //@ts-ignore
         id: slugify(prereq.title),
         level: "two",
@@ -111,7 +111,24 @@ function useHowToMetadata(howto: UseHowToQueryResult) {
         //@ts-ignore
         link: buildUrl(slugify(prereq.title)),
         children: [],
-      });
+      };
+
+      //@ts-ignore
+      if (prereq.steps) {
+        //@ts-ignore
+        for (const step of prereq.steps) {
+          console.log("step", step);
+          prereqHeadings.children.push({
+            id: slugify(step.title),
+            level: "three",
+            text: step.title,
+            link: buildUrl(slugify(step.title)),
+            children: [],
+          });
+        }
+      }
+
+      prerequisiteHeadings.children.push(prereqHeadings);
 
       //@ts-ignore
       for (const ref of prereq.references) {

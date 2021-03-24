@@ -92,7 +92,7 @@ export const Prerequisite = {
       type: "bodyPortableText",
     },
     {
-      name: "step",
+      name: "steps",
       title: "Steps",
       type: "array",
       of: [{ type: "howtoStep" }],

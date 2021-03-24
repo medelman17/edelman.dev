@@ -1,6 +1,10 @@
 import * as React from "react";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
+import {
+  dark,
+  vscDarkPlus,
+} from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 export function Code({ node }) {
   if (!node || !node.code) {
@@ -8,9 +12,23 @@ export function Code({ node }) {
   }
   const { language, code } = node;
 
+  // console.log("lang code", language, code);
+
+  function conformLanguage(lang: string) {
+    switch (lang) {
+      case "sh":
+        return "bash";
+      default:
+        return lang;
+    }
+  }
+
   return (
-    <Box mx={[0, 0, "-1rem"]} mt={8} mb={8}>
-      <SyntaxHighlighter language={language || "text"}>
+    <Box mb={[2, 3]}>
+      <SyntaxHighlighter
+        language={conformLanguage(language) || "text"}
+        style={vscDarkPlus}
+      >
         {code}
       </SyntaxHighlighter>
     </Box>
