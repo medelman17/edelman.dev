@@ -9,8 +9,6 @@ import theme from "../lib/theme";
 import Head from "next/head";
 import awsExports from "../src/aws-exports";
 
-console.log("awsex", awsExports);
-
 Amplify.configure({
   ...awsExports,
   ssr: true,
