@@ -8,7 +8,7 @@ import { initAmplify } from "../../lib/amplify";
 initAmplify();
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const allCats = await sanity.getAll("category");
+  const allCats = await sanity.getAll("topic");
   return {
     paths:
       allCats.map((cat) => ({
