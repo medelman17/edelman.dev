@@ -1,4 +1,10 @@
+# *
 User-agent: *
-Allow: /*
+Allow: /
 
-Disallow: /api/*
+# Host
+Host: https://edel.monster
+
+# Sitemaps
+Sitemap: https://edel.monster/sitemap.xml
+Sitemap: https://edel.monster/server-sitemap.xml

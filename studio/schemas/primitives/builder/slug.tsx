@@ -1,4 +1,4 @@
-import PathInput from "../components/PathInput";
+import PathInput from "../../components/PathInput";
 
 export const slug = (props: { basePath: string; source?: string }) => ({
   name: "slug",

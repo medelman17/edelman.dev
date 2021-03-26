@@ -455,11 +455,11 @@ export interface Resource extends SanityDocument {
   references?: Array<SanityKeyed<Externalref>>;
 
   /**
-   * Categories — `array`
+   * Topics — `array`
    *
    *
    */
-  categories?: Array<SanityKeyedReference<Category>>;
+  topics?: Array<SanityKeyedReference<Topic>>;
 }
 
 /**
@@ -606,6 +606,479 @@ export interface Howto extends SanityDocument {
   excerpt?: SimplePortableText;
 }
 
+/**
+ * Topic
+ *
+ *
+ */
+export interface Topic extends SanityDocument {
+  _type: "topic";
+
+  /**
+   * Topic Name — `string`
+   *
+   *
+   */
+  name?: string;
+
+  /**
+   * Parent Topic — `reference`
+   *
+   *
+   */
+  parent?: SanityReference<Topic>;
+
+  /**
+   * One-liner about the topic — `string`
+   *
+   * In a short sentence, what does this topic involve?
+   */
+  oneLiner?: string;
+
+  /**
+   * Relative address in the site — `slug`
+   *
+   * Please avoid special characters, spaces and uppercase letters.
+   */
+  slug?: { _type: "slug"; current: string };
+
+  /**
+   * 👀 Hide this topic? — `boolean`
+   *
+   * Turn this on to stop this topic from being seen while you work on it.
+   */
+  hidden?: boolean;
+
+  /**
+   * Short Description — `text`
+   *
+   * Brief introduction of topic. Keep it short, 3 lines maximum.
+   */
+  shortDesc?: string;
+
+  /**
+   * Page sections — `array`
+   *
+   *
+   */
+  content?: Array<
+    | SanityKeyed<Hero>
+    | SanityKeyed<InfoRows>
+    | SanityKeyed<PageHeader>
+    | SanityKeyed<Grid>
+    | SanityKeyed<TwoColumn>
+    | SanityKeyed<BigText>
+    | SanityKeyed<UiComponentRef>
+    | SanityKeyed<Columns>
+  >;
+
+  /**
+   * Default Illustration — `illustration`
+   *
+   * Ideally this image has a transparent background for use over other images or on non-white backgrounds.
+   */
+  illustration?: Illustration;
+}
+
+export type Hero = {
+  _type: "hero";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * label — `string`
+   *
+   *
+   */
+  label?: string;
+
+  /**
+   * Heading — `string`
+   *
+   *
+   */
+  heading?: string;
+
+  /**
+   * tagline — `simplePortableText`
+   *
+   *
+   */
+  tagline?: SimplePortableText;
+
+  /**
+   * illustration — `illustration`
+   *
+   *
+   */
+  illustration?: Illustration;
+
+  /**
+   * cta — `cta`
+   *
+   *
+   */
+  cta?: Cta;
+};
+
+export type InfoRows = {
+  _type: "infoRows";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * rows — `array`
+   *
+   *
+   */
+  rows?: Array<SanityKeyed<TextWithIllustration>>;
+};
+
+export type TextWithIllustration = {
+  _type: "textWithIllustration";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * text — `simplePortableText`
+   *
+   *
+   */
+  text?: SimplePortableText;
+
+  /**
+   * illustration — `illustration`
+   *
+   *
+   */
+  illustration?: Illustration;
+};
+
+export type Illustration = {
+  _type: "illustration";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * Image — `mainImage`
+   *
+   *
+   */
+  image?: MainImage;
+};
+
+export type CtaColumns = {
+  _type: "ctaColumns";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * columns — `array`
+   *
+   *
+   */
+  columns?: Array<SanityKeyed<CtaPlug>>;
+};
+
+export type CtaPlug = {
+  _type: "ctaPlug";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * label — `string`
+   *
+   *
+   */
+  label?: string;
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Body — `simplePortableText`
+   *
+   *
+   */
+  body?: SimplePortableText;
+
+  /**
+   * ctas — `array`
+   *
+   *
+   */
+  ctas?: Array<SanityKeyed<Cta>>;
+};
+
+export type UiComponentRef = {
+  _type: "uiComponentRef";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * name — `string`
+   *
+   *
+   */
+  name?:
+    | "RecentContent"
+    | "RelatedContent"
+    | "HowToList"
+    | "WebMentionList"
+    | "ResourceList"
+    | "TopicList"
+    | "Breadcrumbs";
+};
+
+export type Pricing = {
+  _type: "pricing";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Enable gradient background — `boolean`
+   *
+   *
+   */
+  transparentCTAs?: boolean;
+};
+
+export type Grid = {
+  _type: "grid";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * Title — `text`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Subtitle — `simpleBlockContent`
+   *
+   *
+   */
+  subtitle?: SimpleBlockContent;
+
+  /**
+   * Columns — `string`
+   *
+   *
+   */
+  columns?: "max1" | "max2" | "max3";
+
+  /**
+   * Items — `array`
+   *
+   *
+   */
+  items?: Array<
+    SanityKeyed<{
+      _type: "item";
+      /**
+       * title — `string`
+       *
+       *
+       */
+      title?: string;
+
+      /**
+       * content — `blockContent`
+       *
+       *
+       */
+      content?: BlockContent;
+    }>
+  >;
+
+  /**
+   * Anchor — `string`
+   *
+   *
+   */
+  anchor?: string;
+};
+
+export type PageHeader = {
+  _type: "pageHeader";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Subtitle — `simpleBlockContent`
+   *
+   *
+   */
+  subtitle?: SimpleBlockContent;
+
+  /**
+   * Illustration — `illustration`
+   *
+   *
+   */
+  illustration?: Illustration;
+};
+
+export type TwoColumn = {
+  _type: "twoColumn";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * Title — `string`
+   *
+   *
+   */
+  title?: string;
+
+  /**
+   * Subtitle — `simpleBlockContent`
+   *
+   *
+   */
+  subtitle?: SimpleBlockContent;
+
+  /**
+   * First column — `blockContent`
+   *
+   *
+   */
+  firstColumn?: BlockContent;
+
+  /**
+   * Second column — `blockContent`
+   *
+   *
+   */
+  secondColumn?: BlockContent;
+
+  /**
+   * Anchor — `string`
+   *
+   *
+   */
+  anchor?: string;
+};
+
+export type BigText = {
+  _type: "bigText";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * Text — `blockContent`
+   *
+   *
+   */
+  text?: BlockContent;
+};
+
+export type Quote = {
+  _type: "quote";
+  /**
+   * disabled — `boolean`
+   *
+   *
+   */
+  disabled?: boolean;
+
+  /**
+   * content — `blockContent`
+   *
+   *
+   */
+  content?: BlockContent;
+};
+
 export type OpenGraph = {
   _type: "openGraph";
   /**
@@ -729,6 +1202,7 @@ export type BodyPortableText = Array<
   | SanityKeyed<VideoEmbed>
   | SanityKeyed<EmbedHTML>
   | SanityKeyed<Code>
+  | SanityKeyed<Callout>
 >;
 
 export type BlockContent = Array<
@@ -924,163 +1398,64 @@ export type HowtoStep = {
   references?: Array<SanityKeyed<Externalref>>;
 };
 
-export type Hero = {
-  _type: "hero";
+export type Callout = {
+  _type: "callout";
   /**
-   * disabled — `boolean`
+   * Callout type — `string`
    *
-   *
+   * Defines the icon and color of the callout in the website. Defaults to "Protip"
    */
-  disabled?: boolean;
+  calloutType?: "protip" | "gotcha" | "example";
 
   /**
-   * label — `string`
+   * Content/body of the callout — `array`
    *
    *
    */
-  label?: string;
-
-  /**
-   * Heading — `string`
-   *
-   *
-   */
-  heading?: string;
-
-  /**
-   * tagline — `simplePortableText`
-   *
-   *
-   */
-  tagline?: SimplePortableText;
-
-  /**
-   * illustration — `illustration`
-   *
-   *
-   */
-  illustration?: Illustration;
-
-  /**
-   * cta — `cta`
-   *
-   *
-   */
-  cta?: Cta;
+  body?: Array<
+    | SanityKeyed<SanityBlock>
+    | SanityKeyed<MainImage>
+    | SanityKeyed<VideoEmbed>
+    | SanityKeyed<EmbedHTML>
+    | SanityKeyed<Code>
+    | SanityKeyed<Callout>
+    | SanityKeyed<{
+        _type: "image";
+        asset: SanityAsset;
+        crop?: SanityImageCrop;
+        hotspot?: SanityImageHotspot;
+      }>
+  >;
 };
 
-export type InfoRows = {
-  _type: "infoRows";
+export type Col = {
+  _type: "col";
   /**
-   * disabled — `boolean`
+   * 👀 Hide this column? — `boolean`
    *
-   *
+   * Turn this on to stop this column from being seen while you work on it.
    */
-  disabled?: boolean;
+  hidden?: boolean;
 
   /**
-   * title — `string`
+   * Page sections — `array`
    *
    *
    */
-  title?: string;
-
-  /**
-   * rows — `array`
-   *
-   *
-   */
-  rows?: Array<SanityKeyed<TextWithIllustration>>;
+  content?: Array<
+    | SanityKeyed<Hero>
+    | SanityKeyed<InfoRows>
+    | SanityKeyed<PageHeader>
+    | SanityKeyed<Grid>
+    | SanityKeyed<TwoColumn>
+    | SanityKeyed<BigText>
+    | SanityKeyed<UiComponentRef>
+    | SanityKeyed<Columns>
+  >;
 };
 
-export type TextWithIllustration = {
-  _type: "textWithIllustration";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * title — `string`
-   *
-   *
-   */
-  title?: string;
-
-  /**
-   * text — `simplePortableText`
-   *
-   *
-   */
-  text?: SimplePortableText;
-
-  /**
-   * illustration — `illustration`
-   *
-   *
-   */
-  illustration?: Illustration;
-};
-
-export type Illustration = {
-  _type: "illustration";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * Image — `mainImage`
-   *
-   *
-   */
-  image?: MainImage;
-};
-
-export type CtaColumns = {
-  _type: "ctaColumns";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * title — `string`
-   *
-   *
-   */
-  title?: string;
-
-  /**
-   * columns — `array`
-   *
-   *
-   */
-  columns?: Array<SanityKeyed<CtaPlug>>;
-};
-
-export type CtaPlug = {
-  _type: "ctaPlug";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * label — `string`
-   *
-   *
-   */
-  label?: string;
-
+export type Columns = {
+  _type: "columns";
   /**
    * Title — `string`
    *
@@ -1089,59 +1464,18 @@ export type CtaPlug = {
   title?: string;
 
   /**
-   * Body — `simplePortableText`
+   * Subtitle — `simpleBlockContent`
    *
    *
    */
-  body?: SimplePortableText;
+  subtitle?: SimpleBlockContent;
 
   /**
-   * ctas — `array`
+   * Columns — `array`
    *
    *
    */
-  ctas?: Array<SanityKeyed<Cta>>;
-};
-
-export type UiComponentRef = {
-  _type: "uiComponentRef";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * name — `string`
-   *
-   *
-   */
-  name?: string;
-};
-
-export type Pricing = {
-  _type: "pricing";
-  /**
-   * disabled — `boolean`
-   *
-   *
-   */
-  disabled?: boolean;
-
-  /**
-   * title — `string`
-   *
-   *
-   */
-  title?: string;
-
-  /**
-   * Enable gradient background — `boolean`
-   *
-   *
-   */
-  transparentCTAs?: boolean;
+  cols?: Array<SanityKeyed<Col>>;
 };
 
 export type Documents =
@@ -1154,7 +1488,8 @@ export type Documents =
   | Author
   | Resource
   | Prerequisite
-  | Howto;
+  | Howto
+  | Topic;
 
 /**
  * This interface is a stub. It was referenced in your sanity schema but

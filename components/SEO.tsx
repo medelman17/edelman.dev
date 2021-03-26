@@ -32,14 +32,14 @@ export function HowToSEO(props: HowToSEOProps) {
       <NextSeo
         title={howto.title}
         description={HowToSEO.JSONLD.buildExcerpt(howto)}
-        canonical={`https://edel.monster/how-to/${slug}`}
+        canonical={`https://edel.monster/how-to/${slug.current}`}
         twitter={{
           site: "Michael Edelman",
           handle: "@edelman215",
           cardType: "summary_large_image",
         }}
         openGraph={{
-          url: `https://edel.monster/how-to/${slug}`,
+          url: `https://edel.monster/how-to/${slug.current}`,
           title: howto.title,
           type: "website",
           description: HowToSEO.JSONLD.buildExcerpt(howto),

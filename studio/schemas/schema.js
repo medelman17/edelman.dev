@@ -37,6 +37,9 @@ import howto, {
   Reference,
 } from "./documents/howto";
 import { Resource } from "./documents/resource";
+import columns, { column } from "./objects/columns";
+import topic from "./documents/topic";
+import callout from "./objects/callout";
 import howtoStepPortableText from "./objects/howtoStepPortableText";
 const allPlugs = Object.values(plugs).map((plug) => {
   return { ...plug, fields: plugDefaultFields.concat(plug.fields) };
@@ -48,42 +51,44 @@ export default createSchema({
   name: "default",
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
-  types: schemaTypes
-    .concat([
-      // The following are document types which will appear
-      // in the studio.
-      openGrpah,
+  types: schemaTypes.concat(allPlugs).concat([
+    // The following are document types which will appear
+    // in the studio.
+    openGrpah,
 
-      route,
+    route,
 
-      link,
-      internalLink,
-      simpleBlockContent,
-      cta,
-      site_settings,
-      post,
-      navMenu,
-      page,
-      category,
-      author,
-      mainImage,
-      videoEmbed,
-      embedHTML,
-      bodyPortableText,
-      blockContent,
-      simplePortableText,
-      textSection,
-      portableText,
-      excerptPortableText,
-      howtoStepPortableText,
-      Resource,
-      Reference,
-      Prerequisite,
-      HowToReference,
-      HowToPrerequisite,
-      HowToTool,
-      HowToStep,
-      howto,
-    ])
-    .concat(allPlugs),
+    link,
+    internalLink,
+    simpleBlockContent,
+    cta,
+    site_settings,
+    post,
+    navMenu,
+    page,
+    category,
+    author,
+    mainImage,
+    videoEmbed,
+    embedHTML,
+    bodyPortableText,
+    blockContent,
+    simplePortableText,
+    textSection,
+    portableText,
+    excerptPortableText,
+    howtoStepPortableText,
+    Resource,
+    Reference,
+    Prerequisite,
+    HowToReference,
+    HowToPrerequisite,
+    HowToTool,
+    HowToStep,
+    howto,
+    topic,
+    callout,
+    column,
+    columns,
+  ]),
 });

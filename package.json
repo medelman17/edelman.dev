@@ -11,6 +11,7 @@
     "start:sanity": "cp .env ./studio/.env.development && cd studio && sanity start",
     "postinstall": "lerna bootstrap",
     "postbuild": "next-sitemap",
+    "postbuild:web": "next-sitemap",
     "amplify:edelmandevalgoliawebhook": "cd amplify/backend/function/edelmandevalgoliawebhook/src && yarn && tsc -p ./tsconfig.json && cd -",
     "amplify:edelmandevwebmentionhook": "cd amplify/backend/function/edelmandevwebmentionhook/src && yarn && tsc -p ./tsconfig.json && cd -",
     "analyze": "cross-env ANALYZE=true yarn build:web"

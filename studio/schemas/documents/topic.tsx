@@ -7,9 +7,15 @@ export default {
   fields: [
     {
       title: "Topic Name",
-      name: "topicName",
+      name: "name",
       type: "string",
       validation: (Rule) => Rule.required(),
+    },
+    {
+      title: "Parent Topic",
+      name: "parent",
+      type: "reference",
+      to: { type: "topic" },
     },
     {
       title: "One-liner about the topic",
@@ -18,18 +24,40 @@ export default {
       type: "string",
       validation: (Rule) => Rule.required(),
     },
+    Primitives.Builder.slug({
+      basePath: "edel.monster/topics",
+      source: "name",
+    }),
+
     {
-      name: "slug",
-      title: "Relative address in the site",
+      title: "👀 Hide this topic?",
+      name: "hidden",
+      type: "boolean",
       description:
-        "Please avoid special characters, spaces and uppercase letters.",
-      type: "slug",
-      options: {
-        basePath: "edel.monster/topics",
-        source: "topicName",
-        maxLength: 96,
-      },
+        "Turn this on to stop this topic from being seen while you work on it.",
+    },
+    {
+      title: "Short Description",
+      description:
+        "Brief introduction of topic. Keep it short, 3 lines maximum.",
+      name: "shortDesc",
+      type: "text",
+      rows: 3,
     },
     Primitives.pageSections,
+    {
+      title: "Default Illustration",
+      name: "illustration",
+      type: "illustration",
+      description:
+        "Ideally this image has a transparent background for use over other images or on non-white backgrounds.",
+    },
   ],
+  preview: {
+    select: {
+      title: "name",
+      subtitle: "oneLiner",
+      media: "illustration.image",
+    },
+  },
 };

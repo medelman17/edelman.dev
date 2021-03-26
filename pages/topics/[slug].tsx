@@ -1,6 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import { getDataHooksProps } from "next-data-hooks";
-import CategoryPage from "../../routes/categories/components/Category";
+import TopicPage from "../../routes/topics/Page";
 import sanity from "../../lib/sanity-client";
 
 import { initAmplify } from "../../lib/amplify";
@@ -23,9 +23,9 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const dataHooksProps = await getDataHooksProps({
     context,
-    dataHooks: CategoryPage.dataHooks,
+    dataHooks: TopicPage.dataHooks,
   });
   return { props: dataHooksProps, revalidate: 1 };
 };
 
-export default CategoryPage;
+export default TopicPage;
