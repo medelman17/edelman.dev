@@ -3,6 +3,10 @@ import { getDataHooksProps } from "next-data-hooks";
 import ResourcePage from "../../routes/resources/components/Resource";
 import sanity from "../../lib/sanity-client";
 import { initAmplify } from "../../lib/amplify";
+import Amplify, { graphqlOperation, API } from "aws-amplify";
+import * as queries from "../../src/graphql/queries";
+import { WebMentionEventsBySlugQuery } from "../../src/API";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
 
 initAmplify();
 
@@ -24,7 +28,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     context,
     dataHooks: ResourcePage.dataHooks,
   });
-  return { props: dataHooksProps, revalidate: 1 };
+
+  // const webmentions = (await API.graphql(
+  //   graphqlOperation(queries.webMentionEventsBySlug, {
+  //     targetSlug: context.params.slug,
+  //   })
+  // )) as GraphQLResult<WebMentionEventsBySlugQuery>;
+
+  return {
+    props: {
+      ...dataHooksProps,
+    },
+    revalidate: 1,
+  };
 };
 
 export default ResourcePage;

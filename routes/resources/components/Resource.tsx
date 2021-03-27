@@ -18,6 +18,10 @@ import { ContentBody } from "../../../components/ContentBody";
 import { RelatedContentSnipList } from "../../../components/RelatedContentSnipList";
 import { ExpandedResourceRelatedContent, RelatedContent } from "../../../hooks";
 import { blockContentToPlainText } from "react-portable-text";
+import {
+  WebMentionList,
+  useWebMentions,
+} from "../../../components/PageUi/WebMentions";
 
 function isResourceRelatedContent(
   b: RelatedContent
@@ -33,6 +37,9 @@ function Resource() {
   }
 
   const res = DataHooks.useResource();
+  const wm = useWebMentions();
+
+  console.log("wm", wm);
 
   const relatedContent = React.useMemo(() => {
     let result: RelatedContent[] = [];
@@ -104,6 +111,10 @@ function Resource() {
               })}
             </List>
           </Box>
+          <Box>
+            <HeadingTwo>Webmentions</HeadingTwo>
+            <WebMentionList mentions={wm.InReplyTo} />
+          </Box>
         </MainContentContainer>
       </Layout>
     </>
@@ -112,6 +123,7 @@ function Resource() {
 
 Resource.dataHooks = [
   DataHooks.useResource,
+  DataHooks.useWebmentionsBySlug,
   DataHooks.useGlobalNavigation,
   DataHooks.useSiteSettings,
 ];

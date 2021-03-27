@@ -12,6 +12,12 @@ import * as DataHooks from "../../../hooks";
 import { SEO } from "../../../components/SEO";
 import { BlogPostCategories } from "./post-categories";
 
+import {
+  useWebMentions,
+  WebMentionList,
+} from "../../../components/PageUi/WebMentions";
+import { HeadingTwo } from "../../../components/Text";
+
 const BlogPostMetadata = dynamic(() => import("./post-metadata"));
 
 const SimpleBlockContent = dynamic(
@@ -32,6 +38,7 @@ function BlogPost() {
   }
 
   const data = DataHooks.useBlogPost();
+  const wm = useWebMentions();
 
   const images = React.useMemo(() => {
     let result: MainImage[] = [];
@@ -110,6 +117,10 @@ function BlogPost() {
             />
           </Box>
           <BlogPostCategories categories={data.categories} />
+          <Box>
+            <HeadingTwo>Webmentions</HeadingTwo>
+            <WebMentionList mentions={wm.InReplyTo} />
+          </Box>
         </Flex>
 
         <Flex></Flex>
@@ -120,6 +131,7 @@ function BlogPost() {
 
 BlogPost.dataHooks = [
   DataHooks.useBlogPost,
+  DataHooks.useWebmentionsBySlug,
   DataHooks.useGlobalNavigation,
   DataHooks.useSiteSettings,
 ];
