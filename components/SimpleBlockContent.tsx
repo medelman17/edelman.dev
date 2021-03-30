@@ -15,7 +15,6 @@ export function SimpleBlockContent(props: SimpleBlockContentProps) {
   const { blocks, serializers } = props;
 
   if (!blocks) {
-    console.error("Missing blocks");
     return null;
   }
 
