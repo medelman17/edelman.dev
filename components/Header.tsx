@@ -152,10 +152,10 @@ function HeaderContainer(props) {
         justify="space-between"
         wrap="wrap"
         w="100%"
-        // maxW={{ lg: "800px" }}
+        maxW={{ lg: "800px" }}
         m={" 0 auto"}
         py={3}
-        px={[3, 3, 3, 3]}
+        px={[3, 3, 3, 0]}
         bg={["primary.500", "primary.500", "transparent", "transparent"]}
         color={["white", "white", "primary.500", "primary.500"]}
         {...props}

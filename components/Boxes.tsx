@@ -18,6 +18,7 @@ export const MainContentContainer = (props: {
       className={"h-entry"}
       m={" 0 auto"}
       w={"100%"}
+      maxW={{ lg: "800px" }}
       {...props}
     >
       {props.children}

@@ -52,7 +52,10 @@ export function HotResourceListItem(props: HotResourceListItemProps) {
             // border={"1px solid black"}
             // alignItems={"flex-start"}
           >
-            <ChakraLink as={Link} href={`/resource/${props.snip.slug.current}`}>
+            <ChakraLink
+              as={Link}
+              href={`/resources/${props.snip.slug.current}`}
+            >
               <a>
                 <HeadingThree m={0} size={["md", "lg"]} fontSize={["md", "lg"]}>
                   {titleCase(props.snip.title)}
@@ -94,7 +97,7 @@ export function HotResourceList(props: HotResourceListProps) {
 
   return (
     <VStack width={"100%"} align={"stretch"} spacing={4}>
-      <HeadingTwo>Trending Resources</HeadingTwo>
+      <HeadingTwo>Hot Resources</HeadingTwo>
       {snips.map(renderContentSnip)}
     </VStack>
   );
