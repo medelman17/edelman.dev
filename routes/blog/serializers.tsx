@@ -25,6 +25,7 @@ export const BlockRenderer = (props) => {
     case "normal":
       return <BodyText {...props} />;
     default:
+      //@ts-ignore
       return BlockContent.defaultSerializers.types.block(props);
   }
 };

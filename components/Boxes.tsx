@@ -1,30 +1,44 @@
 import * as React from "react";
-import {
-  Flex,
-  Heading,
-  Box,
-  Text,
-  Badge,
-  VStack,
-  Divider,
-} from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 export interface MainContentContainerProps {
   children: React.ReactNode;
   as?: string;
 }
 
-export const MainContentContainer = (props) => {
+export const MainContentContainer = (props: {
+  children: React.ReactNode;
+  as?: React.ElementType;
+  [index: string]: any;
+}): JSX.Element => {
   return (
-    <Flex
-      as={props.as ?? "main"}
-      direction={"column"}
-      width={"100%"}
-      maxW={{ lg: "800px" }}
-      m={" 0 auto"}
+    <VStack
+      align={"stretch"}
+      as={props.as}
       className={"h-entry"}
+      m={" 0 auto"}
+      {...props}
     >
       {props.children}
-    </Flex>
+    </VStack>
+  );
+};
+
+MainContentContainer.defaultProps = {
+  as: "main",
+};
+
+export interface PageSectionContainerProps {
+  children: React.ReactNode;
+  as?: React.ElementType;
+}
+
+export const PageSectionContainer = (
+  props: PageSectionContainerProps
+): JSX.Element => {
+  return (
+    <VStack align={"stretch"} as={props.as}>
+      {props.children}
+    </VStack>
   );
 };

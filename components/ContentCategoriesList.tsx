@@ -1,7 +1,6 @@
 import * as React from "react";
-import { Flex, Text, Wrap, Link, Badge, WrapItem } from "@chakra-ui/react";
+import { Wrap, Link, Badge, WrapItem } from "@chakra-ui/react";
 import { default as NLink } from "next/link";
-import type { SanityKeyed } from "sanity-codegen";
 import { Category } from "../lib/schema";
 
 export interface ContentCategoriesListProps {

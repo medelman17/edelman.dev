@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Flex,
-  Heading,
-  Box,
-  Text,
-  Badge,
-  VStack,
-  Divider,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { serializers } from "../routes/blog/serializers";
 import dynamic from "next/dynamic";
 import { BodyPortableText } from "../lib/schema";
@@ -16,7 +8,7 @@ const SimpleBlockContent = dynamic(() => import("./SimpleBlockContent"));
 export function ContentBody(props: {
   body: BodyPortableText;
   serializers?: any;
-}) {
+}): JSX.Element {
   return (
     <Box>
       <SimpleBlockContent
@@ -26,3 +18,5 @@ export function ContentBody(props: {
     </Box>
   );
 }
+
+export default ContentBody;

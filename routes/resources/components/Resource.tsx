@@ -39,8 +39,6 @@ function Resource() {
   const res = DataHooks.useResource();
   const wm = useWebMentions();
 
-  console.log("wm", wm);
-
   const relatedContent = React.useMemo(() => {
     let result: RelatedContent[] = [];
 

@@ -7,9 +7,9 @@ const HeroBlock = dynamic(() => import("./Hero"));
 const InfoRowsBlock = dynamic(() => import("./InfoRows"));
 const UiComponentRefBlock = dynamic(() => import("./UIComponent"));
 const PageHeaderBlock = dynamic(() => import("./PageHeader"));
-const PageGridBlock = dynamic(() => import("./Grid"));
-const TwoColBlock = dynamic(() => import("./TwoCol"));
+
 const BigTextBlock = dynamic(() => import("./BigText"));
+const ColumnsBlock = dynamic(() => import("./Columns"));
 
 export interface RenderContentSectionsProps {
   sections: Types.PageSections;
@@ -30,8 +30,6 @@ function renderPageSection(
 ) {
   if (Guards.PageSection.isUiComponentRef(block)) {
     return <UiComponentRefBlock {...getBlockProps(block, index, sections)} />;
-  } else if (Guards.PageSection.isGrid(block)) {
-    return <PageGridBlock {...getBlockProps(block, index, sections)} />;
   } else if (Guards.PageSection.isPageHeader(block)) {
     return <PageHeaderBlock {...getBlockProps(block, index, sections)} />;
   } else if (Guards.PageSection.isHero(block)) {
@@ -40,8 +38,8 @@ function renderPageSection(
     return <InfoRowsBlock {...getBlockProps(block, index, sections)} />;
   } else if (Guards.PageSection.isBigText(block)) {
     return <BigTextBlock {...getBlockProps(block, index, sections)} />;
-  } else if (Guards.PageSection.isTwoColumn(block)) {
-    return <TwoColBlock {...getBlockProps(block, index, sections)} />;
+  } else if (Guards.PageSection.isColumns(block)) {
+    return <ColumnsBlock {...getBlockProps(block, index, sections)} />;
   } else {
     console.error(
       `Component for page section for type not implemented; returning null`

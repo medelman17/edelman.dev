@@ -12,6 +12,12 @@ export const column = {
       description:
         "Turn this on to stop this column from being seen while you work on it.",
     },
+    {
+      title: "Flex",
+      name: "flex",
+      type: "number",
+      validation: (Rule) => Rule.required().integer(),
+    },
     Primitives.pageSections,
   ],
 };
@@ -20,6 +26,7 @@ export default {
   type: "object",
   name: "columns",
   title: "Columns",
+
   fields: [
     {
       title: "Title",
@@ -31,6 +38,7 @@ export default {
       name: "subtitle",
       type: "simpleBlockContent",
     },
+
     { title: "Columns", name: "cols", type: "array", of: [{ type: "col" }] },
   ],
 };

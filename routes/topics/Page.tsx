@@ -23,9 +23,8 @@ function TopicPage() {
   const content = React.useMemo(() => {
     let children: JSX.Element[] = [];
 
-    for (const child of data.content) {
-      console.log("child content", child);
-    }
+    // for (const child of data.content) {
+    // }
 
     return children;
   }, [data.content]);
@@ -37,9 +36,6 @@ function TopicPage() {
         <MainContentContainer>
           <RenderContentSections sections={data.content} />
         </MainContentContainer>
-        <div>
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
       </Layout>
     </>
   );

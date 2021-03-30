@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heading, Link, Flex, Stack, Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import type { SanityKeyed } from "sanity-codegen";
 import { CtaColumns } from "../lib/schema";
 

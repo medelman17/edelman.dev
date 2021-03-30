@@ -13,8 +13,6 @@ export const pageSections = {
     { type: "hero" },
     { type: "infoRows" },
     { type: "pageHeader" },
-    { type: "grid" },
-    { type: "twoColumn" },
     { type: "bigText" },
     { type: "uiComponentRef" },
     { type: "columns" },

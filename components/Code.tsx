@@ -1,12 +1,9 @@
 import * as React from "react";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Box, Heading } from "@chakra-ui/react";
-import {
-  dark,
-  vscDarkPlus,
-} from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { Box } from "@chakra-ui/react";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
-export function Code({ node }) {
+export function Code({ node }: any): JSX.Element {
   if (!node || !node.code) {
     return null;
   }

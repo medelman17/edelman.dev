@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://edel.monster</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.929Z</lastmod></url>
-<url><loc>https://edel.monster/topics/information-architecture</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/topics/containers</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/topics/structured-content</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/resources/nodejs</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/resources/sanityio</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/resources/docker</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/category/sanityio</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/category/reactjs</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/category/javascript</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/how-to</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/contact</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/about</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/blog</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/blog/this-is-a-test-post</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/blog/another-test-post</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
-<url><loc>https://edel.monster/how-to/create-a-test-how-to</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-27T01:45:31.930Z</lastmod></url>
+<url><loc>https://edel.monster</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/how-to</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/contact</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/about</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/blog</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/resources/nodejs</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/resources/sanityio</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/resources/docker</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/topics/information-architecture</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/topics/containers</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/topics/structured-content</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/category/sanityio</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/category/reactjs</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/category/javascript</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/blog/this-is-a-test-post</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/blog/another-test-post</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
+<url><loc>https://edel.monster/how-to/create-a-test-how-to</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-03-30T19:16:09.221Z</lastmod></url>
 </urlset>

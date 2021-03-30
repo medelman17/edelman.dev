@@ -17,6 +17,7 @@ import {
   WebMentionList,
 } from "../../../components/PageUi/WebMentions";
 import { HeadingTwo } from "../../../components/Text";
+import Breadcrumbs from "../../../components/PageUi/Breadcrumbs";
 
 const BlogPostMetadata = dynamic(() => import("./post-metadata"));
 
@@ -82,6 +83,7 @@ function BlogPost() {
           m={" 0 auto"}
           className={"h-entry"}
         >
+          <Breadcrumbs />
           <Heading
             as={"h1"}
             size={"4xl"}

@@ -1,12 +1,11 @@
 import * as React from "react";
 import { Flex } from "@chakra-ui/react";
-import { SiteConfig, NavigationMenu } from "../lib/schema";
 
 export interface ContentProps {
   children: React.ReactNode;
 }
 
-export function Content(props: ContentProps) {
+export function Content(props: ContentProps): JSX.Element {
   return <ContentContainer>{props.children}</ContentContainer>;
 }
 

@@ -2,9 +2,6 @@ import * as React from "react";
 import Img from "next/image";
 import { useNextSanityImage } from "next-sanity-image";
 import sanity from "../lib/sanity";
-import imageUrlBuilder from "@sanity/image-url";
-
-const builder = imageUrlBuilder(sanity);
 
 export const myCustomImageBuilder = (imageUrlBuilder, options) => {
   return imageUrlBuilder
@@ -15,16 +12,6 @@ export const myCustomImageBuilder = (imageUrlBuilder, options) => {
     )
     .fit("clip")
     .auto("format");
-};
-
-function urlFor(source) {
-  const t = builder.image(source).auto("format").url();
-
-  return builder.image(source);
-}
-
-const myLoader = (props) => {
-  return `${props.src}&w=${props.width}`;
 };
 
 export function Figure(props) {

@@ -13,7 +13,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const posts = await sanity.getAll("post");
   const howtos = await sanity.getAll("howto");
   const routes = await sanity.getAll("route");
-  const cats = await sanity.getAll("category");
+  const topics = await sanity.getAll("topic");
+  const resources = await sanity.getAll("resource");
 
   let fields = [
     {
@@ -38,10 +39,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     });
   }
 
-  for (const cat of cats) {
+  for (const topic of topics) {
     fields.push({
-      loc: url(`category/${cat.slug.current}`),
-      lastmod: new Date(cat._updatedAt).toISOString(),
+      loc: url(`topics/${topic.slug.current}`),
+      lastmod: new Date(topic._updatedAt).toISOString(),
+    });
+  }
+
+  for (const res of resources) {
+    fields.push({
+      loc: url(`resources/${res.slug.current}`),
+      lastmod: new Date(res._updatedAt).toISOString(),
     });
   }
 
@@ -56,4 +64,5 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 // Default export to prevent next.js errors
+/* eslint-disable  @typescript-eslint/no-empty-function */
 export default () => {};

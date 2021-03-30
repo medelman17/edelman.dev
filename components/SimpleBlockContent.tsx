@@ -1,10 +1,17 @@
 import * as React from "react";
 import sanity from "../lib/sanity";
-import BlockContent from "@sanity/block-content-to-react";
+import BlockContent, {
+  BlockContentProps,
+} from "@sanity/block-content-to-react";
 
 const { projectId, dataset } = sanity.config();
 
-export function SimpleBlockContent(props) {
+export interface SimpleBlockContentProps {
+  blocks: BlockContentProps["blocks"];
+  serializers?: any;
+}
+
+export function SimpleBlockContent(props: SimpleBlockContentProps) {
   const { blocks, serializers } = props;
 
   if (!blocks) {

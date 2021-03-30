@@ -1,13 +1,12 @@
 import * as Types from "../types";
 import {
   BigText,
-  Grid,
   Hero,
   InfoRows,
   PageHeader,
   SanityKeyed,
-  TwoColumn,
   UiComponentRef,
+  Columns,
 } from "../lib/schema";
 
 export function isUiComponentRef(
@@ -30,18 +29,10 @@ export function isPageHeader(
   return (b as SanityKeyed<PageHeader>)._type === "pageHeader";
 }
 
-export function isGrid(b: Types.PageSection): b is SanityKeyed<Grid> {
-  return (b as SanityKeyed<Grid>)._type === "grid";
-}
-
 export function isBigText(b: Types.PageSection): b is SanityKeyed<BigText> {
   return (b as SanityKeyed<BigText>)._type === "bigText";
 }
 
-export function isTwoColumn(b: Types.PageSection): b is SanityKeyed<TwoColumn> {
-  return (b as SanityKeyed<TwoColumn>)._type === "twoColumn";
+export function isColumns(b: Types.PageSection): b is SanityKeyed<Columns> {
+  return (b as SanityKeyed<Columns>)._type === "columns";
 }
-
-// export function isBigText(b: Types.PageSection): b is SanityKeyed<BigText> {
-//   return (b as SanityKeyed<BigText>)._type === "bigText";
-// }

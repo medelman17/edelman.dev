@@ -1,9 +1,6 @@
 import * as React from "react";
 import { Heading, Flex, Box, Text } from "@chakra-ui/react";
-import { SiteConfig, NavigationMenu, Route } from "../lib/schema";
 import { CloseIcon as CI, MenuIcon as OI } from "./Icons";
-import { blockContentToPlainText } from "react-portable-text";
-import type { SanityKeyedReference } from "sanity-codegen";
 import { GlobalNavMenuItem } from "../hooks";
 import Link from "next/link";
 
@@ -155,10 +152,10 @@ function HeaderContainer(props) {
         justify="space-between"
         wrap="wrap"
         w="100%"
-        maxW={{ lg: "800px" }}
+        // maxW={{ lg: "800px" }}
         m={" 0 auto"}
         py={3}
-        px={[3, 3, 3, 0]}
+        px={[3, 3, 3, 3]}
         bg={["primary.500", "primary.500", "transparent", "transparent"]}
         color={["white", "white", "primary.500", "primary.500"]}
         {...props}

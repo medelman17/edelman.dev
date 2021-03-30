@@ -21,6 +21,9 @@ const basePath = "";
 
 const nextConfig = {
   // trailingSlash: true,
+  future: {
+    webpack5: true,
+  },
 
   reactStrictMode: true,
   productionBrowserSourceMaps: true,

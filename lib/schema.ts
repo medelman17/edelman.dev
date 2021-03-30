@@ -665,8 +665,6 @@ export interface Topic extends SanityDocument {
     | SanityKeyed<Hero>
     | SanityKeyed<InfoRows>
     | SanityKeyed<PageHeader>
-    | SanityKeyed<Grid>
-    | SanityKeyed<TwoColumn>
     | SanityKeyed<BigText>
     | SanityKeyed<UiComponentRef>
     | SanityKeyed<Columns>
@@ -1438,6 +1436,13 @@ export type Col = {
   hidden?: boolean;
 
   /**
+   * Flex — `number`
+   *
+   *
+   */
+  flex?: number;
+
+  /**
    * Page sections — `array`
    *
    *
@@ -1446,8 +1451,6 @@ export type Col = {
     | SanityKeyed<Hero>
     | SanityKeyed<InfoRows>
     | SanityKeyed<PageHeader>
-    | SanityKeyed<Grid>
-    | SanityKeyed<TwoColumn>
     | SanityKeyed<BigText>
     | SanityKeyed<UiComponentRef>
     | SanityKeyed<Columns>

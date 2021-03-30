@@ -14,7 +14,8 @@
     "postbuild:web": "next-sitemap",
     "amplify:edelmandevalgoliawebhook": "cd amplify/backend/function/edelmandevalgoliawebhook/src && yarn && tsc -p ./tsconfig.json && cd -",
     "amplify:edelmandevwebmentionhook": "cd amplify/backend/function/edelmandevwebmentionhook/src && yarn && tsc -p ./tsconfig.json && cd -",
-    "analyze": "cross-env ANALYZE=true yarn build:web"
+    "analyze": "cross-env ANALYZE=true yarn build:web",
+    "lint:web": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^1.0.2",
@@ -34,7 +35,7 @@
     "aws-amplify": "^3.3.25",
     "cors": "^2.8.5",
     "framer-motion": "^3.10.5",
-    "next": "10.0.7",
+    "next": "^10.1.2",
     "next-data-hooks": "^0.5.0",
     "next-pwa": "^5.0.6",
     "next-sanity": "^0.1.10",
@@ -44,7 +45,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
-    "react-portable-text": "^0.2.3",
+    "react-portable-text": "^0.3.0",
     "react-syntax-highlighter": "^15.4.3",
     "react-twitter-embed": "^3.0.3",
     "slugify": "^1.5.0"
@@ -62,11 +63,15 @@
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "cross-env": "^7.0.3",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
     "lerna": "^3.22.1",
     "next-sitemap": "^1.6.3",
     "prettier": "^2.2.1",
     "sanity-codegen": "^0.9.1",
-    "typescript": "^4.2.2"
+    "typescript": "^4.2.3"
   }
 }

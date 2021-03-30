@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Flex } from "@chakra-ui/react";
-import { SiteConfig, NavigationMenu } from "../lib/schema";
+import { SiteConfig } from "../lib/schema";
 import { SocialIcon } from "./Icons";
 import { FaGithub, FaTwitter } from "react-icons/fa";
 
@@ -40,8 +40,8 @@ function FooterContainer(props) {
       wrap="wrap"
       w="100%"
       p={3}
-      bg={["gray.500", "gray.500", "transparent", "transparent"]}
-      color={["white", "white", "primary.700", "primary.700"]}
+      bg={["gray.500", "gray.500", "gray.500", "gray.500"]}
+      color={["white", "white", "white", "white"]}
       {...props}
     >
       {props.children}

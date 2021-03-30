@@ -30,6 +30,7 @@ import { ContentCategoriesList } from "../../../components/ContentCategoriesList
 import { ContentResourceList } from "../../../components/ContentResouceList";
 
 import slugify from "slugify";
+import Breadcrumbs from "../../../components/PageUi/Breadcrumbs";
 
 export type ConformedHowToResource = {
   id: string;
@@ -102,9 +103,6 @@ function useHowToMetadata(howto: HTResult) {
         text: step.title,
         children: [],
       });
-
-      for (const ref of step?.references ?? []) {
-      }
     }
 
     for (const prereq of prerequisites) {
@@ -197,7 +195,8 @@ function HowToPage() {
     <>
       <HowToSEO metadata={metadata} />
       <Layout>
-        <MainContentContainer as={"article"}>
+        <MainContentContainer as={"article"} maxWidth={{ lg: "800px" }}>
+          <Breadcrumbs />
           <ContentTitle>{howto.title}</ContentTitle>
           <ContentMainImage image={howto.mainImage} />
           <HowToMetadata author={author} howto={howto} />
