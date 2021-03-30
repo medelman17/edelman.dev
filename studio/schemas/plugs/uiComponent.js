@@ -17,6 +17,8 @@ export default {
           { title: "Resource List", value: "ResourceList" },
           { title: "Topic List", value: "TopicList" },
           { title: "Breadcrumbs", value: "Breadcrumbs" },
+          { title: "Post List", value: "PostList" },
+          { title: "Search", value: "SearchComponent" },
         ],
       },
     },

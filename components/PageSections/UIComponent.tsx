@@ -12,6 +12,7 @@ export interface UiComponentRefBlockProps extends PageSectionBlock {
 export function UiComponentRefBlock(props: UiComponentRefBlockProps) {
   return (
     <>
+      {/*//@ts-ignore*/}
       <RenderUiComponent ui={props.block.name} />
     </>
   );

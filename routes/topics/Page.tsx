@@ -42,6 +42,8 @@ function TopicPage() {
 }
 
 TopicPage.dataHooks = [
+  DataHooks.useResources,
+
   DataHooks.useTopicBySlug,
   DataHooks.useGlobalNavigation,
   DataHooks.useSiteSettings,

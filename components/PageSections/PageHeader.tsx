@@ -4,6 +4,7 @@ import { PageHeader } from "../../lib/schema";
 import { PageSectionBlock } from "./types";
 import { Heading, VStack } from "@chakra-ui/react";
 import SimpleBlockContent from "../SimpleBlockContent";
+import { HeadingOne } from "../Text";
 
 export interface PageHeaderProps extends PageSectionBlock {
   block: SanityKeyed<PageHeader>;
@@ -16,8 +17,8 @@ export function PageHeaderBlock(props: PageHeaderProps) {
 
   return (
     <>
-      <VStack align={"flex-start"}>
-        <Heading>{title}</Heading>
+      <VStack align={"flex-start"} my={[6, 6, 8, 16]}>
+        <HeadingOne>{title}</HeadingOne>
         <SimpleBlockContent blocks={subtitle} />
       </VStack>
     </>

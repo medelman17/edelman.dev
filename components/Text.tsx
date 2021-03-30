@@ -59,6 +59,20 @@ export function HeadingThree(props) {
   );
 }
 
+export function HeadingFour(props) {
+  return (
+    <Heading
+      as={"h4"}
+      size={"xl"}
+      color={["primary.700", "primary.700", "primary.700", "primary.700"]}
+      fontSize={["16px", "16px", "20px", "20px"]}
+      {...props}
+    >
+      {props.children}
+    </Heading>
+  );
+}
+
 export function ContentTitle(props) {
   return (
     <Heading

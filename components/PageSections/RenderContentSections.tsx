@@ -28,6 +28,7 @@ function renderPageSection(
   index: number,
   sections: Types.PageSections
 ) {
+  console.log("block", block);
   if (Guards.PageSection.isUiComponentRef(block)) {
     return <UiComponentRefBlock {...getBlockProps(block, index, sections)} />;
   } else if (Guards.PageSection.isPageHeader(block)) {

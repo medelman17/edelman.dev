@@ -18,6 +18,20 @@ export const Resource = {
       },
     },
     {
+      title: "One-liner about the topic",
+      name: "oneLiner",
+      description: "In a short sentence, what does this topic involve?",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      title: "👀 Hide this resource?",
+      name: "hidden",
+      type: "boolean",
+      description:
+        "Turn this on to stop this resource from being seen while you work on it.",
+    },
+    {
       name: "mainImage",
       title: "Main image",
       type: "mainImage",

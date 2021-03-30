@@ -298,11 +298,12 @@ export interface Page extends SanityDocument {
    *
    */
   content?: Array<
-    | SanityKeyed<UiComponentRef>
     | SanityKeyed<Hero>
     | SanityKeyed<InfoRows>
-    | SanityKeyed<CtaColumns>
-    | SanityKeyed<CtaPlug>
+    | SanityKeyed<PageHeader>
+    | SanityKeyed<BigText>
+    | SanityKeyed<UiComponentRef>
+    | SanityKeyed<Columns>
   >;
 
   /**
@@ -425,6 +426,20 @@ export interface Resource extends SanityDocument {
    *
    */
   slug?: { _type: "slug"; current: string };
+
+  /**
+   * One-liner about the topic — `string`
+   *
+   * In a short sentence, what does this topic involve?
+   */
+  oneLiner?: string;
+
+  /**
+   * 👀 Hide this resource? — `boolean`
+   *
+   * Turn this on to stop this resource from being seen while you work on it.
+   */
+  hidden?: boolean;
 
   /**
    * Main image — `mainImage`
@@ -878,7 +893,9 @@ export type UiComponentRef = {
     | "WebMentionList"
     | "ResourceList"
     | "TopicList"
-    | "Breadcrumbs";
+    | "Breadcrumbs"
+    | "PostList"
+    | "SearchComponent";
 };
 
 export type Pricing = {

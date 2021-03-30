@@ -17,6 +17,7 @@ export const MainContentContainer = (props: {
       as={props.as}
       className={"h-entry"}
       m={" 0 auto"}
+      w={"100%"}
       {...props}
     >
       {props.children}

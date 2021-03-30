@@ -7,6 +7,7 @@ import { renderPageContent } from "../renderPageContent";
 import { SEO } from "../../../components/SEO";
 import { useSiteSettings } from "../../../hooks";
 import { MainContentContainer } from "../../../components/Boxes";
+import { RenderContentSections } from "../../../components/PageSections";
 
 function Page() {
   const router = useRouter();
@@ -37,7 +38,7 @@ function Page() {
       />
       <Layout headerTitle={page.title}>
         <MainContentContainer>
-          <Stack spacing={8}>{page.content.map(renderPageContent)}</Stack>
+          <RenderContentSections sections={data.page.content} />
         </MainContentContainer>
       </Layout>
     </>

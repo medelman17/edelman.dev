@@ -5,6 +5,7 @@ import { VStack } from "@chakra-ui/react";
 import * as DataHooks from "../../../hooks";
 import { MainContentContainer } from "../../../components/Boxes";
 import { renderPageContent } from "../renderPageContent";
+import { RenderContentSections } from "../../../components/PageSections";
 
 function Home() {
   const data = DataHooks.useHomePageData();
@@ -20,7 +21,8 @@ function Home() {
       />
       <Layout>
         <MainContentContainer>
-          <VStack spacing={8}>{content.map(renderPageContent)}</VStack>
+          <RenderContentSections sections={content} />
+          {/*<VStack spacing={8}>{content.map(renderPageContent)}</VStack>*/}
         </MainContentContainer>
       </Layout>
     </>
@@ -28,6 +30,8 @@ function Home() {
 }
 
 Home.dataHooks = [
+  DataHooks.useTopicList,
+  DataHooks.useResources,
   DataHooks.useGlobalNavigation,
   DataHooks.useHomePageData,
   DataHooks.useSiteSettings,

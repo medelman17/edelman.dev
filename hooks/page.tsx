@@ -10,7 +10,8 @@ import sanity from "../lib/sanity-client";
 import { Slug } from "@sanity/types";
 
 export type UseHomePageDataQueryResult = Page & {
-  settings: SiteConfig;
+  _type: "page";
+  settings: SiteConfig & { _type: "site-config" };
 };
 
 export type CategorySnipQueryResult = {

@@ -1,3 +1,5 @@
+import * as Primitives from "../primitives";
+
 export default {
   name: "page",
   type: "document",
@@ -22,19 +24,8 @@ export default {
       to: [{ type: "navigationMenu" }],
       description: "Which nav menu should be shown, if any",
     },
-    {
-      name: "content",
-      type: "array",
-      title: "Page sections",
-      of: [
-        // { type: "pricing" },
-        { type: "uiComponentRef" },
-        { type: "hero" },
-        { type: "infoRows" },
-        { type: "ctaColumns" },
-        { type: "ctaPlug" },
-      ],
-    },
+    Primitives.pageSections,
+
     {
       name: "description",
       type: "text",
