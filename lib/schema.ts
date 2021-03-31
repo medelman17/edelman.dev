@@ -245,6 +245,20 @@ export interface Post extends SanityDocument {
    *
    */
   body?: BodyPortableText;
+
+  /**
+   * Topics — `array`
+   *
+   *
+   */
+  topics?: Array<SanityKeyedReference<Topic>>;
+
+  /**
+   * Resources — `array`
+   *
+   *
+   */
+  resources?: Array<SanityKeyedReference<Resource>>;
 }
 
 /**

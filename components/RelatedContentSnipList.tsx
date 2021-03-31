@@ -139,7 +139,8 @@ export function RelatedContentSnipList(props: RelatedContentSnipListProps) {
       } else if (isHowToSnip(c)) {
         return <HowtoSnipItem item={c} />;
       } else {
-        throw new Error("Related content type not supported");
+        console.log("Related content type not supported", c);
+        return null;
       }
     },
     [props.content]

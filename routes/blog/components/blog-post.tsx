@@ -62,7 +62,7 @@ function BlogPost() {
       <SEO
         title={data.post.title}
         description={data.post.title}
-        tags={data.categories}
+        tags={[]}
         pageAuthor={[data.author.name]}
         datePublished={data.post.publishedAt}
         dateModified={data.post.publishedAt}
@@ -108,7 +108,7 @@ function BlogPost() {
           </Box>
           <BlogPostMetadata
             author={data.author}
-            categories={data.categories}
+            categories={[]}
             post={data.post}
           />
 
@@ -118,7 +118,7 @@ function BlogPost() {
               serializers={serializers}
             />
           </Box>
-          <BlogPostCategories categories={data.categories} />
+          {/*<BlogPostCategories categories={data.categories} />*/}
           <Box>
             <HeadingTwo>Webmentions</HeadingTwo>
             <WebMentionList mentions={wm.InReplyTo} />
