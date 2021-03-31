@@ -43,6 +43,8 @@ export function PageHeaderBlock(props: PageHeaderProps) {
   const { illustration, title, subtitle } = block;
   const isIllustrationDisabled = illustration.disabled;
 
+  //Trigger Build
+
   return (
     <>
       <VStack align={"flex-start"} my={[1, 6, 8, 16]}>
