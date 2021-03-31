@@ -29,7 +29,7 @@ const MenuItem = ({ children, to = "/", ...rest }) => {
           mr={6}
           letterSpacing={"-.05rem"}
           display="block"
-          color={["white", "white", "primary.500"]}
+          color={["primary.700"]}
         >
           {children}
         </Text>
@@ -156,8 +156,8 @@ function HeaderContainer(props) {
         m={" 0 auto"}
         py={3}
         px={[3, 3, 3, 0]}
-        bg={["primary.500", "primary.500", "transparent", "transparent"]}
-        color={["white", "white", "primary.500", "primary.500"]}
+        bg={["transparent", "transparent", "transparent", "transparent"]}
+        color={["primary.700", "primary.700", "primary.700", "primary.700"]}
         {...props}
       />
     </Box>

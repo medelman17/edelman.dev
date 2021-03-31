@@ -54,6 +54,18 @@ export default {
       title: "Body",
       type: "bodyPortableText",
     },
+    {
+      name: "topics",
+      title: "Topics",
+      type: "array",
+      of: [{ type: "reference", to: { type: "topic" } }],
+    },
+    {
+      name: "resources",
+      title: "Resources",
+      type: "array",
+      of: [{ type: "reference", to: { type: "resource" } }],
+    },
   ],
 
   preview: {

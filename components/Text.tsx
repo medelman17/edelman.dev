@@ -85,6 +85,7 @@ export function ContentTitle(props) {
       color={["primary.700", "primary.700", "primary.700", "primary.700"]}
       letterSpacing={"-.1rem"}
       className={"p-name"}
+      {...props}
     >
       {props.children}
     </Heading>
