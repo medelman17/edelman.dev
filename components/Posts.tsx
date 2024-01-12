@@ -3,7 +3,7 @@
 import { SanityDocument } from "next-sanity";
 import Link from "next/link";
 
-import paths from "@/lib/paths";
+import paths from "@/paths";
 
 export default function Posts({ posts }: { posts: SanityDocument[] }) {
   return (
