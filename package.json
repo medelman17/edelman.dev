@@ -16,6 +16,7 @@
     "@sanity/preview-url-secret": "^1.5.0",
     "@sanity/react-loader": "^1.7.3",
     "@sanity/vision": "^3.24.0",
+    "@vercel/speed-insights": "^1.0.3",
     "next": "14.0.4",
     "next-sanity": "^7.0.8",
     "react": "^18",

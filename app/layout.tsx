@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import VisualEditing from "@/components/VisualEditing";
 import { draftMode } from "next/headers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         {draftMode().isEnabled && <VisualEditing />}
+        {<SpeedInsights />}
       </body>
     </html>
   );
