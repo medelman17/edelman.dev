@@ -5,6 +5,7 @@ import { draftMode } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "./providers";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,12 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container mx-auto px-4">
+        <div className="">
           <Providers>
             <Header />
             {children}
-            {/* {draftMode().isEnabled && <VisualEditing />}
-            {<SpeedInsights />} */}
+            {draftMode().isEnabled && <VisualEditing />}
+            {<SpeedInsights />}
+            <Footer />
           </Providers>
         </div>
       </body>

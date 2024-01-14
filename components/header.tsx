@@ -1,25 +1,23 @@
-import Link from "next/link";
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  Link,
 } from "@nextui-org/react";
 import React from "react";
 import HeaderAuth from "./header-auth";
 
 export default function Header() {
   return (
-    <Navbar className="shadow mb-6">
+    <Navbar shouldHideOnScroll isBordered>
       <NavbarBrand>
-        <Link href="/" className="font-bold">
-          EdelmanDev
-        </Link>
+        <p className="font-bold text-inherit"></p>
       </NavbarBrand>
-      <NavbarContent justify="center">
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <React.Suspense>
           <NavbarItem>
-            <div>NavBar Center</div>
+            <div></div>
           </NavbarItem>
         </React.Suspense>
       </NavbarContent>
