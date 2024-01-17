@@ -1,29 +1,15 @@
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-} from "@nextui-org/react";
 import React from "react";
-import HeaderAuth from "./header-auth";
+import Link from "next/link";
+import paths from "@/lib/paths";
+import ModeToggle from "@/components/mode-toggle";
 
 export default function Header() {
   return (
-    <Navbar shouldHideOnScroll isBordered>
-      <NavbarBrand>
-        <p className="font-bold text-inherit"></p>
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <React.Suspense>
-          <NavbarItem>
-            <div></div>
-          </NavbarItem>
-        </React.Suspense>
-      </NavbarContent>
-      <NavbarContent justify="end">
-        <HeaderAuth />
-      </NavbarContent>
-    </Navbar>
+    <nav className="w-full relative flex items-center justify-between max-w-2xl mx-auto px-4 py-6">
+      <Link href={paths.home()} className="font-bold text-3xl">
+        Edelman<span className="text-primary">Dev</span>
+      </Link>
+      <ModeToggle />
+    </nav>
   );
 }

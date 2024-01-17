@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import VisualEditing from "@/components/VisualEditing";
+import VisualEditing from "@/app/blog/components/visual-editing";
 import { draftMode } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "./providers";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,16 +23,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="">
-          <Providers>
-            <Header />
-            {children}
-            {draftMode().isEnabled && <VisualEditing />}
-            {<SpeedInsights />}
-            <Footer />
-          </Providers>
-        </div>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.variable
+        )}
+      >
+        <Providers>
+          <Header />
+          <main className="max-w-2xl mx-auto px-4">{children}</main>
+          {draftMode().isEnabled && <VisualEditing />}
+          {<SpeedInsights />}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
