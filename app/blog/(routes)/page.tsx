@@ -17,6 +17,8 @@ export default async function Page() {
   return draftMode().isEnabled ? (
     <PostsPreview initial={initial} />
   ) : (
-    <Posts posts={initial.data} />
+    <main className="max-w-2xl mx-auto px-4">
+      <Posts posts={initial.data} />
+    </main>
   );
 }
