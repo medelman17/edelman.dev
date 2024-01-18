@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          {children}
+          <main className="max-w-2xl mx-auto px-4">{children}</main>
           {draftMode().isEnabled && <VisualEditing />}
           {<SpeedInsights />}
           <Footer />
