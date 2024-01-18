@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client/stega";
 
-import { apiVersion, dataset, projectId, useCdn } from "@/sanity/env";
+import { apiVersion, dataset, projectId, useCdn } from "@/lib/sanity/env";
 
 export const client = createClient({
   apiVersion,
@@ -10,6 +10,6 @@ export const client = createClient({
   perspective: "published",
   stega: {
     enabled: false,
-    studioUrl: "/studio",
+    studioUrl: "/blog/studio",
   },
 });

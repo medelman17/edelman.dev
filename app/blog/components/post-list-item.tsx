@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BlogPostListItemAsFetched } from "@/actions/list-blog-posts";
 import { urlFor } from "@/lib/sanity/image";
-import paths from "@/lib/paths";
+import * as paths from "@/lib/paths";
 
 interface PostListItemProps {
   item: BlogPostListItemAsFetched;
@@ -20,7 +20,7 @@ export default function PostListItem({ item }: PostListItemProps) {
         <PostListItemTitle title={title} />
         <PostListItemDescription description={desc} />
         <Button asChild className="w-full mt-7">
-          <Link href={paths.blog_post(slug)}>Read More</Link>
+          <Link href={paths.blog.post(slug)}>Read More</Link>
         </Button>
       </CardContent>
     </Card>

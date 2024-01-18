@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import paths from "@/lib/paths";
+import * as paths from "@/lib/paths";
 import ModeToggle from "@/components/mode-toggle";
 
 export default function Header() {
