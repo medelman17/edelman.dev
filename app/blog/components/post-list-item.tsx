@@ -16,7 +16,7 @@ export default function PostListItem({ item }: PostListItemProps) {
   return (
     <Card>
       <PostListItemImage image={image} />
-      <CardContent>
+      <CardContent className="mt-5">
         <PostListItemTitle title={title} />
         <PostListItemDescription description={desc} />
         <Button asChild className="w-full mt-7">
@@ -43,7 +43,7 @@ function PostListItemDescription({
   description,
 }: PostListItemDescriptionProps) {
   return (
-    <p className="line-clamp-3 text-small mt-2 text-gray-600 dark:text-gray-300">
+    <p className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">
       {description}
     </p>
   );

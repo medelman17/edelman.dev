@@ -10,9 +10,7 @@ import PostPreview from "@/app/blog/components/post-preview";
 export async function generateStaticParams() {
   const posts = await client.fetch<BlogPostListItemAsFetched[]>(POSTS_QUERY);
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return posts.map(({ slug }) => ({ slug }));
 }
 
 export default async function PostPage({ params }: { params: QueryParams }) {
