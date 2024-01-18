@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import VisualEditing from "@/app/blog/components/visual-editing";
 import { draftMode } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Providers from "./providers";
+import Providers from "@/app/providers";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import "./globals.css";
+import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
