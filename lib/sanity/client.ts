@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client/stega";
 
-import { apiVersion, dataset, projectId, useCdn } from "../env";
+import { apiVersion, dataset, projectId, useCdn } from "@/sanity/env";
 
 export const client = createClient({
   apiVersion,

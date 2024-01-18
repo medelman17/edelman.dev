@@ -1,26 +1,27 @@
-// ./components/PostPreview.tsx
-
 "use client";
 
-import { POSTS_QUERY } from "@/sanity/lib/queries";
-import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
-import { SanityDocument } from "next-sanity";
+import { useQuery } from "@sanity/react-loader";
+import {
+  AwaitedFetchBlogPostListItemsResponse,
+  BlogPostListItemAsFetched,
+} from "@/actions/list-blog-posts";
 
-import Posts from "@/app/blog/components/post-list";
+import PostList from "@/app/blog/components/post-list";
+import { POSTS_QUERY } from "@/lib/sanity/queries/posts-query";
 
-export default function PostsPreview({
-  initial,
-}: {
-  initial: QueryResponseInitial<SanityDocument[]>;
-}) {
-  const { data } = useQuery<SanityDocument[] | null>(
+interface PostListPreviewProps {
+  initial: AwaitedFetchBlogPostListItemsResponse;
+}
+
+export default function PostListPreview({ initial }: PostListPreviewProps) {
+  const { data } = useQuery<BlogPostListItemAsFetched[] | null>(
     POSTS_QUERY,
     {},
     { initial }
   );
 
   return data ? (
-    <Posts posts={data} />
+    <PostList posts={data} />
   ) : (
     <div className="bg-red-100">No posts found</div>
   );

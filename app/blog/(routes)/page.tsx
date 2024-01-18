@@ -1,24 +1,16 @@
-import { SanityDocument } from "next-sanity";
 import { draftMode } from "next/headers";
-import Posts from "@/app/blog/components/post-list";
-import PostsPreview from "@/app/blog/components/post-list-preview";
-import { loadQuery } from "@/sanity/lib/store";
-import { POSTS_QUERY } from "@/sanity/lib/queries";
+import PostList from "@/app/blog/components/post-list";
+import PostListPreview from "@/app/blog/components/post-list-preview";
+import * as actions from "@/actions";
 
-export default async function Page() {
-  const initial = await loadQuery<SanityDocument[]>(
-    POSTS_QUERY,
-    {},
-    {
-      perspective: draftMode().isEnabled ? "previewDrafts" : "published",
-    }
-  );
+export default async function BlogPage() {
+  const initial = await actions.fetchBlogPostListItems();
 
   return draftMode().isEnabled ? (
-    <PostsPreview initial={initial} />
+    <PostListPreview initial={initial} />
   ) : (
     <main className="max-w-2xl mx-auto px-4">
-      <Posts posts={initial.data} />
+      <PostList posts={initial.data} />
     </main>
   );
 }

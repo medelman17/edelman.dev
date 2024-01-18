@@ -1,7 +1,7 @@
 import * as queryStore from "@sanity/react-loader";
 
-import { client } from "@/sanity/lib/client";
-import { token } from "@/sanity/lib/token";
+import { client } from "@/lib/sanity/client";
+import { token } from "@/lib/sanity/token";
 
 queryStore.setServerClient(client.withConfig({ token }));
 
