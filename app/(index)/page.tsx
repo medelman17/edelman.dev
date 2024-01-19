@@ -9,7 +9,7 @@ export default async function HomePage() {
   return draftMode().isEnabled ? (
     <PostListPreview initial={initial} />
   ) : (
-    <main className="max-w-2xl mx-auto px-4">
+    <main className="max-w-2xl mx-auto px-4 grow">
       <PostList posts={initial.data} />
     </main>
   );
