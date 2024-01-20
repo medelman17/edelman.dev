@@ -1,29 +1,29 @@
-import { QueryParams, SanityDocument } from "next-sanity";
+"use server";
+
+import { QueryParams } from "next-sanity";
 import { draftMode } from "next/headers";
-import { client, queries } from "@/lib/sanity";
-import { loadQuery } from "@/lib/sanity/store";
-import { BlogPostListItemAsFetched } from "@/actions/list-blog-posts";
 import Post from "@/app/blog/components/post";
 import PostPreview from "@/app/blog/components/post-preview";
+import * as actions from "@/app/blog/actions";
+
+export interface PostPageProps {
+  params: QueryParams;
+}
 
 export async function generateStaticParams() {
-  const posts = await client.fetch<BlogPostListItemAsFetched[]>(
-    queries.POSTS_QUERY
-  );
+  const { data: posts } = await actions.fetchPosts();
 
   return posts.map(({ slug }) => ({ slug }));
 }
 
-export default async function PostPage({ params }: { params: QueryParams }) {
-  const initial = await loadQuery<SanityDocument>(queries.POST_QUERY, params, {
-    // Because of Next.js, RSC and Dynamic Routes this currently
-    // cannot be set on the loadQuery function at the "top level"
-    perspective: draftMode().isEnabled ? "previewDrafts" : "published",
-  });
+export default async function PostPage({ params }: PostPageProps) {
+  const drafting = draftMode().isEnabled;
+  const perspective = drafting ? "previewDrafts" : "published";
+  const initial = await actions.fetchPost(params, perspective);
 
-  return draftMode().isEnabled ? (
-    <PostPreview initial={initial} params={params} />
-  ) : (
-    <Post post={initial.data} />
-  );
+  if (drafting) {
+    return <PostPreview initial={initial} params={params} />;
+  } else {
+    return <Post post={initial.data} />;
+  }
 }

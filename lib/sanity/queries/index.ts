@@ -1,2 +1,2 @@
-export { POST_QUERY } from "./post-query";
-export { POSTS_QUERY } from "./posts-query";
+export * from "./post-query";
+export * from "./posts-query";

@@ -3,7 +3,7 @@ import { PortableText } from "@portabletext/react";
 import { SanityDocument } from "next-sanity";
 import { image } from "@/lib/sanity";
 
-export default function Post({ post }: { post: SanityDocument }) {
+export default function Post({ post }: { post: any }) {
   const { title, mainImage, body } = post;
 
   return (

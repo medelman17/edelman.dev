@@ -1,8 +1,8 @@
+import { PostsQueryResponseData } from "@/lib/sanity/queries";
 import PostListItem from "./post-list-item";
-import { BlogPostListItemAsFetched } from "@/actions/list-blog-posts";
 
 interface PostListProps {
-  posts: BlogPostListItemAsFetched[];
+  posts: PostsQueryResponseData;
 }
 
 export default function PostList({ posts }: PostListProps) {

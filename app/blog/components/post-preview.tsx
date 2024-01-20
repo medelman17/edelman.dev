@@ -1,19 +1,22 @@
 "use client";
 
-import { POST_QUERY } from "@/lib/sanity/queries";
-import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
-import { QueryParams, SanityDocument } from "next-sanity";
+import {
+  POST_QUERY,
+  PostQueryResponseData,
+  PostQueryResponseInitial,
+} from "@/lib/sanity/queries/post-query";
+import { useQuery } from "@sanity/react-loader";
+import { QueryParams } from "next-sanity";
 
 import Post from "@/app/blog/components/post";
 
-export default function PostPreview({
-  initial,
-  params,
-}: {
-  initial: QueryResponseInitial<SanityDocument>;
+interface PostPreviewProps {
+  initial: PostQueryResponseInitial;
   params: QueryParams;
-}) {
-  const { data } = useQuery<SanityDocument | null>(POST_QUERY, params, {
+}
+
+export default function PostPreview({ initial, params }: PostPreviewProps) {
+  const { data } = useQuery<PostQueryResponseData>(POST_QUERY, params, {
     initial,
   });
 

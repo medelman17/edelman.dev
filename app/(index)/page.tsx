@@ -1,16 +1,13 @@
-import { draftMode } from "next/headers";
+import * as actions from "@/app/blog/actions";
 import PostList from "@/app/blog/components/post-list";
 import PostListPreview from "@/app/blog/components/post-list-preview";
-import * as actions from "@/actions";
+import { draftMode } from "next/headers";
 
 export default async function HomePage() {
-  const initial = await actions.fetchBlogPostListItems();
+  const drafting = draftMode().isEnabled;
+  const perspective = drafting ? "previewDrafts" : "published";
+  const initial = await actions.fetchPosts(perspective);
 
-  return draftMode().isEnabled ? (
-    <PostListPreview initial={initial} />
-  ) : (
-    <main className="max-w-2xl mx-auto px-4 grow">
-      <PostList posts={initial.data} />
-    </main>
-  );
+  if (drafting) return <PostListPreview initial={initial} />;
+  else return <PostList posts={initial.data} />;
 }

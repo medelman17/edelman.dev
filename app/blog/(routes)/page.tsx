@@ -1,10 +1,10 @@
 import { draftMode } from "next/headers";
 import PostList from "@/app/blog/components/post-list";
 import PostListPreview from "@/app/blog/components/post-list-preview";
-import * as actions from "@/actions";
+import * as actions from "@/app/blog/actions";
 
 export default async function BlogPage() {
-  const initial = await actions.fetchBlogPostListItems();
+  const initial = await actions.fetchPosts();
 
   return draftMode().isEnabled ? (
     <PostListPreview initial={initial} />

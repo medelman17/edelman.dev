@@ -1,20 +1,20 @@
 "use client";
 
 import { useQuery } from "@sanity/react-loader";
-import {
-  AwaitedFetchBlogPostListItemsResponse,
-  BlogPostListItemAsFetched,
-} from "@/actions/list-blog-posts";
 
 import PostList from "@/app/blog/components/post-list";
-import { POSTS_QUERY } from "@/lib/sanity/queries/posts-query";
+import {
+  POSTS_QUERY,
+  PostsQueryResponseData,
+  PostsQueryResponseInitial,
+} from "@/lib/sanity/queries/posts-query";
 
 interface PostListPreviewProps {
-  initial: AwaitedFetchBlogPostListItemsResponse;
+  initial: PostsQueryResponseInitial;
 }
 
 export default function PostListPreview({ initial }: PostListPreviewProps) {
-  const { data } = useQuery<BlogPostListItemAsFetched[] | null>(
+  const { data } = useQuery<PostsQueryResponseData>(
     POSTS_QUERY,
     {},
     { initial }

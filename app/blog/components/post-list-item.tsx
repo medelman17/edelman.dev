@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BlogPostListItemAsFetched } from "@/actions/list-blog-posts";
+import { PostsQueryResponseData } from "@/lib/sanity/queries/posts-query";
 import { urlFor } from "@/lib/sanity/image";
 import * as paths from "@/lib/paths";
 
 interface PostListItemProps {
-  item: BlogPostListItemAsFetched;
+  item: PostsQueryResponseData[0];
 }
 
 export default function PostListItem({ item }: PostListItemProps) {
@@ -50,7 +50,7 @@ function PostListItemDescription({
 }
 
 interface PostListItemImageProps {
-  image: BlogPostListItemAsFetched["image"];
+  image: PostsQueryResponseData[0]["image"];
   width?: number;
   height?: number;
 }
