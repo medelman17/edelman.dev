@@ -1,19 +1,20 @@
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { SanityDocument } from "next-sanity";
 import { image as img } from "@/lib/sanity";
-import type { PostQueryResponseData } from "@/lib/sanity/queries/post-query";
+import type {
+  PostDisplayProps,
+  PostQueryResponseData,
+} from "@/lib/sanity/queries/post-query";
 import Link from "next/link";
 import * as paths from "@/lib/paths";
 import * as utils from "@/lib/utils";
 import { portable_text } from "./portable-text";
 
 interface PostBreadCrumbsProps {
-  slug: string;
-  title: string;
+  post: PostDisplayProps;
 }
 
-function PostBreadCrumbs({ slug, title }: PostBreadCrumbsProps) {
+function PostBreadCrumbs({ post: { slug, title } }: PostBreadCrumbsProps) {
   return (
     <nav className="flex space-x-2 text-sm text-gray-500 mb-4">
       <Link href={paths.home()}>Home</Link>
@@ -21,31 +22,80 @@ function PostBreadCrumbs({ slug, title }: PostBreadCrumbsProps) {
       <Link href={paths.blog.index()}>Blog</Link>
       <span>/</span>
       <Link href={paths.blog.post(slug)}>
-        <span className="text-clip overflow-hidden ">
-          {utils.truncate(title)}
-        </span>
+        <span className="line-clamp-1">{utils.truncate(title)}</span>
       </Link>
     </nav>
   );
 }
 
-function PostTitle() {}
+interface PostTitleProps {
+  post: PostDisplayProps;
+}
+
+function PostTitle({ post: { title } }: PostTitleProps) {
+  return (
+    <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem] mb-4">
+      {title}
+    </h1>
+  );
+}
+
+interface PostBylineProps {
+  post: PostDisplayProps;
+}
+
+function PostByline({ post }: PostBylineProps) {
+  return (
+    <p className="text-gray-500 dark:text-gray-400 text-sm">
+      Posted on <PostPublicationDate date={post._createdAt} /> by{" "}
+      {<PostAuthor author={post.author} />}
+    </p>
+  );
+}
+
+interface PostPublicationDateProps {
+  date: Date;
+}
+
+function PostPublicationDate({ date }: PostPublicationDateProps) {
+  return <span>{date.toString()}</span>;
+}
+
+interface PostAuthorProps {
+  author: PostDisplayProps["author"];
+}
+
+function PostAuthor({ author }: PostAuthorProps) {
+  return (
+    <Link href={paths.blog.index()}>
+      <span>{author.name}</span>
+    </Link>
+  );
+}
+
+interface PostCategoriesProps {
+  post: PostDisplayProps;
+}
+
+function PostCategories({ post }: PostCategoriesProps) {
+  return (
+    <p className="text-gray-500 dark:text-gray-400 text-sm">
+      Posted on {<PostAuthor author={post.author} />} by ...
+    </p>
+  );
+}
 
 export default function Post({ post }: { post: PostQueryResponseData }) {
-  const { title, image, body, slug } = post;
+  const { title, image, body, slug, author, categories } = post;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 px-4 py-6 md:px-6 md:py-12 lg:py-16">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 px-4 py-3 md:px-6 md:py-12 lg:py-16">
       <div className="w-full">
-        <PostBreadCrumbs title={title} slug={slug} />
+        <PostBreadCrumbs post={post} />
         <article className="prose prose-gray mx-auto dark:prose-invert">
           <div className="space-y-2 not-prose">
-            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl lg:leading-[3.5rem]">
-              {title}
-            </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
-              Posted on ... by ...
-            </p>
+            <PostTitle post={post} />
+            <PostByline post={post} />
           </div>
           <Image
             className="w-full h-[400px] object-cover mb-6 mt-6"
@@ -60,27 +110,5 @@ export default function Post({ post }: { post: PostQueryResponseData }) {
         </article>
       </div>
     </div>
-  );
-
-  return (
-    <main className="container mx-auto prose prose-lg p-4">
-      <PostBreadCrumbs title={title} slug={slug} />
-      {title ? <h1>{title}</h1> : null}
-      {image ? (
-        <Image
-          className="float-left m-0 w-1/3 mr-4 rounded-lg"
-          src={img.builder
-            .image(image)
-            .width(300)
-            .height(300)
-            .quality(80)
-            .url()}
-          width={300}
-          height={300}
-          alt={image.alt || ""}
-        />
-      ) : null}
-      {body ? <PortableText value={body} /> : null}
-    </main>
   );
 }
