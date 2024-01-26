@@ -26,19 +26,17 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased flex flex-col",
+          "min-h-screen bg-background font-sans antialiased flex flex-col max-w-2xl mx-auto px-4",
           inter.variable
         )}
       >
-        <div className="max-w-2xl mx-auto px-4">
-          <Providers>
-            <Header />
-            <main>{children}</main>
-            {draftMode().isEnabled && <VisualEditing />}
-            {<SpeedInsights />}
-            <Footer />
-          </Providers>
-        </div>
+        <Providers>
+          <Header />
+          <main className="grow">{children}</main>
+          {draftMode().isEnabled && <VisualEditing />}
+          {<SpeedInsights />}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

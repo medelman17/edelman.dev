@@ -89,7 +89,7 @@ export default function Post({ post }: { post: PostQueryResponseData }) {
   const { title, image, body, slug, author, categories } = post;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 px-4 py-3 md:px-6 md:py-12 lg:py-16">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 py-3 md:py-12 lg:py-16">
       <div className="w-full">
         <PostBreadCrumbs post={post} />
         <article className="prose prose-gray mx-auto dark:prose-invert">
