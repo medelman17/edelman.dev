@@ -17,7 +17,7 @@ import { presentationTool } from "sanity/presentation";
 import { locate } from "@/sanity/presentation/locate";
 
 export default defineConfig({
-  basePath: "/blog/studio",
+  basePath: "/studio",
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schema' folder

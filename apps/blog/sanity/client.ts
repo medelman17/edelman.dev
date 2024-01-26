@@ -10,6 +10,6 @@ export const client = createClient({
   perspective: "published",
   stega: {
     enabled: false,
-    studioUrl: "/blog/studio",
+    studioUrl: "/studio",
   },
 });

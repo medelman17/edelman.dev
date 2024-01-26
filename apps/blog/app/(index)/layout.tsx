@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import Providers from "@/app/providers";
 import VisualEditing from "@/components/visual-editing";
 import { draftMode } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Providers from "@/app/providers";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import "@/app/globals.css";
 import { cn } from "@/utils";
+import "@/app/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -30,13 +30,15 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        <Providers>
-          <Header />
-          {children}
-          {draftMode().isEnabled && <VisualEditing />}
-          {<SpeedInsights />}
-          <Footer />
-        </Providers>
+        <div className="max-w-2xl mx-auto px-4">
+          <Providers>
+            <Header />
+            <main>{children}</main>
+            {draftMode().isEnabled && <VisualEditing />}
+            {<SpeedInsights />}
+            <Footer />
+          </Providers>
+        </div>
       </body>
     </html>
   );
